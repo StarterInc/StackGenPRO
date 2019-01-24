@@ -26,5 +26,3 @@ Starter Ignite PRO adds the following features to the Standard Starter Ignite pr
 - Get up and running ASAP with unlimited bug fixes 
 - 1 dedicated support ticket per month
 - Additional dedicated support tickets at 25% discount off **
--  
-- 
