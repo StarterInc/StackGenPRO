@@ -10,7 +10,7 @@
 			/> <property name="annotationString" value="@SecureField" /> </plugin> -->
     <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://${dbUrl}:3306/${dbName}?autoReconnect=true" userId="${dbUser}" password="${dbPassword}" />
     <!-- Model Class -->
-    <javaModelGenerator targetPackage="io.starter.${artifactId}.model.dao" targetProject="${myBatisMain}main/java">
+    <javaModelGenerator targetPackage="${MODEL_DAO_PACKAGE}" targetProject="${myBatisMain}main/java">
       <property name="useActualColumnNames" value="true" />
       <property name="enableSubPackages" value="false" />
       <property name="trimStrings" value="true" />
@@ -18,21 +18,12 @@
       <property name="type" value="io.starter.ignite.generator.MyBatisIgnitePluginAdapter" />
       <property name="addRemarkComments" value="true" />
     </javaModelGenerator>
-    <sqlMapGenerator targetPackage="io.starter.${artifactId}.sqlmaps" targetProject="${myBatisMain}main/resources" />
-    <javaClientGenerator targetPackage="io.starter.${artifactId}.model.dao" targetProject="${myBatisMain}main/java" type="XMLMAPPER">
+    <sqlMapGenerator targetPackage="${MODEL_DAO_PACKAGE}" targetProject="${myBatisMain}main/resources" />
+    <javaClientGenerator targetPackage="${MODEL_DAO_PACKAGE}" targetProject="${myBatisMain}main/java" type="XMLMAPPER">
       <property name="useActualColumnNames" value="true" />
     </javaClientGenerator>
     <table schema="${artifactId}" tableName="PLACEHOLDER_NODE" modelType="hierarchical" />
-    <table schema="starter" tableName="starter$_user">
-      <generatedKey column="id" sqlStatement="JDBC" />
-    </table>
-    <table schema="starter" tableName="starter$_content">
-      <generatedKey column="id" sqlStatement="JDBC" />
-    </table>
-    <table schema="starter" tableName="starter$_user">
-      <generatedKey column="id" sqlStatement="JDBC" />
-    </table>
-    <table schema="starter" tableName="starter$_content">
+    <table schema="CSAT" tableName="csat$_csat">
       <generatedKey column="id" sqlStatement="JDBC" />
     </table>
   </context>

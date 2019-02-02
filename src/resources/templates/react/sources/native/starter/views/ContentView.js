@@ -44,12 +44,14 @@ const isNumber = (val) => !isNaN(Number(val));
 var Content:{
 		: 'Widget Adapter',
 		: '',
+		: 'full content data',
 		: '',
 		: '{keyOwner:111, keySource:&#39;session | system&#39;}',
 		: '',
 		: '',
 		: '',
-		: 'The full content',
+		: '',
+		: '',
 		: '',
 }
 
@@ -93,6 +95,21 @@ class ContentView extends React.Component {
 		
         <View style={styles.row}>
 			<Text style={styles.titleFormHeader}> : 	</Text>
+			<Control.TextInput
+			    style={styles.formInput}
+				model="."  
+	        	validators=
+	        />
+			<Errors
+				style={styles.formInput}
+				model="."  
+		        show="touched"
+		        messages=
+		     />
+		</View>
+		
+        <View style={styles.row}>
+			<Text style={styles.titleFormHeader}> : full content data	</Text>
 			<Control.TextInput
 			    style={styles.formInput}
 				model="."  
@@ -182,7 +199,22 @@ class ContentView extends React.Component {
 		</View>
 		
         <View style={styles.row}>
-			<Text style={styles.titleFormHeader}> : The full content	</Text>
+			<Text style={styles.titleFormHeader}> : 	</Text>
+			<Control.TextInput
+			    style={styles.formInput}
+				model="."  
+	        	validators=
+	        />
+			<Errors
+				style={styles.formInput}
+				model="."  
+		        show="touched"
+		        messages=
+		     />
+		</View>
+		
+        <View style={styles.row}>
+			<Text style={styles.titleFormHeader}> : 	</Text>
 			<Control.TextInput
 			    style={styles.formInput}
 				model="."  

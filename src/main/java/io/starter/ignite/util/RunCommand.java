@@ -29,7 +29,7 @@ public class RunCommand implements ReactGenConfiguration {
 
 		args[0] = "/usr/local/bin/react-native";
 		args[1] = "init";
-		args[2] = "${MYBATIS_MAIN}main/react/" + REACT_APP_NAME;
+		// args[2] = "${MYBATIS_MAIN}main/react/" + REACT_APP_NAME;
 		args[3] = "--verbose";
 
 		// args[1] =
@@ -81,27 +81,6 @@ public class RunCommand implements ReactGenConfiguration {
 				.getAbsoluteFile()); // root
 		builder.redirectErrorStream(true);
 		builder.start();
-	}
-
-	/**
-	 * @param args
-	 * @throws IOException
-	 */
-	public static void mainX(String[] args) throws IOException {
-		// test
-		String sourcepath = JAVA_GEN_SRC_FOLDER
-				+ "/gen/io/starter/ignite/model/";
-		logger.info("RunCommand Compiling: " + sourcepath);
-		String[] cmdarray = null;
-		if (args != null)
-			// {
-			cmdarray = args;
-		// } else {
-		cmdarray = new String[] { "javac", sourcepath + "User.java",
-				"-sourcepath", sourcepath, "-classpath",
-				System.getProperty("java.class.path") };
-		// }
-		runSafe(cmdarray[0], cmdarray);
 	}
 
 }

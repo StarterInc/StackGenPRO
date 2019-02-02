@@ -35,155 +35,7 @@ tags:
 schemes:
 - https
 paths:
-  /account:
-    post:
-      tags:
-      - "account"
-      summary: "Add a new account to the system"
-      description: ""
-      operationId: "addaccount"
-      consumes:
-      - "application/json"
-      - "application/xml"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "account object that needs to be added to the system"
-        required: true
-        schema:
-          $ref: '#/definitions/Account'
-      responses:
-        405:
-          description: "Invalid input"
-      security:
-      - automator_auth:
-        - "write:items"
-        - "read:items"
-    put:
-      tags:
-      - "account"
-      summary: "Update an existing account"
-      description: ""
-      operationId: "updateaccount"
-      consumes:
-      - "application/json"
-      - "application/xml"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "account object that needs to be updated in the system"
-        required: true
-        schema:
-          $ref: '#/definitions/Account'
-      responses:
-        400:
-          description: "Invalid ID supplied"
-        404:
-          description: "Account not found"
-        405:
-          description: "Validation exception"
-      security:
-      - automator_auth:
-        - "write:items"
-        - "read:items"
-  /account/list:
-    get:
-      tags:
-      - "account"
-      summary: "Finds accounts by ID"
-      description: "Multiple ID values can be provided with comma separated strings"
-      operationId: "list"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "id"
-        in: "query"
-        description: "ID values that need to be considered for filter"
-        required: true
-        type: "string"
-        collectionFormat: "multi"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Account"
-        400:
-          description: "Invalid id value"
-      security:
-      - automator_auth:
-        - "write:items"
-        - "read:items"
-  /content:
-    get:
-      tags:
-      - content
-      summary: searches content
-      operationId: searchContent
-      description: |
-        By passing in the appropriate options, you can search for
-        available content in the system
-      produces:
-      - application/json
-      parameters:
-      - in: query
-        name: searchString
-        description: pass an optional search string for looking up content
-        required: false
-        type: string
-      - in: query
-        name: skip
-        description: number of records to skip for pagination
-        type: integer
-        format: int32
-        minimum: 0
-      - in: query
-        name: limit
-        description: maximum number of records to return
-        type: integer
-        format: int32
-        minimum: 0
-        maximum: 50
-      responses:
-        200:
-          description: search results matching criteria
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Content'
-        400:
-          description: bad input parameter
-    post:
-      tags:
-      - content
-      summary: adds an content item
-      operationId: addContent
-      description: Adds an item to the system
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - in: body
-        name: contentItem
-        description: Content item to add
-        schema:
-          $ref: '#/definitions/Content'
-      responses:
-        201:
-          description: item created
-        400:
-          description: invalid input, object invalid
-        409:
-          description: an existing item already exists
-  /user/login:
+  /user-login:
     get:
       tags:
       - "user"
@@ -220,7 +72,7 @@ paths:
               description: "date in UTC when token expires"
         400:
           description: "Invalid username/password supplied"
-  /user/logout:
+  /user-logout:
     get:
       tags:
       - "user"
@@ -352,7 +204,6 @@ definitions:
     type: object
     required:
     - name
-    - releaseDate
     properties:
       id:
         type: "integer"
@@ -377,7 +228,6 @@ definitions:
       name: "Content"    
   Organization:
     required:
-    - id
     - name
     properties:
       id:
@@ -397,7 +247,6 @@ definitions:
       name: "Organization"         
   User:
     required:
-    - id
     - username
     - email
     properties:
@@ -430,7 +279,6 @@ definitions:
       name: "User"
   WorkFlows:
     required:
-    - id
     - description
     - json
     properties:
@@ -458,7 +306,6 @@ definitions:
   ContactMethod:        
     type: object
     required:
-    - id
     - name
     - ticker
     properties:
@@ -494,7 +341,6 @@ definitions:
       name: "ContactMethod"
   AuditLog:
     required:
-    - id
     - sourceType
     - json
     properties:
@@ -518,7 +364,6 @@ definitions:
       name: "AuditLog"
   Data:
     required:
-    - id
     - sourceType
     - json
     properties:
@@ -560,7 +405,7 @@ definitions:
 
 # Special Object for tracking and instantiating OpenAPI Schema instances
 
-  ApiSpec:
+  Stack:
     description: "Application API Spec"
     type: "object"
     required:
@@ -719,4 +564,4 @@ definitions:
         type: "string" 
 externalDocs:
   description: "Find out more about Starter Ignite"
-  url: "https://starterinc.github.io/Ignite/"    
+  url: "http://ignite.starter.io/"    

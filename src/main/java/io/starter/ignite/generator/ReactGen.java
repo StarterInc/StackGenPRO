@@ -54,7 +54,7 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 		logger.info("Exporting: " + REACT_EXPORT_FOLDER + REACT_APP_NAME
 				+ " to: " + REACT_APP_OUTPUT_FOLDER);
 		FileUtil.copyFolder(REACT_EXPORT_FOLDER
-				+ REACT_APP_NAME, REACT_APP_OUTPUT_FOLDER);
+				+ REACT_APP_NAME, REACT_APP_OUTPUT_FOLDER + REACT_APP_NAME);
 	}
 
 	/**

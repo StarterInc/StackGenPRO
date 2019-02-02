@@ -1,31 +1,15 @@
-spring.boot.admin.client.url: "http://localhost:8008"  
-management.endpoints.web.exposure.include: "*"
-
-eureka:   
-  instance:
-    leaseRenewalIntervalInSeconds: 10
-    health-check-url-path: /actuator/health
-  client:
-    registryFetchIntervalSeconds: 5
-    serviceUrl:
-      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"  
-  endpoint:
-    health:
-      show-details: ALWAYS
-      
----
-info:
-  scm-url: "@scm.url@"
-  build-url: "http://travis-ci.org/@env.TRAVIS_REPO_SLUG@/builds/@env.TRxAVIS_BUILD_ID@"
-
-logging:
-  file: "target/boot-admin-servlet.log"
+spring:
+  application:
+    name: starter-ignite-admin
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8009"
+        instance:
+          service-base-url: "http://localhost:8009"
+  profiles:
+    active:
+      - secure
 
 management:
   endpoints:
@@ -35,29 +19,6 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-
-spring:
-  application:
-    name: spring-boot-admin-servlet
-  boot:
-    admin:
-      client:
-        url: http://localhost:8008
-  profiles:
-    active:
-      - secure
-
----
-spring:
-  profiles: dev
-  boot:
-    admin:
-      ui:
-        cache:
-          no-cache: true
-        template-location: file://@project.basedir@/../../spring-boot-admin-server-ui/target/dist/
-        resource-locations: file://@project.basedir@/../../spring-boot-admin-server-ui/target/dist/
-        cache-templates: false
 
 ---
 spring:

@@ -43,8 +43,10 @@ public interface ReactGenConfiguration extends Configuration {
 					? System.getProperty("REACT_EXPORT_FOLDER")
 					: rootFolder + "/gen/REACT_EXPORT/");
 
-	public static String			REACT_APP_OUTPUT_FOLDER			= rootFolder
-			+ "/tmp/react/";
+	public static String			REACT_APP_OUTPUT_FOLDER			= (System
+			.getProperty("REACT_APP_OUTPUT_FOLDER") != null
+					? System.getProperty("REACT_APP_OUTPUT_FOLDER")
+					: rootFolder + "/tmp/REACT_EXPORT/");
 
 	public List<AppEntityObject>	REACT_DATA_OBJECTS				= new ArrayList<AppEntityObject>();
 }

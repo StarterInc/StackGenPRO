@@ -36,14 +36,27 @@ public class ReactGenerator extends Main implements Configuration {
 	 */
 	private static String[][]		sf		= {
 			{ "/src/resources/templates/application.yml",
-					"/src/main/resources/application.yml" } };
+					"/src/main/resources/application.yml" },
+
+			{ "/src/resources/templates/log4j.properties",
+					"/src/main/resources/log4j.properties" },
+
+			{ "/logs/logfile_placeholder.txt",
+					"/logs/logfile_placeholder.txt" },
+
+			{ "/src/resources/templates/starter-ignite-banner.txt",
+					"/src/main/java/io/starter/spring/boot/starter-ignite-banner.txt" } };
 
 	public static void main(String[] args) throws Exception {
 
-		String inputSpecFile = "simple_cms.yml"; // "trade_automator.yml";
+		String inputSpecFile = "simple_cms.yml"; // simple_cms
 		args = new String[1];
-		args[0] = inputSpecFile;
+		if (args.length == 1 && args[0] == null)
+			args[0] = System.getProperty("schemaFile");
 		Main.main(args);
+
+		// copy Ignite files into gen project
+		Main.copyStaticFiles(staticFiles);
 
 		// copy React files into gen project
 		Main.copyStaticFiles(sf);

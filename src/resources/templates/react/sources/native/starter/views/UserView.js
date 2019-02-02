@@ -44,15 +44,15 @@ const isNumber = (val) => !isNaN(Number(val));
 var User:{
 		: '',
 		: 'DK$DFSJaraDD',
-		: 'anExcellentPassword',
 		: 'Sparky',
-		: 'https://www.acme-corp.com',
-		: 'https://twitter.com/StarterIO',
 		: '',
 		: '{keyOwner:111, keySource:&#39;session | system&#39;}',
 		: '',
 		: '',
 		: '',
+		: 'https://www.acme-corp.com',
+		: '1112233334',
+		: 'https://twitter.com/StarterIO',
 }
 
 // / END User_upper
@@ -109,52 +109,7 @@ class UserView extends React.Component {
 		</View>
 		
         <View style={styles.row}>
-			<Text style={styles.titleFormHeader}> : anExcellentPassword	</Text>
-			<Control.TextInput
-			    style={styles.formInput}
-				model="."  
-	        	validators=
-	        />
-			<Errors
-				style={styles.formInput}
-				model="."  
-		        show="touched"
-		        messages=
-		     />
-		</View>
-		
-        <View style={styles.row}>
 			<Text style={styles.titleFormHeader}> : Sparky	</Text>
-			<Control.TextInput
-			    style={styles.formInput}
-				model="."  
-	        	validators=
-	        />
-			<Errors
-				style={styles.formInput}
-				model="."  
-		        show="touched"
-		        messages=
-		     />
-		</View>
-		
-        <View style={styles.row}>
-			<Text style={styles.titleFormHeader}> : https://www.acme-corp.com	</Text>
-			<Control.TextInput
-			    style={styles.formInput}
-				model="."  
-	        	validators=
-	        />
-			<Errors
-				style={styles.formInput}
-				model="."  
-		        show="touched"
-		        messages=
-		     />
-		</View>
-		
-        <View style={styles.row}>
-			<Text style={styles.titleFormHeader}> : https://twitter.com/StarterIO	</Text>
 			<Control.TextInput
 			    style={styles.formInput}
 				model="."  
@@ -230,6 +185,51 @@ class UserView extends React.Component {
 		
         <View style={styles.row}>
 			<Text style={styles.titleFormHeader}> : 	</Text>
+			<Control.TextInput
+			    style={styles.formInput}
+				model="."  
+	        	validators=
+	        />
+			<Errors
+				style={styles.formInput}
+				model="."  
+		        show="touched"
+		        messages=
+		     />
+		</View>
+		
+        <View style={styles.row}>
+			<Text style={styles.titleFormHeader}> : https://www.acme-corp.com	</Text>
+			<Control.TextInput
+			    style={styles.formInput}
+				model="."  
+	        	validators=
+	        />
+			<Errors
+				style={styles.formInput}
+				model="."  
+		        show="touched"
+		        messages=
+		     />
+		</View>
+		
+        <View style={styles.row}>
+			<Text style={styles.titleFormHeader}> : 1112233334	</Text>
+			<Control.TextInput
+			    style={styles.formInput}
+				model="."  
+	        	validators=
+	        />
+			<Errors
+				style={styles.formInput}
+				model="."  
+		        show="touched"
+		        messages=
+		     />
+		</View>
+		
+        <View style={styles.row}>
+			<Text style={styles.titleFormHeader}> : https://twitter.com/StarterIO	</Text>
 			<Control.TextInput
 			    style={styles.formInput}
 				model="."  
