@@ -1,0 +1,79 @@
+
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+
+<h1>Hey Hey Ho Ho StackGen</h1>
+
+<h3>Welcome to the future!</h3>
+<a href="/swagger-ui.html">STACKGEN API EXPLORER</a>
+
+
+<!-- https://api.jquery.com/jquery.post/ -->
+
+<script type="text/javascript">
+
+this.data =  JSON.stringify({
+  'adminServerHost': 'localhost',
+  'artifactId': 'ignite',
+  'dbGenDropTable': true,
+  'dbName': 'ignite',
+  'dbPassword': 'ABDCEDF',
+  'dbUser': 'igniteuser',
+  'hostName': 'localhost',
+  'myBatisMain': 'gen/src/',
+  'name': 'My Microservice API',
+  'orgName': 'io.starter',
+  'schemaName': 'starter',
+  'status': 'available'
+});
+
+alert(this.data);
+
+
+// Using the core $.ajax() method
+$.ajax({
+    // The URL for the request
+    url: "http://127.0.0.1:8099/Stack/{param}",
+    // The data to send (will be converted to a query string)
+    data:this.data,
+    // Whether this is a POST or GET request
+    type: "POST",
+    // The type of data we expect back
+    dataType : "json",
+    contentType: "application/json",
+    accept: "application/json"
+})
+  // Code to run if the request succeeds (is done);
+  // The response is passed to the function
+  .done(function( json ) {
+     $( "<h1>" ).text( json.title ).appendTo( "body" );
+     $( "<div class=\"content\">").html( json.html ).appendTo( "body" );
+  })
+  // Code to run if the request fails; the raw request and
+  // status codes are passed to the function
+  .fail(function( xhr, status, errorThrown ) {
+    alert( "Sorry, there was a problem!"+JSON.stringify(xhr ) );
+    // alert( "Error: " + JSON.stringify(errorThrown ))+ " Status: " + JSON.stringify(status ) );
+  })
+  // Code to run regardless of success or failure;
+  .always(function( xhr, status ) {
+    alert( "The request is complete!" );
+  });
+
+
+// Perform other work here ...
+
+// Set another completion function for the request above
+jqxhr.always(function() {
+  alert( "second finished" );
+});
+</script>
+
+
+</body>
+</html>

@@ -9,12 +9,14 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.starter.ignite.generator.ReactGenConfiguration;
 import io.starter.ignite.security.securefield.SecureField;
+import io.starter.toolkit.StringTool;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
  * Contains and initializes Redux template Mapping info for a passed in
- * DataObject. <br/>
+ * EntityObject. <br/>
  * Example Redux State Template Code:<code>
  * 
 	 
@@ -31,7 +33,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author John McMahon (@TechnoCharms)
  *
  */
-public class AppEntityObject {
+public class AppEntityObject implements ReactGenConfiguration {
 
 	private static final org.slf4j.Logger			logger					= LoggerFactory
 			.getLogger(AppEntityObject.class);
@@ -41,19 +43,24 @@ public class AppEntityObject {
 	private static final Class<ApiModelProperty>	ANNOTATION_CLASS		= ApiModelProperty.class;
 
 	public String									appname;
+	public String									serverhost				= ReactGenConfiguration.defaultHostname;
+	public String									serverport				= ReactGenConfiguration.defaultPort;
 	public String									objectname;
-	public String									objectname_upper;
+	public String									objectnamevarname;
+	public String									objectnameupper;
 
-	List<Variable>									variables				= new ArrayList<Variable>();
+	public List<Variable>							variables				= new ArrayList<Variable>();
+	public List<EntityObject>						dataobjects				= new ArrayList<EntityObject>();
 
 	static class Variable {
 
-		public String	variableval;
+		public Object	variableval;
 		public String	variablename;
 
-		Variable(String variablename, String variablebal) {
-			this.variablename = variablename;
-			this.variableval = variablebal;
+		Variable(String variablename, Object variableval) {
+			this.variablename = StringTool
+					.getLowerCaseFirstLetter(variablename);
+			this.variableval = variableval;
 		}
 
 		@Override
@@ -75,19 +82,46 @@ public class AppEntityObject {
 
 		ApiModelProperty apia = s.getAnnotation(ANNOTATION_CLASS);
 
-		String val = null;
+		Object val = null;
 		if (jf != null)
 			val = jf.value();
 		else
-			val = "";
+			val = apia.example();
 
 		if (!apia.hidden() && val != null) {
 			logger.info("Processing : " + s.toGenericString() + " :" + val);
-			variables.add(new Variable(val, apia.example()));
+
+			val = (getReturnValue(s) != null ? getReturnValue(s) : "");
+			String name = apia.name();
+			if (name.equals("")) {
+				name = s.getName().replaceAll("get", "");
+			}
+
+			if (!HIDE_FIELD_LIST.contains(name)) {
+				variables.add(new Variable(name, val));
+			}
+
 		} else {
 			logger.error("Skipping Invalid : " + s.toGenericString() + " :"
 					+ val);
 		}
+
+	}
+
+	/**
+	 * @param s
+	 */
+	private Object getReturnValue(Method s) {
+		Object ret = null;
+		switch (s.getReturnType().toString()) {
+		case "long":
+			ret = new Long(0l);
+			break;
+		case "Long":
+			ret = new Long(0l);
+			break;
+		}
+		return ret;
 	}
 
 	/**
@@ -99,8 +133,11 @@ public class AppEntityObject {
 
 		appname = app;
 		objectname = cx.getName().substring(cx.getName().lastIndexOf(".") + 1);
-		objectname_upper = objectname.toUpperCase();
+		objectnameupper = objectname.toUpperCase();
+		objectnamevarname = String.valueOf(objectname.charAt(0)).toLowerCase()
+				+ objectname.substring(1);
 
+		// add variables find by annotated method
 		Stream.of(cx.getDeclaredMethods()).filter(s -> {
 			return (s.getAnnotation(ANNOTATION_CLASS)) != null;
 		}).forEach(s -> {
@@ -125,7 +162,7 @@ public class AppEntityObject {
 		if (objectname == null)
 			return false;
 
-		if (objectname_upper == null)
+		if (objectnameupper == null)
 			return false;
 
 		return true;

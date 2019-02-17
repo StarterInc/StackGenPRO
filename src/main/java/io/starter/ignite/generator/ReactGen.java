@@ -10,6 +10,7 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 
 import io.starter.ignite.generator.react.AppEntityObject;
+import io.starter.ignite.generator.react.EntityObject;
 import io.starter.ignite.util.FileUtil;
 import io.starter.toolkit.StringTool;
 
@@ -46,10 +48,13 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 	 */
 	private static void export(ReactGen gen) throws IOException {
 
-		logger.info("Exporting: " + REACT_TEMPLATE_APP_FOLDER + " to: "
-				+ REACT_EXPORT_FOLDER + REACT_APP_NAME);
-		FileUtil.copyFolder(REACT_TEMPLATE_APP_FOLDER, REACT_EXPORT_FOLDER
-				+ REACT_APP_NAME);
+		// logger.info("Exporting: " + REACT_TEMPLATE_APP_FOLDER + "
+		// to: "
+		// + REACT_EXPORT_FOLDER + REACT_APP_NAME);
+
+		// FileUtil.copyFolder(REACT_TEMPLATE_APP_FOLDER,
+		// REACT_EXPORT_FOLDER
+		// + REACT_APP_NAME);
 
 		logger.info("Exporting: " + REACT_EXPORT_FOLDER + REACT_APP_NAME
 				+ " to: " + REACT_APP_OUTPUT_FOLDER);
@@ -117,6 +122,11 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 		File[] templateFiles = Gen.getSourceFilesInFolder(new File(
 				REACT_TEMPLATE_FOLDER), FOLDER_SKIP_LIST);
 
+		List<EntityObject> objnames = new ArrayList<EntityObject>();
+		for (AppEntityObject oa : REACT_DATA_OBJECTS) {
+			objnames.add(new EntityObject(oa.objectname));
+		}
+
 		for (Object o : templateFiles) {
 			String fname = o.toString();
 			String shortName = fname.substring(fname.lastIndexOf("/") + 1);
@@ -126,7 +136,7 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 
 			// for each object in system, create a REDUX
 			// action and reducer from templates
-			if (shortName.startsWith("objectName")) {
+			if (shouldParse(shortName)) {
 				for (AppEntityObject aeo : REACT_DATA_OBJECTS) {
 
 					// read in template file
@@ -134,6 +144,7 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 							.replaceText(fname, "objectName", aeo.objectname);
 
 					// mustache
+					aeo.dataobjects = objnames;
 					generateFromTemplate(aeo, fname, foutp);
 				}
 			} else {
@@ -146,10 +157,17 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 		export(gen);
 
 		logger.error("TODO: FIX RUN NPM");
+
 		// run npm to build and run react native app!
 		// String[] args1 = { "npm", "install" };
 		// RunCommand.runSafe("npm", args1);
 
+	}
+
+	private static boolean shouldParse(String shortName) {
+		// if(shortName.contains("objectName") || true)
+		// return true;
+		return true;
 	}
 
 	/**
@@ -204,6 +222,10 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 				.replaceText(fname, REACT_TEMPLATE_SOURCES_FOLDER, REACT_EXPORT_FOLDER
 						+ REACT_APP_NAME + "/");
 
+		foutp = StringTool
+				.replaceText(foutp, REACT_TEMPLATE_FOLDER, REACT_EXPORT_FOLDER
+						+ REACT_APP_NAME + "/");
+
 		// read in template file
 		if (multifile != null) {
 			foutp = StringTool
@@ -229,8 +251,8 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 				fout.createNewFile();
 				Writer fwriter = new FileWriter(fout);
 
-				logger.debug("Mustaching template: " + finp
-						+ " to output file: " + fout);
+				logger.info("Mustaching template: " + finp + " to output file: "
+						+ fout);
 				Mustache reactmf = mf.compile(fread, REACT_APP_OUTPUT_FOLDER);
 
 				// if we are dealing with a sub-object

@@ -26,6 +26,25 @@ servers:
     basePath:
       # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `v2`
       default: v1
+  url: https://db.aws.com
+  description: The production DATABASE server
+  variables:
+    driver:
+      default: com.mysql.Driver
+      description: this is the db driver to use to connect to generated DB
+    username:
+      default: demo
+      description: this is the username to use to connect to generated DB
+    password:
+      default: demo
+      description: this is the password to use to connect to generated DB
+    port:
+      enum:
+        - '3443'
+      default: '3443'
+    basePath:
+      # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `v2`
+      default: v1      
 # tags are used for organizing operations
 tags:
 - name: admins
@@ -422,12 +441,12 @@ definitions:
         description: "name of the service API displayed in the UI"    
       adminServerHost:
         type: "string"
-        example: "host name of the admin server"
+        example: "www.myco.com"
         maxLength: 256
         description: "host name of to connect to the admin server"
       adminServerPort:
         type: "string"
-        example: "port of the admin server"
+        example: "8009"
         maxLength: 256 
         description: "port of to connect to the admin server"        
       hostName:
@@ -437,7 +456,7 @@ definitions:
         description: "host of this service"          
       hostPort:
         type: "string"
-        example: "6969"
+        example: "8099"
         maxLength: 256 
         description: "port of this service"
       orgName:
@@ -462,7 +481,7 @@ definitions:
         description: "Secure key used to encrypt the data in the new platform"                     
       dbUrl:
         type: "string"
-        example: "db.mycompany.rds.us-west-2.rds.amazonaws.com"
+        example: "db.myco.com"
         maxLength: 256 
         description: "database for the system"          
       dbName:
@@ -492,7 +511,7 @@ definitions:
         description: "database table prefix" 
       schemaData:
         type: "string"
-        example: "Complete OpenAPI Schema Contents..."
+        example: "<Complete OpenAPI Schema>"
         description: "OpenAPI Schema Instance"
         x-starter-dataField: component=IgniteTextEditor{data.node}
       artifactId:

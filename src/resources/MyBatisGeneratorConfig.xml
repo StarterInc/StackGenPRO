@@ -23,7 +23,49 @@
       <property name="useActualColumnNames" value="true" />
     </javaClientGenerator>
     <table schema="${artifactId}" tableName="PLACEHOLDER_NODE" modelType="hierarchical" />
-    <table schema="CSAT" tableName="csat$_csat">
+    <table schema="StackGen" tableName="stackgen$_order">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_model_api_response">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_audit_log">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_tag">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_organization">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_category">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_user">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_account">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_data">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_ledger_entry">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_work_flows">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_contact_method">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_stack">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_content">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_item">
       <generatedKey column="id" sqlStatement="JDBC" />
     </table>
   </context>

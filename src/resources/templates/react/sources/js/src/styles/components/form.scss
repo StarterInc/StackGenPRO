@@ -1,0 +1,13 @@
+.add-object-form{
+  font-family: sans-serif;
+  font-size: $m-size;
+}
+
+.add-object-form input,
+.add-object-form textarea {
+  display: flex;
+  flex-flow: column;
+  flex-wrap: nowrap;
+  padding: 5px;
+  margin: 2px;
+}

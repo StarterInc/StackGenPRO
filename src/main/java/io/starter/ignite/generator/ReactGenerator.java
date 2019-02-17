@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  * @author John McMahon (@TechnoCharms)
  *
  */
-public class ReactGenerator extends Main implements Configuration {
+public class ReactGenerator extends Main implements ReactGenConfiguration {
 
 	protected static final Logger	logger	= LoggerFactory
 			.getLogger(ReactGenerator.class);
@@ -35,6 +35,9 @@ public class ReactGenerator extends Main implements Configuration {
 	 * relative to project root
 	 */
 	private static String[][]		sf		= {
+			{ "/lib/StarterIgnite-1.2.1-SNAPSHOT.jar",
+					"/lib/StarterIgnite-1.2.1-SNAPSHOT.jar" },
+
 			{ "/src/resources/templates/application.yml",
 					"/src/main/resources/application.yml" },
 
@@ -49,14 +52,17 @@ public class ReactGenerator extends Main implements Configuration {
 
 	public static void main(String[] args) throws Exception {
 
-		String inputSpecFile = "simple_cms.yml"; // simple_cms
+		// String inputSpecFile = "simple_cms.yml"; // simple_cms
 		args = new String[1];
 		if (args.length == 1 && args[0] == null)
 			args[0] = System.getProperty("schemaFile");
-		Main.main(args);
 
-		// copy Ignite files into gen project
-		Main.copyStaticFiles(staticFiles);
+		if (!REACT_SKIP_STACKGEN) {
+			Main.main(args);
+
+			// copy Ignite files into gen project
+			Main.copyStaticFiles(staticFiles);
+		}
 
 		// copy React files into gen project
 		Main.copyStaticFiles(sf);

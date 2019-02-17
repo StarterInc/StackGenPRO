@@ -9,7 +9,9 @@ import io.starter.ignite.generator.react.AppEntityObject;
 /**
  * Global Configuration
  * 
- * The following values can be set as System properties or on the command line:
+ * The following values can be set as System properties *BEFORE THIS CLASS IS REFERENED*
+ * 
+ *  or on the command line:
  * 
  * @author John McMahon (@TechnoCharms)
  *
@@ -21,10 +23,21 @@ public interface ReactGenConfiguration extends Configuration {
 	public static List<String>		SKIP_LIST						= new ArrayList<>(
 			Arrays.asList(".class"));
 
+	static String[]					hideFields						= { "id",
+			"createdDate", "modifiedDate", "ownerId", "keySpec", "keyVersion" };
+	public static List<String>		HIDE_FIELD_LIST					= new ArrayList<>(
+			Arrays.asList(hideFields));
+
+	// default is to NOT geneerate the whole shebang...
+	public static boolean			REACT_SKIP_STACKGEN				= (System
+			.getProperty("REACT_SKIP_STACKGEN") != null
+					? Boolean.getBoolean("REACT_SKIP_STACKGEN")
+					: true);
+
 	public static String			REACT_APP_NAME					= (System
 			.getProperty("REACT_APP_NAME") != null
 					? System.getProperty("REACT_APP_NAME")
-					: "SimpleCMS");
+					: "StackGen");
 
 	public static String			REACT_TEMPLATE_FOLDER			= (System
 			.getProperty("REACT_TEMPLATE_FOLDER") != null

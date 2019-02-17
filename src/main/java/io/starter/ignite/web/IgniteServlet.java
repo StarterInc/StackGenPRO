@@ -1,7 +1,5 @@
 package io.starter.ignite.web;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
@@ -11,8 +9,6 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -59,16 +55,6 @@ public class IgniteServlet implements Servlet {
 		message = "Starter Ignite Generator";
 	}
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		// Set response content type
-		response.setContentType("text/html");
-
-		// Actual logic goes here.
-		PrintWriter out = response.getWriter();
-		out.println("<h1>" + message + "</h1>");
-	}
-
 	@Override
 	public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -87,7 +73,11 @@ public class IgniteServlet implements Servlet {
 			}
 		} else if (request.getParameter("generateService") != null) {
 			// run that junk
-			swaggerPluginMerge();
+			try {
+				swaggerPluginMerge();
+			} catch (Exception e) {
+				logger.error("Generating Stack failed: " + e);
+			}
 		} else if (request.getParameter("specFile") != null) {
 			SwaggerGen swaggerGen = new SwaggerGen(
 					request.getParameter("specFile"));
@@ -106,13 +96,12 @@ public class IgniteServlet implements Servlet {
 
 		String inputJSON = "{\n"
 
-				+ "  \"adminServerHost\": \"host name of the admin server\",\n"
-				+ "  \"adminServerPort\": \"port of the admin server\",\n"
-				+ "  \"javaGenPath\": \"/Users/john/workspace2018_IGNITE/IgnitePRO/tmp/gen\",\n"
+				+ "  \"adminServerHost\": \"www.wooly.io\",\n"
+				+ "  \"adminServerPort\": \"8080\",\n"
+				+ "  \"javaGenPath\": \"/tmp/gen\",\n"
 				+ "  \"artifactId\": \"generio\",\n"
 				+ "  \"schemaName\": \"starter\",\n"
 				+ "  \"schemaFile\": \"starter_ignite.yml\",\n"
-				// + " \"createdDate\": \"2019-01-13T23:52:04.918Z\",\n"
 				+ "  \"dbGenDropTable\": \"true\",\n"
 				+ "  \"dbHostName\": \"ls-094900477e4b2d50d66dddfaa480f1ac3415eb70.cci10ee08gpg.us-west-2.rds.amazonaws.com\",\n"
 				+ "  \"dbName\": \"starter\",\n"
@@ -122,13 +111,12 @@ public class IgniteServlet implements Servlet {
 				+ "  \"hostPort\": \"8099\",\n" + "  \"id\": \"0\",\n"
 				+ "  \"starterIgniteSecureKey\": \"W3ngNBCp80mgG0wwjTslfeQoG2hQa9ryqbemTEX01Wg=\",\n"
 				+ "  \"keySpec\": \"{keyOwner:111, keySource:'session | system'}\",\n"
-				+ "  \"keyVersion\": \"0\",\n"
-				// + " \"modifiedDate\": \"2019-01-13T23:52:04.918Z\",\n"
-				+ "  \"mybatisJava\": \"" + JAVA_GEN_FOLDER
+				+ "  \"keyVersion\": \"0\",\n" + "  \"mybatisJava\": \""
+				+ JAVA_GEN_FOLDER
 				+ "/src/main/java/io/starter/generio/model/\",\n"
 				+ "  \"mybatisMain\": \"" + JAVA_GEN_FOLDER + "/src/\",\n"
 				+ "  \"name\": \"GENERIO Microservice API\",\n"
-				+ "  \"ownerId\": \"0\",\n"
+				+ "  \"ownerId\": \"10\",\n"
 				+ "  \"schemaData\": \"(optional) Complete OpenAPI Schema Contents...\",\n"
 				+ "  \"status\": \"available\"\n" + "}";
 
@@ -141,9 +129,10 @@ public class IgniteServlet implements Servlet {
 			logger.warn("Setting SysProp from JSON Object): " + k + ":"
 					+ job.getString(k));
 		}
+		String inputSpecFile = "simple_cms.yml";
 
-		SwaggerGen swaggerGen = new SwaggerGen(job);
-		assertNotNull(swaggerGen.generate());
+		Main.generateApp(job);
+
 	}
 
 }
