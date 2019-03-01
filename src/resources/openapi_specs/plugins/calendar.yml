@@ -1,0 +1,84 @@
+swagger: '2.0'
+info:
+  description: "Starter Connect Calendar Service"
+  version: "1.0.0"
+  title: "Starter Connect Calendar"
+  termsOfService: "http://starter.io/terms/"
+  contact:
+    email: "info@starter.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "itemstore.starter.io"
+basePath: "/v2"
+paths:
+        
+definitions:
+  Calendar:
+    required:
+    - title
+    properties:
+      description:
+        type: "integer"
+        format: "int64"
+      timezone:
+        type: "string"
+        description: "PDT"
+        displayColor;:
+        type: "string"
+        description: "Display Color"
+        enum:
+        - "red"
+        - "blue"
+        - "green"
+        - "yellow"
+        - "black"
+        - "white"
+        - "orange"
+      remoteUrl:
+        type: string
+        format: url
+        example:  caldav://cal.starter.io
+      events:
+        type: array
+        items:
+        $ref: '#/definitions/CalendarEvent'
+
+  CalendarEvent:
+    required:
+    - calendarId
+    properties:
+      calendarId:
+        type: "integer"
+        format: "int64"
+      title:
+        type: string
+        format: url
+        example:  Company Events
+      eventType:
+        type: "string"
+        description: "Event type"
+        enum:
+        - "personal"
+        - "meeting"
+        - "event"
+        - "travel"
+        - "other"
+      status:
+        type: "string"
+        description: "Transaction Status"
+        enum:
+        - "open"
+        - "busy"
+        - "accepted"
+        - "rejected"
+      url:
+        type: string
+        format: url
+        example:  caldav://cal.starter.io
+      eventStart:
+        type: "string"
+        format: "date-time"
+      eventEnd:
+        type: "string"
+        format: "date-time"

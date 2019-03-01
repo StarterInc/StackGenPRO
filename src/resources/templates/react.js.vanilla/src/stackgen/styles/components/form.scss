@@ -1,0 +1,26 @@
+.add-object-div{
+  display: flex;
+  flex-flow: column;
+  float:right;
+  width: 75%;
+  height: 300px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.add-object-form{
+
+}
+
+.add-object-form input,
+.add-object-form textarea {
+  display: flex;
+  flex-flow: column;
+  width:85%;
+  border-radius: $radius;
+  border-style: none;
+  font-family: sans-serif;
+  font-size: $m-size;
+  padding: 5px;
+  margin: 2px;
+}

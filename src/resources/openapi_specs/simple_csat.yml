@@ -4,18 +4,18 @@ swagger: '2.0'
         # format: uuid
         # example: d290f1ee-6c54-4b01-90e6-d701748f0851
 info:
-  description: This is the Stripe Simple CSAT API
+  description: This is the Starter Simple CSAT API
   version: 1.0.0
   title: Simple CSAT API
   # put the contact info for your development or API team
   contact:
-    email: colette@stripe.com
+    email: colette@starter.io
   license:
     name: AGPL 3.0
     url: https://www.gnu.org/licenses/agpl-3.0.html
-  termsOfService: http://stripe.com/tos/
+  termsOfService: http://starter.io/tos/
 servers:
-  url: https://{username}.stripe.com:{port}/{basePath}
+  url: https://{username}.starter.io:{port}/{basePath}
   description: The production Stripe Simple CSAT API server
   variables:
     username:
@@ -42,12 +42,12 @@ definitions:
   Csat:
     type: object
     required:
-    - atlasId
+    - contentId
     properties:
       userId:
         type: "integer"
         format: "int64"    
-      atlasId:
+      contentId:
         type: "integer"
         format: "int64"
       comments:
@@ -60,7 +60,7 @@ definitions:
         minimum: 0
         maximum: 10
     xml:
-      name: "csatdata"              
+      name: "Csat"              
 externalDocs:
   description: "Find out more about"
   url: "https://"

@@ -1,0 +1,74 @@
+openapi: "3.0"
+info:
+  description: "Starter Connect Calendar Service"
+  version: "1.0.0"
+  title: "Starter Connect Calendar"
+  termsOfService: "http://starter.io/terms/"
+  contact:
+    email: "info@starter.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "itemstore.starter.io"
+basePath: "/v2"
+tags:
+- name: "item"
+  description: "Everything about your Items"
+  externalDocs:
+    description: "Find out more"
+    url: "http://starter.io"
+- name: "store"
+  description: "Access to eStore orders"
+- name: "user"
+  description: "Operations about user"
+  externalDocs:
+    description: "Find out more about our store"
+    url: "http://starter.io"
+schemes:
+- "http"
+
+definitions:
+  Location:
+    required:
+    - locationname
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      calendarId:
+        type: "integer"
+        format: "int64"
+      resourceCalendarId:
+        type: "integer"
+        format: "int64"
+      title:
+        type: string
+        format: url
+        example:  Company Events
+      eventType:
+        type: "string"
+        description: "Event type"
+        enum:
+        - "personal"
+        - "meeting"
+        - "event"
+        - "travel"
+        - "other"
+      status:
+        type: "string"
+        description: "Transaction Status"
+        enum:
+        - "open"
+        - "busy"
+        - "accepted"
+        - "rejected"
+      url:
+        type: string
+        format: url
+        example:  caldav://cal.starter.io
+      eventStart:
+        type: "string"
+        format: "date-time"
+      eventEnd:
+        type: "string"
+        format: "date-time"

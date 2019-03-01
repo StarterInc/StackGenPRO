@@ -58,8 +58,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 		public String	variablename;
 
 		Variable(String variablename, Object variableval) {
-			this.variablename = StringTool
-					.getLowerCaseFirstLetter(variablename);
+			this.variablename = variablename;
 			this.variableval = variableval;
 		}
 
@@ -96,6 +95,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 			if (name.equals("")) {
 				name = s.getName().replaceAll("get", "");
 			}
+			name = StringTool.getLowerCaseFirstLetter(name);
 
 			if (!HIDE_FIELD_LIST.contains(name)) {
 				variables.add(new Variable(name, val));

@@ -29,6 +29,12 @@
     <table schema="StackGen" tableName="stackgen$_model_api_response">
       <generatedKey column="id" sqlStatement="JDBC" />
     </table>
+    <table schema="StackGen" tableName="stackgen$_calendar_event">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_calendar">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
     <table schema="StackGen" tableName="stackgen$_audit_log">
       <generatedKey column="id" sqlStatement="JDBC" />
     </table>
@@ -50,6 +56,12 @@
     <table schema="StackGen" tableName="stackgen$_data">
       <generatedKey column="id" sqlStatement="JDBC" />
     </table>
+    <table schema="StackGen" tableName="stackgen$_order_detail">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_trade_order">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
     <table schema="StackGen" tableName="stackgen$_ledger_entry">
       <generatedKey column="id" sqlStatement="JDBC" />
     </table>
@@ -57,6 +69,9 @@
       <generatedKey column="id" sqlStatement="JDBC" />
     </table>
     <table schema="StackGen" tableName="stackgen$_contact_method">
+      <generatedKey column="id" sqlStatement="JDBC" />
+    </table>
+    <table schema="StackGen" tableName="stackgen$_location">
       <generatedKey column="id" sqlStatement="JDBC" />
     </table>
     <table schema="StackGen" tableName="stackgen$_stack">

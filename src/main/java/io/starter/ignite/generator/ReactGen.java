@@ -116,6 +116,7 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 		// System.setProperty("user.dir",
 		// "/StarterIgniteServer");
 
+		List<String> alreadyAdded = new ArrayList<String>(); // dedupe
 		ReactGen gen = new ReactGen();
 		generateEntitiesFromModelFolder(gen);
 
@@ -123,8 +124,9 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 				REACT_TEMPLATE_FOLDER), FOLDER_SKIP_LIST);
 
 		List<EntityObject> objnames = new ArrayList<EntityObject>();
+		int i = 0;
 		for (AppEntityObject oa : REACT_DATA_OBJECTS) {
-			objnames.add(new EntityObject(oa.objectname));
+			objnames.add(new EntityObject(oa.objectname, i++));
 		}
 
 		for (Object o : templateFiles) {
@@ -145,7 +147,10 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 
 					// mustache
 					aeo.dataobjects = objnames;
-					generateFromTemplate(aeo, fname, foutp);
+					if (!alreadyAdded.contains(foutp)) {
+						generateFromTemplate(aeo, fname, foutp);
+						alreadyAdded.add(foutp);
+					}
 				}
 			} else {
 				// single file mustache

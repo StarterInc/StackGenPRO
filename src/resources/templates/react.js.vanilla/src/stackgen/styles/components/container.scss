@@ -1,0 +1,29 @@
+.container {
+  margin: 0 auto;
+  padding: 0 $m-size;
+}
+
+.container__list {
+  text-align: left;
+  display: flex;
+  flex-flow: column;
+  width:85%;
+  border-radius: $radius;
+  border-style: none;
+  font-family: sans-serif;
+  font-size: $m-size;
+  padding: 5px;
+  margin: 2px;
+}
+
+.container__box {
+  color: $font-light;
+  background-color: $lowlight;
+  float:left;
+  border-radius: $radius;
+  border-style: none;
+  background-color: $light;
+  width: 50%;
+  padding: 5px;
+  margin: 5px auto;
+}

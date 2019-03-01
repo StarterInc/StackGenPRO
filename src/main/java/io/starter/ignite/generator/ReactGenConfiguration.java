@@ -23,7 +23,7 @@ public interface ReactGenConfiguration extends Configuration {
 	public static List<String>		SKIP_LIST						= new ArrayList<>(
 			Arrays.asList(".class"));
 
-	static String[]					hideFields						= { "id",
+	static String[]					hideFields						= { 
 			"createdDate", "modifiedDate", "ownerId", "keySpec", "keyVersion" };
 	public static List<String>		HIDE_FIELD_LIST					= new ArrayList<>(
 			Arrays.asList(hideFields));
