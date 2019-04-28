@@ -1,9 +1,10 @@
-package io.starter.ignite.web;
+package io.starter.ignite;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import de.codecentric.boot.admin.server.config.AdminServerProperties;
 
@@ -21,30 +22,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// @formatter:off
         SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
         successHandler.setTargetUrlParameter("redirectTo");
-        http.authorizeRequests().antMatchers("/**").authenticated();
-        http.authorizeRequests()
-        	// .antMatchers(adminContextPath + "/ignite").permitAll()
-            .antMatchers(adminContextPath + "/assets/**").permitAll()
-            .antMatchers(adminContextPath + "/login").permitAll()
-            .anyRequest().authenticated()
-            .and()
-        .formLogin().loginPage(adminContextPath + "/login").successHandler(successHandler).and()
-        .logout().logoutUrl(adminContextPath + "/logout").and()
-        .httpBasic().and()
-        .csrf().disable();
-        // @formatter:on
-	}
+        successHandler.setDefaultTargetUrl(adminContextPath + "/");
 
-	protected void configure2(HttpSecurity http) throws Exception {
-		http.formLogin().loginPage("/login.html").loginProcessingUrl("/login")
-				.usernameParameter("username").passwordParameter("password")
-				.permitAll();
-		http.logout().logoutUrl("/logout");
-		http.csrf().disable();
-		http.authorizeRequests()
-				.antMatchers("/login.html", "/**/*.css", "/img/**", "/third-party/**", "/**/*.png")
-				.permitAll();
-		http.authorizeRequests().antMatchers("/**").authenticated();
-		http.httpBasic();
+        http.authorizeRequests()
+            .antMatchers(adminContextPath + "/assets/**").permitAll() 
+            .antMatchers(adminContextPath + "/index.html").permitAll()
+            .anyRequest().authenticated() 
+            .and()
+        .formLogin().loginPage(adminContextPath + "/index.html").successHandler(successHandler).and() 
+        .logout().logoutUrl(adminContextPath + "/logout").and()
+        .httpBasic().and() 
+        .csrf()
+            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())  
+            .ignoringAntMatchers(
+                adminContextPath + "/instances",   
+                adminContextPath + "/actuator/**"  
+            );
+        // @formatter:on
 	}
 }

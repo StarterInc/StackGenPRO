@@ -1,6 +1,6 @@
 .item {
-  background: white;
   border-radius: 5px;
+  border-width: 1px;
   margin: 10px;
   padding: 10px;
   text-align: left;
@@ -9,5 +9,4 @@
 
 .item:hover {
   cursor: pointer;
-  background: #f5f6f7;
 }

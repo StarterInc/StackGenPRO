@@ -4,9 +4,9 @@ spring:
   boot:
     admin:
       client:
-        url: "http://localhost:8009"
+        url: "${adminServiceURL}"
         instance:
-          service-base-url: "http://localhost:8009"
+          service-base-url: "${adminServiceURL}"
   profiles:
     active:
       - secure
@@ -29,14 +29,14 @@ spring:
   profiles: secure
   security:
     user:
-      name: "user"
-      password: "password"
+      name: "${adminUser}"
+      password: "${adminPassword}"
   boot:
     admin:
       client:
-        username: "user"       #These two are needed so that the client
-        password: "password"   #can register at the protected server api
+        username: "${adminUser}"       #These two are needed so that the client
+        password: "${adminPassword}"   #can register at the protected server api
         instance:
           metadata:
-            user.name: "user"         #These two are needed so that the server
-            user.password: "password" #can access the protected client endpoints
+            user.name: "${adminUser}"         #These two are needed so that the server
+            user.password: "${adminPassword}" #can access the protected client endpoints

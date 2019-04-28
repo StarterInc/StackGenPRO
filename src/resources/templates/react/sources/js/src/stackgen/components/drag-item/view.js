@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react"
 import "./styles.css"
-import Button from "react-bootstrap/Button"
+import { Button } from "react-bootstrap"
 import ButtonToolbar from "react-bootstrap/ButtonToolbar"
 
 export default forwardRef(({ data, classValue }, ref) => {

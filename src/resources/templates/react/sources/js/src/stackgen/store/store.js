@@ -1,4 +1,9 @@
-
+/**
+ * Create the Redux Store
+ * 
+ * GENERATED FILE: DO NOT EDIT!
+ *  
+ */
 import {
   createStore,
   applyMiddleware,
@@ -8,7 +13,6 @@ import {
 {{#dataobjects}}
 import {{objname}}s from '../reducers/{{objname}}s';
 {{/dataobjects}}
-
 import thunk from 'redux-thunk';
 
 // these reducers will appear in the State as "xyz:resultingvalue()"
@@ -21,13 +25,11 @@ const CombinedReducer = combineReducers({
   // appStatus,
   // locations,
   // maps,
-  //  categories,
+  // categories,
   // roles,
   // userInfo,
 })
 
-// TODO: implement Redux devtools
-// https://github.com/zalmoxisus/redux-devtools-extension#usage
 export default () => {
     return createStore(CombinedReducer,
       applyMiddleware(thunk));

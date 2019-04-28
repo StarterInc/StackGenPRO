@@ -1,0 +1,4 @@
+.dialogBgBlur{
+  background-color: red;
+  filter:blur(20px);
+}

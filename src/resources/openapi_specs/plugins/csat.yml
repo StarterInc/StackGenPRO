@@ -1,0 +1,63 @@
+swagger: '2.0'
+
+info:
+  description: This is the Starter Simple CSAT API
+  version: 1.0.0
+  title: StackGen CSAT API
+  # put the contact info for your development or API team
+  contact:
+    email: colette@starter.io
+  license:
+    name: AGPL 3.0
+    url: https://www.gnu.org/licenses/agpl-3.0.html
+  termsOfService: http://starter.io/tos/
+servers:
+  url: https://{username}.starter.io:{port}/{basePath}
+  description: The production Stripe Simple CSAT API server
+  variables:
+    username:
+      # note! no enum here means it is an open value
+      default: demo
+      description: this value is assigned by the service provider
+    port:
+      enum:
+        - '8443'
+        - '443'
+      default: '8443'
+    basePath:
+      # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `v2`
+      default: v1
+# tags are used for organizing operations
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: users
+  description: Operations available to regular users
+schemes:
+- https            
+definitions:
+  Csat:
+    type: object
+    required:
+    - contentId
+    properties:
+      userId:
+        type: "integer"
+        format: "int64"    
+      contentId:
+        type: "integer"
+        format: "int64"
+      comments:
+        type: string
+        example: Your real feelings
+        maxLength: 100000  
+      rating:
+        type:  "integer"
+        format: "int64"
+        minimum: 0
+        maximum: 10
+    xml:
+      name: "Csat"              
+externalDocs:
+  description: "Find out more about"
+  url: "https://"

@@ -1,49 +1,49 @@
+/**
+ * Main entrypoint of the StackGen React app.
+ *
+ * GENERATED FILE: DO NOT EDIT!
+ *
+ *
+ */
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import AppRouter from './routers/AppRouter';
-import getAppStore from './store/store';
+import ReactDOM from 'react-dom';
+import AppRouter from './stackgen/routers/AppRouter';
+import getAppStore from './stackgen/store/store';
 
+// import the generated data object CRUD actions
 {{#dataobjects}}
-import { get{{objname}}s } from './actions/{{objname}}s'
+import { get{{objname}}s } from './stackgen/actions/{{objname}}s'
 {{/dataobjects}}
 
 import './stackgen/styles/styles.scss';
 
-/**
-  Main entrypoint of the StackGen React app.
-
-  ** GENERATED FILE DO NOT EDIT! **
-
-*/
 const store = getAppStore();
 
-const template = (
-    <Provider store={store}>
-        <AppRouter />
-    </Provider>
+const appRendering = (
+	<Provider store={store}>
+	    <AppRouter />
+	</Provider>
 );
 
 /**
- * load each Microservice into base store
- * 
- *  TODO: implement a capability to lazy load... 
- *  
- *  TODO: implement offline capability / cache
- * 
- * @returns
+ * TODO: load each Microservice into base store
+ * TODO: implement a capability to lazy load...
+ * TODO: implement offline capability / cache
+ *
  */
 function initAllData(){
   var ret = {
+
   {{#dataobjects}}
-  	...
-   	get{{objname}}s(),
+  //... 	get{{objname}}s(),
   {{/dataobjects}}
   }
-  return ret;
+  return {};
 }
 
-store.dispatch(initAllData()).then(() => {
-    ReactDOM.render(template, document.getElementById('root'));
+  // TODO: fix data fetch here not hardcoded to getUsers()
+store.dispatch(getUsers()).then(() => {
+    ReactDOM.render(appRendering, document.getElementById('root'));
 });

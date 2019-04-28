@@ -1,27 +1,33 @@
-const {{objectname}}sReducerDefaultState = [];
+/**
+ * Reducer for {{objectnamevarname}}
+ * 
+ * GENERATED FILE: DO NOT EDIT!
+ * 
+ */
+const {{objectnamevarname}}sReducerDefaultState = [];
 
-export default (state = {{objectname}}sReducerDefaultState, action) => {
+export default (state = {{objectnamevarname}}sReducerDefaultState, action) => {
     switch (action.type) {
         case 'ADD_{{objectnameupper}}':
             return [
                 ...state,
-                action.{{objectname}}
+                action.{{objectnamevarname}}
             ];
         case 'REMOVE_{{objectnameupper}}':
             return state.filter(({ id }) => id !== action.id);
         case 'EDIT_{{objectnameupper}}':
-            return state.map(({{objectname}}) => {
-                if ({{objectname}}.id === action.id) {
+            return state.map(({{objectnamevarname}}) => {
+                if ({{objectnamevarname}}.id === action.id) {
                     return {
-                        ...{{objectname}},
+                        ...{{objectnamevarname}},
                         ...action.updates
                     };
                 } else {
-                    return {{objectname}};
+                    return {{objectnamevarname}};
                 }
             });
         case 'GET_{{objectnameupper}}':
-            return action.{{objectname}}s;
+            return action.{{objectnamevarname}}s;
         default:
             return state;
     }

@@ -1,3 +1,9 @@
+/*
+ * Action for CRUD ops
+ * 
+ * GENERATED FILE: DO NOT EDIT!
+ *
+ */
 import axios from '../axios/axios';
 
 const _add{{objectname}} = ({{objectname}}) => ({

@@ -1,3 +1,9 @@
+/*
+ * attach drag event handling to react components
+ * 
+ * GENERATED FILE: DO NOT EDIT!
+ *
+ */
 import { useState, useCallback, useEffect, useRef } from "react";
 
 const useDrag = ({ id, effect, ref, onDragStart, onDragOver, onDragEnd }) => {

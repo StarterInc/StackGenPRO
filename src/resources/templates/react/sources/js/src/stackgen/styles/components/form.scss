@@ -1,9 +1,8 @@
-.add-object-div{
+.cardio, .add-object-div{
   display: flex;
   flex-flow: column;
   float:right;
   width: 75%;
-  height: 300px;
   overflow: hidden;
   overflow-y: scroll;
 }

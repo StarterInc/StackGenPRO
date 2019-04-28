@@ -1,4 +1,12 @@
+/*
+ * Field mapper
+ * 
+ * GENERATED FILE: DO NOT EDIT!
+ *
+ */
 import React, { useState } from "react"
+import { Card, Row, Col } from "react-bootstrap"
+
 import "./FieldMapper.css"
 import DropItem from "../drop-item"
 import DragItem from "../drag-item"

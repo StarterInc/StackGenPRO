@@ -1,9 +1,15 @@
-info:
-  scm-url: "@scm.url@"
-  build-url: "http://travis-ci.org/@env.TRAVIS_REPO_SLUG@/builds/@env.TRxAVIS_BUILD_ID@"
-
-logging:
-  file: "logs/starter-stackgen.log"
+spring:
+  application:
+    name: stackgen-service-instance
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8009"
+        instance:
+          service-base-url: "http://localhost:8009"
+  profiles:
+    active:
+      - secure
 
 management:
   endpoints:
@@ -14,29 +20,6 @@ management:
     health:
       show-details: ALWAYS
 
-spring:
-  application:
-    name: "Starter Ignite Service Engine"
-  boot:
-    admin:
-      client:
-        url: "http://localhost:8009"
-  profiles:
-    active:
-      - secure
-
----
-spring:
-  profiles: dev
-  boot:
-    admin:
-      ui:
-        cache:
-          no-cache: true
-        template-location: file://@project.basedir@/../../spring-boot-admin-server-ui/target/dist/
-        resource-locations: file://@project.basedir@/../../spring-boot-admin-server-ui/target/dist/
-        cache-templates: false
-
 ---
 spring:
   profiles: insecure
@@ -46,14 +29,14 @@ spring:
   profiles: secure
   security:
     user:
-      name: "user"
-      password: "password"
+      name: "johnny"
+      password: "shr3d1t"
   boot:
     admin:
       client:
-        username: "user"       #These two are needed so that the client
-        password: "password"   #can register at the protected server api
+        username: "johnny"       #These two are needed so that the client
+        password: "shr3d1t"   #can register at the protected server api
         instance:
           metadata:
-            user.name: "user"         #These two are needed so that the server
-            user.password: "password" #can access the protected client endpoints
+            user.name: "johnny"         #These two are needed so that the server
+            user.password: "shr3d1t" #can access the protected client endpoints

@@ -1,11 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card, Form, InputGroup, Button } from 'react-bootstrap';
 
-export default class {{objectname}}Form extends React.Component {
-
-	constructor(props) {
-        super(props);
-
 /**
  * GENERATED FILE: DO NOT EDIT!
  * 
@@ -15,23 +10,30 @@ export default class {{objectname}}Form extends React.Component {
  * var {{objectname}}:{ {{#variables}} {{variablename}}: '{{variableval}}',
  * {{/variables}} }
  */
+export default class {{objectname}}Form extends React.Component {
 
-{{#variables}}
+	constructor(props) {
+        super(props);
+
+        {{#variables}}
         this.on{{variablename}}Change = this.on{{variablename}}Change.bind(this);
-{{/variables}}
+        {{/variables}}
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
           {{#variables}}
-            {{variablename}}: props.{{objectname}} ? props.{{objectname}}.{{variablename}} : '{{variableval}}',
+            {{variablename}}: props.{{objectname}} 
+            	? props.{{objectname}}.{{variablename}} : '{{variableval}}',
           {{/variables}}
             error: '',
-            validated: false	
+            validated: false
         };
     }
+            
     {{#variables}}
     
     /**
-	 * Auto-Generated {{objectname}} Data Action Event Listener
+	 * Auto-Generated {{objectname}} 
+	 * Data Action Event Listener
 	 * 
 	 */
     on{{variablename}}Change(e) {
@@ -39,23 +41,17 @@ export default class {{objectname}}Form extends React.Component {
         this.setState(() => ({ {{variablename}}: {{variablename}}val }));
     }
     {{/variables}}
+    
     onSubmit(e) {
         e.preventDefault();
-
-      // if (!this.state.title || !this.state.author || !this.state.published)
-		// {
-      // this.setState(() => ({ error: 'Please set title & author &
-		// published!' }));
-      // } else {
-            this.setState(() => ({ error: '' }));
-            this.props.onSubmit{{objectname}}(
-                {
-                  {{#variables}}
-                    {{variablename}}: this.state.{{variablename}},
-                  {{/variables}}
-                }
-            );
-        // }
+        this.setState(() => ({ error: '' }));
+        this.props.onSubmit{{objectname}}(
+            {
+              {{#variables}}
+                {{variablename}}: this.state.{{variablename}},
+              {{/variables}}
+            }
+        );
     }
 
     render() {
@@ -86,7 +82,7 @@ export default class {{objectname}}Form extends React.Component {
 			          required
 			          type="text"
 			          placeholder="{{variablename}}"
-			          defaultValue="Starter Inc."
+			          defaultvalue="Starter Inc."
 			          value={this.state.{{variablename}}}
 	                  onChange={this.on{{variablename}}Change}
 			        />

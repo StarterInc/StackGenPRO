@@ -28,5 +28,16 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, 'public'),
         historyApiFallback: true
-    }
+    },
+  plugins: [ 
+    new MiniCssExtractPlugin({
+      filename: "style.css"
+    }),
+    new HtmlWebpackPlugin({
+      inject: false,
+      hash: true,
+      template: './src/index.html',
+      filename: './src/index.html'
+    })
+  ]
 };

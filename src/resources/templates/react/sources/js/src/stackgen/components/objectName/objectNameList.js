@@ -1,22 +1,26 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Button, Card } from 'react-bootstrap';
-import {{objectname}} from './{{objectname}}';
-import { remove{{objectname}} } from '../../actions/{{objectname}}s';
 /**
+ * Auto-Generated {{objectname}} Data LIST
+ * 
  * GENERATED FILE: DO NOT EDIT!
  *
- * Auto-Generated {{objectname}} Data LIST
  *
 var {{objectname}}:{
 	{{#variables}}
 		{{variablename}}: '{{variableval}}',
 	{{/variables}}
-}*/
+}
+*/
+import React from 'react';
+import { connect } from 'react-redux';
+import { Button, Card } from 'react-bootstrap';
+
+import {{objectname}} from './{{objectname}}';
+import { remove{{objectname}} } from '../../actions/{{objectname}}s';
+
 
 const {{objectname}}List = (props) => (
     {{=<% %>=}}
-    <Card>
+    <Card className='cardio'>
         <%objectname%> List:
             {props.<%objectname%>s.map(<%objectnamevarname%> => {
             	const {id} = <%objectnamevarname%>;

@@ -17,9 +17,17 @@ import org.slf4j.LoggerFactory;
 import io.starter.ignite.generator.Main;
 import io.starter.ignite.generator.SwaggerGen;
 
+/**
+ * This Servlet is responsible for the primary 
+ * functionality of the StackGen public service
+ * 
+ * @author john
+ *
+ */
 public class IgniteServlet implements Servlet {
 
-	private String					message			= "PLEASE ENTER PARAMETER: <br/><a href='?generateKey=true'>generate key</a><br/><a href='?generateService=true'>generate service</a><br/><a href='?specFile='>enter specfile</a>";
+	private StackGenUtils			data			= new StackGenUtils(
+			"PLEASE ENTER PARAMETER: <br/><a href='?generateKey=true'>generate key</a><br/><a href='?generateService=true'>generate service</a><br/><a href='?specFile='>enter specfile</a>");
 
 	// Ignite output root
 	private static String			JAVA_GEN_FOLDER	= (System
@@ -32,19 +40,16 @@ public class IgniteServlet implements Servlet {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public ServletConfig getServletConfig() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getServletInfo() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -52,7 +57,7 @@ public class IgniteServlet implements Servlet {
 	public void init(ServletConfig arg0) throws ServletException {
 
 		// Do required initialization
-		message = "Starter Ignite Generator";
+		data.message = "Starter Ignite Generator";
 	}
 
 	@Override
@@ -86,7 +91,7 @@ public class IgniteServlet implements Servlet {
 			out.flush();
 		} else {
 			out = response.getWriter();
-			out.println("<h1>" + message + "</h1>");
+			out.println("<h1>" + data.message + "</h1>");
 		}
 		//
 
@@ -130,9 +135,7 @@ public class IgniteServlet implements Servlet {
 					+ job.getString(k));
 		}
 		String inputSpecFile = "simple_cms.yml";
-
 		Main.generateApp(job);
-
 	}
 
 }

@@ -1,18 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Row, Col } from 'react-bootstrap';
 
 {{#dataobjects}}
 import {{objname}}List from './{{objname}}/{{objname}}List';
 {{/dataobjects}}
-const DashBoard = () => (
-    <div className='container__list'>
-    <Link to={`/fieldmapper`}>
-        <b>FIELD MAPPER</b>
-    </Link>
+
+/**
+ * 
+ */
+const ObjectMenu = () => (
+    <Row>
     {{#dataobjects}}
       <{{objname}}List />
     {{/dataobjects}}
-    </div>
+    </Row>
 );
 
-export default DashBoard;
+export default ObjectMenu;

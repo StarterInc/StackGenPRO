@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react"
-import "../../styles/components/fieldmapper.scss"
 import useDrag from "../../hooks/useDrag"
 import View from "./view"
 
