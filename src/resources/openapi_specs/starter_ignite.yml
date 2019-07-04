@@ -1,15 +1,15 @@
 swagger: '2.0'
 info:
-  description: This is the Starter Ignite API
+  description: This is the Starter StackGen API
   version: 1.0.0
-  title: Starter Ignite API
+  title: Starter StackGen API
   # put the contact info for your development or API team
   contact:
-    email: info@ignite.starter.io
+    email: info@StackGen.io
   license:
     name: AGPL 3.0
     url: https://www.gnu.org/licenses/agpl-3.0.html
-  termsOfService: http://ignite.starter.io/tos/
+  termsOfService: http://StackGen.io/tos/
 servers:
   url: https://{username}.automator.ai:{port}/{basePath}
   description: The production API server
@@ -25,26 +25,7 @@ servers:
       default: '8443'
     basePath:
       # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `v2`
-      default: v1
-  url: https://db.aws.com
-  description: The production DATABASE server
-  variables:
-    driver:
-      default: com.mysql.Driver
-      description: this is the db driver to use to connect to generated DB
-    username:
-      default: demo
-      description: this is the username to use to connect to generated DB
-    password:
-      default: demo
-      description: this is the password to use to connect to generated DB
-    port:
-      enum:
-        - '3443'
-      default: '3443'
-    basePath:
-      # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `v2`
-      default: v1      
+      default: v2      
 # tags are used for organizing operations
 tags:
 - name: admins
@@ -108,7 +89,7 @@ paths:
 securityDefinitions:
   automator_auth:
     type: "oauth2"
-    authorizationUrl: "http://ignite.starter.io/oauth/dialog"
+    authorizationUrl: "http://StackGen.io/oauth/dialog"
     flow: "implicit"
     scopes:
       write:items: "modify items in your account"
@@ -527,7 +508,7 @@ definitions:
         description: "relative path to the MyBatis source files"
       myBatisJava:
         type: "string"
-        example: "gen/src/main/java/io/starter/ignite/model/"
+        example: "gen/src/main/java/io/starter/StackGen/model/"
         maxLength: 256 
         description: "path for the MyBatis Java model output files"     
       starterIgniteSecureKey:
@@ -542,7 +523,7 @@ definitions:
         description: "database for the system"          
       dbName:
         type: "string"
-        example: "ignite"
+        example: "StackGen"
         maxLength: 256 
         description: "db schema for the system - must exist prior to initialization"          
       dbUser:
@@ -571,7 +552,7 @@ definitions:
         maxLength: 100000    
       artifactId:
         type: "string"
-        example: "ignite"
+        example: "StackGen"
         maxLength: 256 
         description: "database for the system"      
       status:
@@ -637,5 +618,5 @@ definitions:
       message:
         type: "string" 
 externalDocs:
-  description: "Find out more about Starter Ignite"
-  url: "http://ignite.starter.io/"    
+  description: "Find out more about Starter StackGen"
+  url: "http://StackGen.io/"    

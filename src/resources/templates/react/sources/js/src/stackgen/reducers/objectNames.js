@@ -26,7 +26,7 @@ export default (state = {{objectnamevarname}}sReducerDefaultState, action) => {
                     return {{objectnamevarname}};
                 }
             });
-        case 'GET_{{objectnameupper}}':
+        case 'GET_{{objectnameupper}}S':
             return action.{{objectnamevarname}}s;
         default:
             return state;

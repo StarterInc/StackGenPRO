@@ -22,16 +22,4 @@ public class StackGenUtilsIT {
 		assertNotNull(job);
 
 	}
-
-	// testX
-	@Test
-	public void testX() throws JsonParseException, JsonMappingException, IOException {
-
-		String hostURL = "http://localhost:8100/api-docs";
-		JSONObject job = StackGenUtils.loadSchema(hostURL);
-
-		assertNotNull(job);
-
-	}
-
 }

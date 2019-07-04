@@ -4,9 +4,9 @@ swagger: '2.0'
         # format: uuid
         # example: d290f1ee-6c54-4b01-90e6-d701748f0851
 info:
-  description: This is the Starter Simple CSAT API
+  description: This is the  HappyPath CSAT API
   version: 1.0.0
-  title: Simple CSAT API
+  title: HappyPath CSAT API
   # put the contact info for your development or API team
   contact:
     email: colette@starter.io
@@ -16,7 +16,7 @@ info:
   termsOfService: http://starter.io/tos/
 servers:
   url: https://{username}.starter.io:{port}/{basePath}
-  description: The production Stripe Simple CSAT API server
+  description: The production Stripe HappyPath CSAT API server
   variables:
     username:
       # note! no enum here means it is an open value
@@ -28,7 +28,8 @@ servers:
         - '443'
       default: '8443'
     basePath:
-      # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `v2`
+      # open meaning there is the opportunity to use 
+      # special base paths as assigned by the provider, default is `v1`
       default: v1
 # tags are used for organizing operations
 tags:

@@ -20,8 +20,12 @@ const Header = () => (
 		    	<NavLink to={`/fieldmapper`}>Field Mapper</NavLink>
 		    </Nav.Link> 
 		    
+		    <NavLink to='/swagger' activeClassName='activeNav'>API Swagger UI</NavLink>
+	    	<NavLink to='/api-docs' activeClassName='activeNav'>API (JSON)</NavLink>
+	    	
 	    	<NavLink to='/login' activeClassName='activeNav'>Login</NavLink>
-		
+			
+	    	
 		    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
 		      
 		        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>

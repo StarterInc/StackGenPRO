@@ -1,0 +1,22 @@
+# Use postgres/example user/password credentials
+# TODO: https://spring.io/guides/gs/spring-boot-docker/
+# https://www.callicoder.com/spring-boot-docker-example/
+
+version: '3.1'
+
+services:
+
+# TODO: add following:
+  # admin / monitoring service
+  # DB service
+  # one app instance
+
+
+# DB
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432

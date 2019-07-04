@@ -60,11 +60,17 @@ export default class {{objectname}}Form extends React.Component {
           <>
     		<Card style={({ backgroundColor: "black" }, { width: "100%" })}>
             <Card.Body>
-              <Card.Title>Create New Instance</Card.Title>
+              <Card.Title>Create New {{objectname}}</Card.Title>
               <Card.Text>
-                Configure the Code Generation for your API Build
+                Enter values for the new {{objectname}}
               </Card.Text>
-            {this.state.error && <p className='error'>{this.state.error}</p>}            
+            {this.state.error && <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Error Message: </strong> {this.state.error}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            
+          </div>}            
                 <Form
 	                noValidate
 	                validated={validated}
@@ -92,7 +98,7 @@ export default class {{objectname}}Form extends React.Component {
 			     </Form.Group>
 			     
               	{{/variables}}
-                <Button>Add {{objectname}}</Button>
+              	<Button onClick={this.onSubmit}>Add {{objectname}}</Button>
               </Form>
             </Card.Body>
             </Card>

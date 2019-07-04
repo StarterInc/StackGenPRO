@@ -38,6 +38,11 @@ public class IgniteServlet implements Servlet {
 	protected static final Logger	logger			= LoggerFactory
 			.getLogger(IgniteServlet.class);
 
+	private static String			DB_PASSWORD		= (System
+			.getProperty("DB_PASSWORD") != null
+					? System.getProperty("DB_PASSWORD")
+					: "nopass");;
+
 	@Override
 	public void destroy() {
 
@@ -79,9 +84,16 @@ public class IgniteServlet implements Servlet {
 		} else if (request.getParameter("generateService") != null) {
 			// run that junk
 			try {
-				swaggerPluginMerge();
+				JSONObject job = null;
+
+				String sj = request.getParameter("serviceJSON");
+				if (sj != null) {
+					job = new JSONObject(sj);
+				}
+				swaggerPluginMerge(job);
 			} catch (Exception e) {
 				logger.error("Generating Stack failed: " + e);
+				throw new ServletException(e);
 			}
 		} else if (request.getParameter("specFile") != null) {
 			SwaggerGen swaggerGen = new SwaggerGen(
@@ -97,36 +109,37 @@ public class IgniteServlet implements Servlet {
 
 	}
 
-	public void swaggerPluginMerge() {
+	public void swaggerPluginMerge(JSONObject job) {
 
-		String inputJSON = "{\n"
+		if (job == null) {
+			String inputJSON = "{\n"
 
-				+ "  \"adminServerHost\": \"www.wooly.io\",\n"
-				+ "  \"adminServerPort\": \"8080\",\n"
-				+ "  \"javaGenPath\": \"/tmp/gen\",\n"
-				+ "  \"artifactId\": \"generio\",\n"
-				+ "  \"schemaName\": \"starter\",\n"
-				+ "  \"schemaFile\": \"starter_ignite.yml\",\n"
-				+ "  \"dbGenDropTable\": \"true\",\n"
-				+ "  \"dbHostName\": \"ls-094900477e4b2d50d66dddfaa480f1ac3415eb70.cci10ee08gpg.us-west-2.rds.amazonaws.com\",\n"
-				+ "  \"dbName\": \"starter\",\n"
-				+ "  \"dbPassword\": \"fr33d0m1\",\n"
-				+ "  \"dbUsername\": \"igniteuser\",\n"
-				+ "  \"hostName\": \"localhost\",\n"
-				+ "  \"hostPort\": \"8099\",\n" + "  \"id\": \"0\",\n"
-				+ "  \"starterIgniteSecureKey\": \"W3ngNBCp80mgG0wwjTslfeQoG2hQa9ryqbemTEX01Wg=\",\n"
-				+ "  \"keySpec\": \"{keyOwner:111, keySource:'session | system'}\",\n"
-				+ "  \"keyVersion\": \"0\",\n" + "  \"mybatisJava\": \""
-				+ JAVA_GEN_FOLDER
-				+ "/src/main/java/io/starter/generio/model/\",\n"
-				+ "  \"mybatisMain\": \"" + JAVA_GEN_FOLDER + "/src/\",\n"
-				+ "  \"name\": \"GENERIO Microservice API\",\n"
-				+ "  \"ownerId\": \"10\",\n"
-				+ "  \"schemaData\": \"(optional) Complete OpenAPI Schema Contents...\",\n"
-				+ "  \"status\": \"available\"\n" + "}";
+					+ "  \"adminServerHost\": \"www.wooly.io\",\n"
+					+ "  \"adminServerPort\": \"8080\",\n"
+					+ "  \"javaGenPath\": \"/tmp/gen\",\n"
+					+ "  \"artifactId\": \"generio\",\n"
+					+ "  \"schemaName\": \"starter\",\n"
+					+ "  \"schemaFile\": \"starter_ignite.yml\",\n"
+					+ "  \"dbGenDropTable\": \"true\",\n"
+					+ "  \"dbHostName\": \"ls-094900477e4b2d50d66dddfaa480f1ac3415eb70.cci10ee08gpg.us-west-2.rds.amazonaws.com\",\n"
+					+ "  \"dbName\": \"starter\",\n" + "  \"dbPassword\": \""
+					+ DB_PASSWORD + "\",\n"
+					+ "  \"dbUsername\": \"igniteuser\",\n"
+					+ "  \"hostName\": \"localhost\",\n"
+					+ "  \"hostPort\": \"8099\",\n" + "  \"id\": \"0\",\n"
+					+ "  \"starterIgniteSecureKey\": \"W3ngNBCp80mgG0wwjTslfeQoG2hQa9ryqbemTEX01Wg=\",\n"
+					+ "  \"keySpec\": \"{keyOwner:111, keySource:'session | system'}\",\n"
+					+ "  \"keyVersion\": \"0\",\n" + "  \"mybatisJava\": \""
+					+ JAVA_GEN_FOLDER
+					+ "/src/main/java/io/starter/generio/model/\",\n"
+					+ "  \"mybatisMain\": \"" + JAVA_GEN_FOLDER + "/src/\",\n"
+					+ "  \"name\": \"StackGen Microservice API\",\n"
+					+ "  \"ownerId\": \"10\",\n"
+					+ "  \"schemaData\": \"(optional) Complete OpenAPI Schema Contents...\",\n"
+					+ "  \"status\": \"available\"\n" + "}";
 
-		JSONObject job = new JSONObject(inputJSON);
-
+			job = new JSONObject(inputJSON);
+		}
 		// must be done before "Configuration" instantiated for
 		// first time... :/
 		for (String k : job.keySet()) {

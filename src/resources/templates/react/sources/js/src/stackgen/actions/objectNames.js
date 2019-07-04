@@ -73,7 +73,7 @@ export const get{{objectname}}s = () => {
 
             dispatch(_get{{objectname}}s({{objectname}}s));
         }).catch(error => {
-          alert(error)
+          alert("Unexpected Error in {{objectname}}: " + error)
         });
     };
 };

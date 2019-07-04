@@ -14,7 +14,6 @@ import org.springframework.context.annotation.PropertySources;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 
-@EnableAutoConfiguration
 @EnableAdminServer
 @SpringBootApplication
 @Configuration
