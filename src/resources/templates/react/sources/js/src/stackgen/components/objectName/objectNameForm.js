@@ -1,5 +1,9 @@
 import React from 'react';
 import { Container, Row, Col, Card, Form, InputGroup, Button } from 'react-bootstrap';
+import AlertDismissable from '../AlertDismissable';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux';
+import { add{{objectname}}, edit{{objectname}} } from '../../actions/{{objectname}}s'
 
 /**
  * GENERATED FILE: DO NOT EDIT!
@@ -10,7 +14,7 @@ import { Container, Row, Col, Card, Form, InputGroup, Button } from 'react-boots
  * var {{objectname}}:{ {{#variables}} {{variablename}}: '{{variableval}}',
  * {{/variables}} }
  */
-export default class {{objectname}}Form extends React.Component {
+class {{objectname}}Form extends React.Component {
 
 	constructor(props) {
         super(props);
@@ -30,8 +34,7 @@ export default class {{objectname}}Form extends React.Component {
     }
             
     {{#variables}}
-    
-    /**
+  /**
 	 * Auto-Generated {{objectname}} 
 	 * Data Action Event Listener
 	 * 
@@ -55,50 +58,56 @@ export default class {{objectname}}Form extends React.Component {
     }
 
     render() {
-        const { validated } = this.state
+        const { validated, errorMessage } = this.state
         return (
           <>
+          {errorMessage && <AlertDismissable  className="alert-danger" title="Error">{errorMessage}</AlertDismissable>}
+
     		<Card style={({ backgroundColor: "black" }, { width: "100%" })}>
-            <Card.Body>
-              <Card.Title>Create New {{objectname}}</Card.Title>
-              <Card.Text>
-                Enter values for the new {{objectname}}
-              </Card.Text>
+          <Card.Body>
             {this.state.error && <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>Error Message: </strong> {this.state.error}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            
           </div>}            
                 <Form
-	                noValidate
+	                validate
 	                validated={validated}
 	                form onSubmit={this.onSubmit}
                 >
                 {{#variables}}
-                
                  <Form.Group
-		            as={Col}
-		            md="4"
-		            controlId="validationCustom02"
-	             >
-			        <Form.Label>{{variablename}}</Form.Label>
-			        <Form.Control
-			          required
-			          type="text"
-			          placeholder="{{variablename}}"
-			          defaultvalue="Starter Inc."
-			          value={this.state.{{variablename}}}
-	                  onChange={this.on{{variablename}}Change}
-			        />
-			        <Form.Control.Feedback>
-			          Nice Work!
-			        </Form.Control.Feedback>
-			     </Form.Group>
+                  as={Col}
+                  md="4"
+                  controlId="validationCustom02"
+	              >
+                  <Form.Label>{{variablename}}</Form.Label>
+                  <Form.Control
+                    {{required}}
+                    type="text"
+                    placeholder="{{defaultValue}}"
+                    defaultvalue="{{defaultValue}}"
+                    value={this.state.{{variablename}}}
+                    onChange={this.on{{variablename}}Change}
+                  />
+                  <Form.Control.Feedback>
+                    NICE WORK!
+                  </Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    Please enter a valid {{variablename}} i.e.: {{defaultValue}}
+                  </Form.Control.Feedback>
+			          </Form.Group>
 			     
               	{{/variables}}
-              	<Button onClick={this.onSubmit}>Add {{objectname}}</Button>
+
+                <Button type="submit"
+                    disabled={(validated &&
+                        errorMessage === '')
+                            }>
+                    <span>Add {{objectname}}</span>
+                </Button>
+
               </Form>
             </Card.Body>
             </Card>
@@ -106,5 +115,21 @@ export default class {{objectname}}Form extends React.Component {
           
         );
     }
-              	
 }
+
+/* TODO
+{{objectname}}Form.propTypes = {
+  {{#variables}}
+  {{variablename}}: {{variableproptype}},
+  {{/variables}}
+};*/
+/*
+function mapStateToProps(state) {
+  return { {{objectname}}: state.{{objectname}} }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ add{{objectname}} }, dispatch)
+}
+*/
+export default connect()({{objectname}}Form);

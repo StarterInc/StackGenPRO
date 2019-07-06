@@ -15,6 +15,8 @@ import { edit{{objectname}} } from '../../actions/{{objectname}}s';
  */
 const Edit{{objectname}} = (props) => (
     <Card>
+        <Card.Header>Edit the {{objectname}}</Card.Header>
+        <Card.Body>
         <{{objectname}}Form
             {{objectnamevarname}}={props.{{objectnamevarname}}}
             onSubmit{{objectname}}={({{objectnamevarname}}) => {
@@ -23,6 +25,7 @@ const Edit{{objectname}} = (props) => (
                 props.history.push('/');
             }}
         />
+        </Card.Body>
     </Card>
 );
 

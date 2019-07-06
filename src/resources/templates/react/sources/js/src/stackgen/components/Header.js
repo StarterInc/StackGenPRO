@@ -23,7 +23,9 @@ const Header = () => (
 		    <NavLink to='/swagger' activeClassName='activeNav'>API Swagger UI</NavLink>
 	    	<NavLink to='/api-docs' activeClassName='activeNav'>API (JSON)</NavLink>
 	    	
-	    	<NavLink to='/login' activeClassName='activeNav'>Login</NavLink>
+			<Nav.Link>
+	    		<NavLink to={'/login'} activeClassName='activeNav'>Login</NavLink>
+			</Nav.Link>
 			
 	    	
 		    <NavDropdown title="Dropdown" id="basic-nav-dropdown">

@@ -10,30 +10,25 @@
  * 
  */
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Col, Row } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 const {{objectname}} = ({ {{#variables}}
   {{variablename}},
   {{/variables}} }) => (
-    <>
-	      <Link to={`/{{objectname}}/edit/${id}`}><b>edit</b></Link>
-	    	details
-    	{{#variables}}
-    		{{variablename}}
-    		{ {{variablename}} }
-    	{{/variables}}
+    <>	
+	{{#variables}}
+		<td>
+			{ {{variablename}} }
+		</td>
+	{{/variables}}
     </>
 );
 
-/** TODO: PropTypes!
 {{objectname}}.propTypes = {
-		
 	{{#variables}}
-		{{variablename}} : PropTypes.string,
-	{{/variables}}
-		
+		{{variablename}} : PropTypes.{{variableType}},
+	{{/variables}}		
 };
-*/
+
 export default connect()({{objectname}});

@@ -1,33 +1,39 @@
 /**
- * Reducer for {{objectnamevarname}}
+ * Reducer for {{objectname}}
  * 
  * GENERATED FILE: DO NOT EDIT!
  * 
  */
-const {{objectnamevarname}}sReducerDefaultState = [];
+const {{objectname}}sReducerDefaultState = [];
 
-export default (state = {{objectnamevarname}}sReducerDefaultState, action) => {
+export default (state = {{objectname}}sReducerDefaultState, action) => {
     switch (action.type) {
         case 'ADD_{{objectnameupper}}':
             return [
                 ...state,
-                action.{{objectnamevarname}}
+                action.{{objectname}}
             ];
         case 'REMOVE_{{objectnameupper}}':
             return state.filter(({ id }) => id !== action.id);
         case 'EDIT_{{objectnameupper}}':
-            return state.map(({{objectnamevarname}}) => {
-                if ({{objectnamevarname}}.id === action.id) {
+            return state.map(({{objectname}}) => {
+                if ({{objectname}}.id === action.id) {
                     return {
-                        ...{{objectnamevarname}},
+                        ...{{objectname}},
                         ...action.updates
                     };
                 } else {
-                    return {{objectnamevarname}};
+                    return {{objectname}};
                 }
             });
         case 'GET_{{objectnameupper}}S':
-            return action.{{objectnamevarname}}s;
+            return action.{{objectname}}s;
+
+        case '{{objectnameupper}}_ERROR':
+            return {
+                errorMessage: action.errorMessage
+            };
+
         default:
             return state;
     }

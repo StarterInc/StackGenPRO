@@ -9,39 +9,49 @@ import { Card, Row, Col } from "react-bootstrap"
 
 import "./Login.css"
 
-function Login() {
+const inputs = [{
+	name: "username",
+	placeholder: "username",
+	type: "text"
+  },{
+	name: "password",
+	placeholder: "password",
+	type: "password"
+  },{
+	type: "submit",
+	value: "Submit",
+	className: "btn"
+  }]
+   
+  const props = {
+	name: 'loginForm',
+	method: 'POST',
+	action: '/perform_login',
+	inputs: inputs
+  }
+   
+  const params = new URLSearchParams(window.location.search)
+   
+  export default class Login extends React.Component {
 
-  return (
-    <div className="dialogBgBlur">
-      <Card>
-      <Row>
-      <Col>
-      <h1>LOGIN HERE</h1>
-      <p>User login page</p>
-		<form name="f" action="login" method="POST">
-		    <table>
-		        <tr>
-		            <td>User:</td>
-		            <td>
-		            	<input type="text" name="username" value=""/>
-		            </td>
-		        </tr>
-		        <tr>
-		            <td>Password:</td>
-		            <td>
-		            	<input type="password" name="password" value=""/>
-		            </td>
-		        </tr>
-		        <tr>
-		            <td><input name="submit" type="submit" value="submit" /></td>
-		        </tr>
-		    </table>
-		</form>
-      </Col>
-      </Row>
-      </Card>
-    </div>
-  )
-}
-
-export default Login
+    constructor(props) {
+          super(props);
+    }
+    render() {
+        return (
+        <div>
+          <Card>
+          <Row>
+          <Col>
+          <h1>Login</h1>
+          <p>login with your {{appname}} username</p>   
+          
+        
+   
+          </Col>
+          </Row>
+          </Card>
+        </div>
+      )
+    }
+  };

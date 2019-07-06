@@ -25,11 +25,11 @@ const AppRouter = () => (
             <Switch>
                 <Route path="/" component={ObjectMenu} exact={true} />
                 <Route path="/fieldmapper" component={FieldMapper} exact={true} />
-                <Route path="/loginform" component={Login} exact={true} />
+                <Route path="/login" component={Login} exact={true} />
                 <Route path="/logout" component={Logout} exact={true} />
                 {{#dataobjects}}
                 <Route path="/{{objname}}/" component={Add{{objname}}} />
-                <Route path="/{{objname}}/edit/" component={Edit{{objname}}} />
+                <Route path="/{{objname}}/edit/:id" component={Edit{{objname}}} />
                 {{/dataobjects}}
                 <Route component={NotFound} />
 

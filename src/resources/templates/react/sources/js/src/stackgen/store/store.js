@@ -32,5 +32,6 @@ const CombinedReducer = combineReducers({
 
 export default () => {
     return createStore(CombinedReducer,
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
       applyMiddleware(thunk));
 };

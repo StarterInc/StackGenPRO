@@ -12,27 +12,33 @@ var {{objectname}}:{
 */
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Card } from 'react-bootstrap';
-
-import {{objectname}} from './{{objectname}}';
+import { Card, Table } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { remove{{objectname}} } from '../../actions/{{objectname}}s';
 
+import {{objectname}} from './{{objectname}}';
+import {{objectname}}Header from './{{objectname}}Header';
 
 const {{objectname}}List = (props) => (
     {{=<% %>=}}
-    <Card className='cardio'>
-        <%objectname%> List:
-            {props.<%objectname%>s.map(<%objectnamevarname%> => {
+    <Card>
+    <Card.Header><%objectname%> List:</Card.Header>
+        <Card.Body>
+        <Table striped hover responsive borderless size="lg">
+            <<%objectname%>Header/>  
+            {props.<%objectname%>s ? props.<%objectname%>s.map(<%objectnamevarname%> => {
             	const {id} = <%objectnamevarname%>;
                 return (
-                    <div key={<%objectnamevarname%>.id} id={<%objectnamevarname%>.id}>
+                    <tr key={<%objectnamevarname%>.id} id={<%objectnamevarname%>.id}>
                         <<%objectname%> {...<%objectnamevarname%>} />
-                        <Button onClick={ () => {
-                        	props.dispatch(remove<%objectname%>( { id } ));
-                        }}>delete</Button>
-                    </div>
+                        <td><Button onClick={ () => { props.dispatch(remove<%objectname%>( { id } )); }}>delete</Button></td>
+                    	<td><Link to={`/<%objectname%>/edit/${id}`}><b>edit</b></Link></td>
+                    </tr>
                 );
-            })}
+            }): <tr><td>no results</td></tr> }
+            </Table>
+        </Card.Body>
     </Card>
     <%={{  }}=%>
 );

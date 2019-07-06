@@ -24,9 +24,14 @@ export const add{{objectname}} = ({{objectnamevarname}}Data = {
         	{{/variables}}
         };
 
-        return axios.post('{{objectname}}/{param}', {{objectnamevarname}}).then(result => {
+        axios.post('{{objectname}}/{param}', {{objectnamevarname}})
+          .then(result => {
             dispatch(_add{{objectname}}(result.data));
-        });
+          })
+          .catch(function (error) {
+            dispatch(_{{objectnamevarname}}Error(`ERROR posting {{objectname}} ${JSON.stringify(error)}`));
+            console.log(error);
+          });
     };
 };
 
@@ -39,7 +44,9 @@ export const remove{{objectname}} = ({ id } = {}) => {
     return (dispatch) => {
         return axios.delete(`{{objectname}}/${id}`).then(() => {
             dispatch(_remove{{objectname}}({ id }));
-        })
+        }).catch(function (error){
+            dispatch(_{{objectnamevarname}}Error(`ERROR removing {{objectname}} ${JSON.stringify(error)}`));
+        });
     }
 };
 
@@ -53,12 +60,14 @@ export const edit{{objectname}} = (id, updates) => {
     return (dispatch) => {
         return axios.put(`{{objectname}}/${id}`, updates).then(() => {
             dispatch(_edit{{objectname}}(id, updates));
+        }).catch(function (error){
+            dispatch(_{{objectnamevarname}}Error(`ERROR updating {{objectname}} ${JSON.stringify(error)}`));
         });
     }
 };
 
 const _get{{objectname}}s = ({{objectname}}s) => ({
-    type: 'GET_{{objectnameupper}}',
+    type: 'GET_{{objectnameupper}}S',
     {{objectname}}s
 });
 
@@ -69,11 +78,16 @@ export const get{{objectname}}s = () => {
 
             result.data.forEach(item => {
                 {{objectname}}s.push(item);
-            });
+            })
 
             dispatch(_get{{objectname}}s({{objectname}}s));
-        }).catch(error => {
-          alert("Unexpected Error in {{objectname}}: " + error)
+        }).catch(function (error){
+            dispatch(_{{objectnamevarname}}Error(`ERROR fetching {{objectname}} list ${JSON.stringify(error)}`));
         });
     };
 };
+
+const _{{objectnamevarname}}Error = ({ message } = {}) => ({
+    type: '{{objectnameupper}}_ERROR',
+    message
+});

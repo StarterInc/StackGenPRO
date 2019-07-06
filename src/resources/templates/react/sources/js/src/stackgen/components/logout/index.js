@@ -21,7 +21,7 @@ function Logout() {
   const [mappingValues, setValue] = useState(mappings)
 
   return (
-    <div className="dialogBgBlur">
+    <div>
       <Card>
       <Row>
       <Col>

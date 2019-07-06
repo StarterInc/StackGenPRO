@@ -23,12 +23,7 @@ const Add{{objectname}} = (props) => (
     </Card>
 );
 
-function mapStateToProps(state){
-	return { {{objectname}} : state.{{objectnamevarname}} }
+function mapStateToProps(state) {
+    return { {{objectname}}: state.{{objectname}} }
 }
-
-function mapDispatchToProps(dispatch){
-	return bindActionCreators( { add{{objectname}} }, dispatch)
-}
-
-export default connect(mapDispatchToProps, mapStateToProps )(Add{{objectname}});
+export default connect(mapStateToProps)(Add{{objectname}});
