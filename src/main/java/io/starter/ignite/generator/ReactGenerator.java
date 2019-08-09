@@ -66,7 +66,7 @@ public class ReactGenerator extends Main implements ReactGenConfiguration {
         // copy React files into gen project
         Main.copyStaticFiles(sf);
 
-        ReactGen.generateReactNative();
+        ReactGen.generateReact();
 
     }
 

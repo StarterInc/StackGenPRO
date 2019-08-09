@@ -1,7 +1,11 @@
 /**
  * Main entrypoint of the StackGen React app.
  *
- * GENERATED FILE: DO NOT EDIT!
+ * {{GENERATED_MESSAGE}}
+ * {{LICENSE}}
+ * {{COMPANY_INFO}}
+ * {{CONTACT_INFO}}}
+
  *
  *
  */
@@ -44,6 +48,6 @@ function initAllData(){
 }
 
   // TODO: fix data fetch here not hardcoded to getUsers()
-store.dispatch(getUsers()).then(() => {
+// store.dispatch(getUsers()).then(() => {
     ReactDOM.render(appRendering, document.getElementById('root'));
-});
+// });

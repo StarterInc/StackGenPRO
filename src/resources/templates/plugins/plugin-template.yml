@@ -1,0 +1,25 @@
+# StackGen Plugin Package Configuration
+# auto generated stack components
+
+# ${PLUGIN_DESCRIPTION}
+# ${PLUGIN_NAME}
+# ${PLUGIN_AUTHOR}
+# ${PLUGIN_URL}
+
+# Java Spring Plugin:
+plugin: ${LANG}-${PLUGIN_SLUG}-service
+	directories:
+		- /ignite
+ 			- /ecommerce
+ 			
+ 			- ecommerce.yml <- generates domain DB and CRUDops, basic UI
+	 			- /backend
+ 					- EcommerceServiceImpl.java <- class loaded optionally via endpoint contains custom REST endpoints and logic
+ 				# node module front end components
+ 				- /frontend
+		 			- ecommerce.css <- optional front end Style
+ 					- ecommerce.jsx <- optional front end View Template
+ 					- /components
+	 					- Password
+	 						- index.jsx
+ 							- styles.css

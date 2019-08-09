@@ -1,4 +1,4 @@
-package io.starter.ignite.generator.react;
+package io.starter.ignite.plugin;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.starter.ignite.generator.ReactGenConfiguration;
+import io.starter.ignite.generator.react.EntityObject;
 import io.starter.ignite.model.DataField;
 import io.starter.ignite.security.securefield.SecureField;
 import io.starter.toolkit.StringTool;
@@ -19,7 +20,7 @@ import io.swagger.annotations.Extension;
 import io.swagger.annotations.ExtensionProperty;
 
 /**
- * Contains and initializes Redux template Mapping info for a passed in
+ * Contains and initializes Redux template Mplugining info for a passed in
  * EntityObject. <br/>
  * Example Redux State Template Code:<code>
  * <p>
@@ -36,10 +37,10 @@ import io.swagger.annotations.ExtensionProperty;
  *
  * @author John McMahon (@TechnoCharms)
  */
-public class AppEntityObject implements ReactGenConfiguration {
+public class PluginEntityObject implements ReactGenConfiguration {
 
 	private static final org.slf4j.Logger			logger					= LoggerFactory
-			.getLogger(AppEntityObject.class);
+			.getLogger(PluginEntityObject.class);
 
 	private static final Class<SecureField>			SECURE_ANNOTATION_CLASS	= SecureField.class;
 	private static final Class<DataField>			DATA_ANNOTATION_CLASS	= DataField.class;
@@ -47,7 +48,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 
 	private static final Class<ApiModelProperty>	ANNOTATION_CLASS		= ApiModelProperty.class;
 
-	public String									appname;
+	public String									pluginname;
 	public String									serverhost				= ReactGenConfiguration.defaultHostname;
 	public String									serverport				= ReactGenConfiguration.defaultPort;
 	public String									objectname;
@@ -65,9 +66,9 @@ public class AppEntityObject implements ReactGenConfiguration {
 	 *
 	 * @param cx
 	 */
-	public AppEntityObject(String app, Class<?> cx) {
+	public PluginEntityObject(String plugin, Class<?> cx) {
 
-		appname = app;
+		pluginname = plugin;
 		objectname = cx.getName().substring(cx.getName().lastIndexOf(".") + 1);
 		objectnameupper = objectname.toUpperCase();
 		objectnamevarname = String.valueOf(objectname.charAt(0)).toLowerCase()
@@ -79,7 +80,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 		}).forEach(s -> {
 			processMethod(s);
 			if (!isValid())
-				logger.error("WARNING: AppEntityObject is invalid: "
+				logger.error("WARNING: PluginEntityObject is invalid: "
 						+ s.toString());
 		});
 
@@ -89,7 +90,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 		}).forEach(s -> {
 			processField(s);
 			if (!isValid())
-				logger.error("WARNING: AppEntityObject is invalid: "
+				logger.error("WARNING: PluginEntityObject is invalid: "
 						+ s.toString());
 		});
 	}
@@ -127,7 +128,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 	private void processMethod(Method s) {
 		JsonProperty jf = s.getAnnotation(FIELD_ANNOTATION_CLASS);
 		ApiModelProperty apia = s.getAnnotation(ANNOTATION_CLASS);
-		DataField df = s.getAnnotation(DATA_ANNOTATION_CLASS);
+
 		Object val = null;
 		if (jf != null)
 			val = jf.value();
@@ -154,7 +155,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 				} catch (NoSuchFieldException | SecurityException e1) {
 					e1.printStackTrace();
 					throw new RuntimeException(
-							"ERROR in AppEntityObject.processMethod : "
+							"ERROR in PluginEntityObject.processMethod : "
 									+ s.toGenericString() + " :"
 									+ "ERROR_AEO_PM_" + name);
 				}
@@ -231,7 +232,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 	 */
 	public boolean isValid() {
 
-		if (appname == null)
+		if (pluginname == null)
 			return false;
 
 		if (objectname == null)
@@ -248,7 +249,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 	 */
 	@Override
 	public String toString() {
-		String sbout = "AppEntityObject: " + this.objectname + "\r\n";
+		String sbout = "PluginEntityObject: " + this.objectname + "\r\n";
 		for (Variable v : variables) {
 			sbout += v.toString() + "\r\n";
 		}

@@ -1,15 +1,19 @@
 spring:
   application:
-    name: starter-ignite-admin
+    name: stackgen-service-instance
   boot:
     admin:
       client:
-        url: "${adminServiceURL}"
+        url: "${adminServiceURL}"   # Comma separated ordered list of URLs of the Spring Boot Admin server to register at. This triggers the AutoConfiguration. Mandatory.
         instance:
-          service-base-url: "${adminServiceURL}"
+          service-base-url: "https://${serviceHost}:${servicePort}"
+        username: "${adminUser}"         # Username and password in case the SBA Server api is protected with HTTP Basic authentication.
+        password: "${adminPassword}"
   profiles:
     active:
       - secure
+  mustache:
+     check-template-location: false
 
 management:
   endpoints:
@@ -40,3 +44,5 @@ spring:
           metadata:
             user.name: "${adminUser}"         #These two are needed so that the server
             user.password: "${adminPassword}" #can access the protected client endpoints
+
+info.tags.security: secured            

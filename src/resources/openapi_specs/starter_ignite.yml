@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  description: This is the Starter StackGen API
+  description: Starter StackGen API
   version: 1.0.0
   title: Starter StackGen API
   # put the contact info for your development or API team
@@ -9,9 +9,9 @@ info:
   license:
     name: AGPL 3.0
     url: https://www.gnu.org/licenses/agpl-3.0.html
-  termsOfService: http://StackGen.io/tos/
+  termsOfService: http://stackgen.io/tos/
 servers:
-  url: https://{username}.automator.ai:{port}/{basePath}
+  url: https://{username}.stackgen.io:{port}/{basePath}
   description: The production API server
   variables:
     username:
@@ -20,9 +20,8 @@ servers:
       description: this value is assigned by the service provider
     port:
       enum:
-        - '8443'
-        - '443'
-      default: '8443'
+        - '8100'
+      default: '8100'
     basePath:
       # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `v2`
       default: v2      
@@ -89,15 +88,15 @@ paths:
 securityDefinitions:
   automator_auth:
     type: "oauth2"
-    authorizationUrl: "http://StackGen.io/oauth/dialog"
+    authorizationUrl: " https://{username}.stackgen.io:{port}/oauth"
     flow: "implicit"
     scopes:
-      write:items: "modify items in your account"
-      read:items: "read your items"
+      write:items: "modify owned items"
+      read:items: "read owned items"
   api_key:
     type: "apiKey"
     name: "api_key"
-    in: "header"                    
+    in: "header"
 definitions:
   Account:
     type: "object"
@@ -125,7 +124,7 @@ definitions:
         - "closed"
         - "executed"
       verified:
-        type: "boolean"
+        type: boolean
         default: false
     xml:
       name: "Account"
@@ -169,7 +168,7 @@ definitions:
         - "void"
         - "refund"
       verified:
-        type: "boolean"
+        type: boolean
         default: false
     xml:
       name: "Account"
@@ -193,7 +192,7 @@ definitions:
         - "approved"
         - "executed"
       complete:
-        type: "boolean"
+        type: boolean
         default: false
     xml:
       name: "Order"
@@ -291,6 +290,41 @@ definitions:
         type: string
         format: url
         example: https://twitter.com/StackGen
+
+# Spring Security User fields
+
+   # isCredentialsNonExpired
+      credentialNonExpired:
+        description: Spring Security User field whether the user's login credentials have expired
+        type: boolean
+        default: true
+   
+   # isAccountEnabled
+      accountEnabled:
+        description: Spring Security User field whether the user account is enabled
+        type: boolean
+        default: true
+             
+   # isAccountNonLocked
+      accountNonLocked:
+        description: Spring Security User field whether the user account is locked
+        type: boolean
+        default: true
+          
+   # isAccountNonExpired
+      accountNonExpired:
+        description: Spring Security User field whether the user account has expired
+        type: boolean
+        default: false      
+   
+   # getAuthorities
+   # TODO: x-starter-dataField: hidden=true
+      authorities:
+         description: Spring Security User representation of the granted authority (or <code>null</code> if the granted authority cannot be expressed as a <code>String</code> with sufficient precision).
+         type: array
+         items:
+           type: string
+     
     xml:
       name: "User"
   Role:
@@ -391,7 +425,7 @@ definitions:
         - "DNC"
         - "ADMIN"
       complete:
-        type: "boolean"
+        type: boolean
         default: false
     xml:
       name: "ContactMethod"
@@ -406,9 +440,11 @@ definitions:
       fingerprint:
         type: string
         example: DK$DFSJaraDD
+        x-starter-dataField: hidden=true
       sourceType:
         type: string
         example: user
+        hidden: true
       sourceOwner:
         type: string
         example: userId:1000

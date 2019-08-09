@@ -1,13 +1,18 @@
 /*
  * Logout Form
  *
- * GENERATED FILE: DO NOT EDIT!
+ * {{GENERATED_MESSAGE}}
+ * {{LICENSE}}
+ * {{COMPANY_INFO}}
+ * {{CONTACT_INFO}}
+ *
  *
  */
 import React, { useState } from "react"
 import { Card, Row, Col } from "react-bootstrap"
 
 import "./Logout.css"
+
 const mappings = {
   {{#dataobjects}}
    {{index}}: {
@@ -15,8 +20,8 @@ const mappings = {
     state: "mapping"
   },
   {{/dataobjects}}
-
 }
+
 function Logout() {
   const [mappingValues, setValue] = useState(mappings)
 

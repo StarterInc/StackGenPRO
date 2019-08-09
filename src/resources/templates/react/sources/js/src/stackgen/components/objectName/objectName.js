@@ -1,7 +1,11 @@
 /**
- * Auto-Generated {{objectname}} Data Object
- * 
- * GENERATED FILE: DO NOT EDIT!
+ * {{objectname}} Data Object
+ *
+ * {{GENERATED_MESSAGE}}
+ * {{LICENSE}}
+ * {{COMPANY_INFO}}
+ * {{CONTACT_INFO}}
+ *
  * 
  * var {{objectname}}:{ {{#variables}} {{variablename}}: '{{variableval}}',
  * {{/variables}} }
@@ -10,8 +14,8 @@
  * 
  */
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const {{objectname}} = ({ {{#variables}}
   {{variablename}},
@@ -24,11 +28,5 @@ const {{objectname}} = ({ {{#variables}}
 	{{/variables}}
     </>
 );
-
-{{objectname}}.propTypes = {
-	{{#variables}}
-		{{variablename}} : PropTypes.{{variableType}},
-	{{/variables}}		
-};
 
 export default connect()({{objectname}});

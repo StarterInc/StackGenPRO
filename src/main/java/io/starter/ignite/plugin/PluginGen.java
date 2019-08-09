@@ -1,4 +1,4 @@
-package io.starter.ignite.generator;
+package io.starter.ignite.plugin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,17 +22,21 @@ import com.github.mustachejava.MustacheFactory;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.MethodSpec;
 
-import io.starter.ignite.generator.react.AppEntityObject;
+import io.starter.ignite.generator.Gen;
+import io.starter.ignite.generator.Generator;
 import io.starter.ignite.generator.react.EntityObject;
 import io.starter.ignite.util.FileUtil;
 import io.starter.toolkit.StringTool;
 
 /**
  * 
- * ReactGen uses Java introspection to scan the StackGen generated REST/Model classes and 
- * derive front-end configuration information.
+ * PluginGen is a simple way to create StackGen plugins.
  * 
- * ReactGEn then uses Mustache templates to generate React front end(s).
+ * SG Plugins live in a github repo and can be pulled down to include all the bits needed to 
+ * create a loadable, reusable SG plugin.
+ * 
+ * Using a mustache plugin template, and a GitHub repo, PluginGen then uses Mustache templates
+ * to generate service backend and React front end(s).
  * 
  * 
  * Mustache lib used:
@@ -40,10 +44,23 @@ import io.starter.toolkit.StringTool;
  *
  * @author John McMahon (@TechnoCharms)
  */
-public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
+public class PluginGen extends Gen implements Generator {
 
-	protected static final Logger logger = LoggerFactory
-			.getLogger(ReactGen.class);
+	protected static final Logger			logger							= LoggerFactory
+			.getLogger(PluginGen.class);
+
+	private static final String				PLUGIN_TEMPLATE_FOLDER			= null;
+
+	private static final String				PLUGIN_OUTPUT_FOLDER			= null;
+
+	private static final String				PLUGIN_NAME						= null;
+
+	private static final String				PLUGIN_EXPORT_FOLDER			= null;
+
+	private static final String				PLUGIN_TEMPLATE_SOURCES_FOLDER	= null;
+
+	private static final String				PLUGIN_TEMPLATE_APP_FOLDER		= null;
+	public static List<PluginEntityObject>	PLUGIN_DATA_OBJECTS				= new ArrayList<PluginEntityObject>();
 
 	/**
 	 * copy the resulting output to the export folder
@@ -51,11 +68,11 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 	 * @param gen
 	 * @throws IOException
 	 */
-	private static void export(ReactGen gen) throws IOException {
-		logger.info("Exporting: " + REACT_EXPORT_FOLDER + REACT_APP_NAME
-				+ " to: " + REACT_APP_OUTPUT_FOLDER);
-		FileUtil.copyFolder(REACT_EXPORT_FOLDER
-				+ REACT_APP_NAME, REACT_APP_OUTPUT_FOLDER + REACT_APP_NAME);
+	private static void export(PluginGen gen) throws IOException {
+		logger.info("Exporting: " + PLUGIN_EXPORT_FOLDER + PLUGIN_NAME + " to: "
+				+ PLUGIN_OUTPUT_FOLDER);
+		FileUtil.copyFolder(PLUGIN_EXPORT_FOLDER
+				+ PLUGIN_NAME, PLUGIN_OUTPUT_FOLDER + PLUGIN_NAME);
 	}
 
 	/**
@@ -65,7 +82,7 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 	 * @param gen
 	 * @throws Exception
 	 */
-	static void generateEntitiesFromModelFolder(ReactGen gen) throws Exception {
+	static void generateEntitiesFromModelFolder(PluginGen gen) throws Exception {
 		logger.info("Iterate Data Object Entities and create React App Entity Classes...");
 		String[] modelFiles = Gen.getModelFileNames();
 
@@ -83,26 +100,26 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 			try {
 				createAppEntities(gen, classLoader.loadClass(cn));
 			} catch (Exception e) {
-				logger.error("ReactGen.generateEntitesFromModel failed: "
+				logger.error("PluginGen.generateEntitesFromModel failed: "
 						+ e.toString());
 			}
 		}
 		classLoader.close();
 	}
 
-	private static void createAppEntities(ReactGen gen, Class<?> forName) {
+	private static void createAppEntities(PluginGen gen, Class<?> forName) {
 
 		if (gen == null)
 			throw new IllegalStateException(
-					"No ReactGen context in createAppEntities");
-		if (REACT_APP_NAME == null)
+					"No PluginGen context in createAppEntities");
+		if (PLUGIN_NAME == null)
 			throw new IllegalStateException("No AppName in createAppEntities");
 		if (forName == null)
 			throw new IllegalStateException(
 					"No Class defined in createAppEntities");
 
-		AppEntityObject ap = new AppEntityObject(REACT_APP_NAME, forName);
-		REACT_DATA_OBJECTS.add(ap);
+		PluginEntityObject ap = new PluginEntityObject(PLUGIN_NAME, forName);
+		PLUGIN_DATA_OBJECTS.add(ap);
 	}
 
 	public static void generateReact() throws Exception {
@@ -112,15 +129,15 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 		// "/StarterIgniteServer");
 
 		List<String> alreadyAdded = new ArrayList<String>(); // dedupe
-		ReactGen gen = new ReactGen();
+		PluginGen gen = new PluginGen();
 		generateEntitiesFromModelFolder(gen);
 
 		File[] templateFiles = Gen.getSourceFilesInFolder(new File(
-				REACT_TEMPLATE_FOLDER), FOLDER_SKIP_LIST);
+				PLUGIN_TEMPLATE_FOLDER), FOLDER_SKIP_LIST);
 
 		List<EntityObject> objnames = new ArrayList<EntityObject>();
 		int i = 0;
-		for (AppEntityObject oa : REACT_DATA_OBJECTS) {
+		for (PluginEntityObject oa : PLUGIN_DATA_OBJECTS) {
 			objnames.add(new EntityObject(oa.objectname, i++));
 		}
 
@@ -128,13 +145,13 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 			String fname = o.toString();
 			String shortName = fname.substring(fname.lastIndexOf("/") + 1);
 
-			// NEEDED? fname = ReactGen.renamePaths(fname,
-			// REACT_APP_NAME);
+			// NEEDED? fname = PluginGen.renamePaths(fname,
+			// PLUGIN_NAME);
 
 			// for each object in system, create a REDUX
 			// action and reducer from templates
 			if (shouldParse(shortName)) {
-				for (AppEntityObject aeo : REACT_DATA_OBJECTS) {
+				for (PluginEntityObject aeo : PLUGIN_DATA_OBJECTS) {
 
 					// read in template file
 					String foutp = StringTool
@@ -178,13 +195,13 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 	 */
 	private static void copyFileTemplate(Object gen, String fname, String multifile) throws IOException, FileNotFoundException {
 
-		String foutp = StringTool.replaceText(fname, REACT_TEMPLATE_APP_FOLDER
-				+ "/", REACT_EXPORT_FOLDER + REACT_APP_NAME + "/starter/");
+		String foutp = StringTool.replaceText(fname, PLUGIN_TEMPLATE_APP_FOLDER
+				+ "/", PLUGIN_EXPORT_FOLDER + PLUGIN_NAME + "/starter/");
 
 		// read in template file
 		if (multifile != null) {
-			foutp = StringTool.replaceText(multifile, REACT_TEMPLATE_APP_FOLDER
-					+ "/", REACT_EXPORT_FOLDER + REACT_APP_NAME + "/starter/");
+			foutp = StringTool.replaceText(multifile, PLUGIN_TEMPLATE_APP_FOLDER
+					+ "/", PLUGIN_EXPORT_FOLDER + PLUGIN_NAME + "/starter/");
 		}
 
 		File fout = new File(foutp);
@@ -219,18 +236,18 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 
 		MustacheFactory mf = new DefaultMustacheFactory();
 		String foutp = StringTool
-				.replaceText(fname, REACT_TEMPLATE_SOURCES_FOLDER, REACT_EXPORT_FOLDER
-						+ REACT_APP_NAME + "/");
+				.replaceText(fname, PLUGIN_TEMPLATE_SOURCES_FOLDER, PLUGIN_EXPORT_FOLDER
+						+ PLUGIN_NAME + "/");
 
 		foutp = StringTool
-				.replaceText(foutp, REACT_TEMPLATE_FOLDER, REACT_EXPORT_FOLDER
-						+ REACT_APP_NAME + "/");
+				.replaceText(foutp, PLUGIN_TEMPLATE_FOLDER, PLUGIN_EXPORT_FOLDER
+						+ PLUGIN_NAME + "/");
 
 		// read in template file
 		if (multifile != null) {
 			foutp = StringTool
-					.replaceText(multifile, REACT_TEMPLATE_SOURCES_FOLDER, REACT_EXPORT_FOLDER
-							+ REACT_APP_NAME + "/");
+					.replaceText(multifile, PLUGIN_TEMPLATE_SOURCES_FOLDER, PLUGIN_EXPORT_FOLDER
+							+ PLUGIN_NAME + "/");
 		}
 
 		File fout = new File(foutp);
@@ -253,7 +270,7 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 
 				logger.info("Mustaching template: " + finp + " to output file: "
 						+ fout);
-				Mustache reactmf = mf.compile(fread, REACT_APP_OUTPUT_FOLDER);
+				Mustache reactmf = mf.compile(fread, PLUGIN_OUTPUT_FOLDER);
 
 				// if we are dealing with a sub-object
 				reactmf.execute(fwriter, gen);

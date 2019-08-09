@@ -1,7 +1,11 @@
 /**
  * Create the Redux Store
- * 
- * GENERATED FILE: DO NOT EDIT!
+
+ * {{GENERATED_MESSAGE}}
+ * {{LICENSE}}
+ * {{COMPANY_INFO}}
+ * {{CONTACT_INFO}}
+
  *  
  */
 import {
@@ -22,12 +26,7 @@ const CombinedReducer = combineReducers({
   {{/dataobjects}}
 
 // TODO: builtins
-  // appStatus,
-  // locations,
-  // maps,
-  // categories,
-  // roles,
-  // userInfo,
+
 })
 
 export default () => {

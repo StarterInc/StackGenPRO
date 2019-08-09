@@ -54,7 +54,7 @@ public interface ReactGenConfiguration extends Configuration {
 	public static String			REACT_EXPORT_FOLDER				= (System
 			.getProperty("REACT_EXPORT_FOLDER") != null
 					? System.getProperty("REACT_EXPORT_FOLDER")
-					: rootFolder + "/gen/REACT_EXPORT/");
+					: genOutputFolder + "/src/react/");
 
 	public static String			REACT_APP_OUTPUT_FOLDER			= (System
 			.getProperty("REACT_APP_OUTPUT_FOLDER") != null

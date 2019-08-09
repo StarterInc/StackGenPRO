@@ -1,5 +1,5 @@
 /*
- * Edit Form Wrapper
+ * View Form Wrapper
  *
  * {{GENERATED_MESSAGE}}
  * {{LICENSE}}
@@ -13,16 +13,16 @@ import { connect } from 'react-redux';
 import { Col, Row, Card } from 'react-bootstrap';
 
 import {{objectname}} from './{{objectname}}';
-import { edit{{objectname}} } from '../../actions/{{objectname}}s';
+import { get{{objectname}} } from '../../actions/{{objectname}}s';
 
-const Edit{{objectname}} = (props) => (
+const View{{objectname}} = (props) => (
     <Card>
-        <Card.Header>Edit the {{objectname}}</Card.Header>
+        <Card.Header>View the {{objectname}}</Card.Header>
         <Card.Body>
         <{{objectname}}Form
             {{objectnamevarname}}={props.{{objectnamevarname}}}
             onSubmit{{objectname}}={({{objectnamevarname}}) => {
-                props.dispatch(edit{{objectname}}(props.{{objectnamevarname}}.id,
+                props.dispatch(get{{objectname}}(props.{{objectnamevarname}}.id,
                 		{{objectnamevarname}}));
                 props.history.push('/');
             }}
@@ -43,4 +43,4 @@ const mapStateToProps = (state, props) => {
     };
 }; 
 
-export default connect(mapStateToProps)(Edit{{objectname}});
+export default connect(mapStateToProps)(View{{objectname}});

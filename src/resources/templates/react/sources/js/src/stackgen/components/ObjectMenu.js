@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 
 {{#dataobjects}}
-import {{objname}}List from './{{objname}}/{{objname}}List';
+import {{objname}}Table from './{{objname}}/{{objname}}Table';
 {{/dataobjects}}
 
 /**
- * 
+ * menu for the app
  */
 const ObjectMenu = () => (
     <Row>
     {{#dataobjects}}
-      <{{objname}}List />
+      <{{objname}}Table />
     {{/dataobjects}}
     </Row>
 );

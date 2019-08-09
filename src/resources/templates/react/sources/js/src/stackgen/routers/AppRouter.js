@@ -1,7 +1,10 @@
 /**
  * Main router for the app data management views
- *
- * GENERATED FILE: DO NOT EDIT!
+ * * {{GENERATED_MESSAGE}}
+ * {{LICENSE}}
+ * {{COMPANY_INFO}}
+ * {{CONTACT_INFO}}
+
  *
  */
 import React from 'react';
@@ -28,8 +31,8 @@ const AppRouter = () => (
                 <Route path="/login" component={Login} exact={true} />
                 <Route path="/logout" component={Logout} exact={true} />
                 {{#dataobjects}}
-                <Route path="/{{objname}}/" component={Add{{objname}}} />
-                <Route path="/{{objname}}/edit/:id" component={Edit{{objname}}} />
+                <Route path="/{{objname}}/add" component={Add{{objname}}}  exact={true}/>
+                <Route path="/{{objname}}/edit/:id" component={Edit{{objname}}} exact={true}/>
                 {{/dataobjects}}
                 <Route component={NotFound} />
 

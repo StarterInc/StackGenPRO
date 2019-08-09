@@ -10,7 +10,7 @@
 		"build": "webpack --config webpack.prod.js",
     	"buildDev": "webpack --config webpack.dev.js",
     	"dev": "webpack-dev-server --hot --inline --config webpack.dev.js",
-    	"lint": "./node_modules/eslint/bin/eslint.js src",
+    	"lint": "./node_modules/eslint/bin/eslint.js src"
 	},
 	"dependencies": {
 		"axios": "^0.19.1",

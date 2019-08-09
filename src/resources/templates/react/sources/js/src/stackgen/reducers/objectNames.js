@@ -1,36 +1,74 @@
 /**
  * Reducer for {{objectname}}
- * 
- * GENERATED FILE: DO NOT EDIT!
+
+ * {{GENERATED_MESSAGE}}
+ * {{LICENSE}}
+ * {{COMPANY_INFO}}
+ * {{CONTACT_INFO}}
+
  * 
  */
+import {actionTypes} from "./actionTypes";
+
 const {{objectname}}sReducerDefaultState = [];
 
 export default (state = {{objectname}}sReducerDefaultState, action) => {
+
     switch (action.type) {
-        case 'ADD_{{objectnameupper}}':
-            return [
+
+        case actionTypes.ADD_{{objectnameupper}}:
+            return {
                 ...state,
-                action.{{objectname}}
-            ];
-        case 'REMOVE_{{objectnameupper}}':
+                ...action.{{objectnamevarname}},
+                submitting:false,
+                message : action.message,
+                errorMessage: action.errorMessage
+            };
+
+        case actionTypes.REMOVE_{{objectnameupper}}:
             return state.filter(({ id }) => id !== action.id);
-        case 'EDIT_{{objectnameupper}}':
+
+        case actionTypes.EDIT_{{objectnameupper}}:
             return state.map(({{objectname}}) => {
                 if ({{objectname}}.id === action.id) {
                     return {
                         ...{{objectname}},
-                        ...action.updates
+                        ...action.updates,
+                        submitting:false,
+                        message : action.message,
+                        errorMessage: action.errorMessage
                     };
                 } else {
                     return {{objectname}};
                 }
             });
-        case 'GET_{{objectnameupper}}S':
-            return action.{{objectname}}s;
 
-        case '{{objectnameupper}}_ERROR':
+        case actionTypes.RESET_{{objectnameupper}}:
             return {
+                ...state,
+                message : action.message,
+                errorMessage: action.errorMessage
+            };
+
+        case actionTypes.LIST_{{objectnameupper}}S:
+            return action.{{objectname}}s;            
+            
+            
+        case actionTypes.GET_{{objectnameupper}}:
+                return {
+                	state,
+                	{{objectnamevarname}}: ...action.{{objectname}},
+                	selectedId: action.
+                    submitting:false,
+                    message : action.message,
+                    errorMessage: action.errorMessage
+                };
+            });
+
+        case actionTypes.{{objectnameupper}}_ERROR:
+            return {
+                ...state,
+                message : action.message,
                 errorMessage: action.errorMessage
             };
 

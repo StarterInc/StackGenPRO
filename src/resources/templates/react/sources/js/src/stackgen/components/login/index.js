@@ -1,7 +1,10 @@
 /*
  * Login Form
  *
- * GENERATED FILE: DO NOT EDIT!
+ * {{GENERATED_MESSAGE}}
+ * {{LICENSE}}
+ * {{COMPANY_INFO}}
+ * {{CONTACT_INFO}}
  *
  */
 import React, { useState } from "react"

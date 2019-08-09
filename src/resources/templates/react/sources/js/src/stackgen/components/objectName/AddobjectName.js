@@ -1,22 +1,25 @@
 /*
  * Add Form wrapper
- * 
- * GENERATED FILE: DO NOT EDIT!
+ *
+ * {{GENERATED_MESSAGE}}
+ * {{LICENSE}}
+ * {{COMPANY_INFO}}
+ * {{CONTACT_INFO}}
  *
  */
 import React from 'react';
+import { connect } from 'react-redux';
+import { Card } from 'react-bootstrap';
 
 import {{objectname}}Form from './{{objectname}}Form';
-import { connect } from 'react-redux';
 import { add{{objectname}} } from '../../actions/{{objectname}}s';
-import { Card } from 'react-bootstrap';
 
 const Add{{objectname}} = (props) => (
     <Card>
         <h3>Enter New {{objectname}}</h3>
         <{{objectname}}Form
-            onSubmit{{objectname}}={({{objectname}}) => {
-                props.dispatch(add{{objectname}}({{objectname}}));
+            onSubmit{{objectname}}={({{objectnamevarname}}) => {
+                props.dispatch(add{{objectname}}({{objectnamevarname}}));
                 props.history.push('/');
             }}
         />

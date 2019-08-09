@@ -1,24 +1,29 @@
 /**
- * Auto-Generated {{objectname}} Data Object row header
+ * {{objectname}} Data Object row header
  * 
- * GENERATED FILE: DO NOT EDIT!
- * 
+ * {{GENERATED_MESSAGE}}
+ * {{LICENSE}}
+ * {{COMPANY_INFO}}
+ * {{CONTACT_INFO}}
+ *
  */
 import React from 'react';
 import PropTypes from 'prop-types';
 
 const {{objectname}}Header = ({ }) => (
 	  <>
-		  <tr>
-			  {{#variables}}
-				  <td>
-				  {{variablename}}
-				  </td>
-			  {{/variables}}
-			  <td></td>
-			  <td></td>
-		  </tr>
+    <thead>
+  		  <tr>
+  			  {{#variables}}
+  				  <th>
+  				  {{variablename}}
+  				  </th>
+  			  {{/variables}}
+    			  <th></th>
+    			  <th></th>
+  		    </tr>
+      </thead>
 	  </>
   );
-  
+
 export default ({{objectname}}Header);
