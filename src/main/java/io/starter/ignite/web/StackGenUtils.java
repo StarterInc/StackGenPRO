@@ -23,7 +23,6 @@ public class StackGenUtils {
 
 	/**
 	 * 
-	 * 
 	 * @param hostURL the host to load the api schema
 	 * @return
 	 * @throws IOException 
