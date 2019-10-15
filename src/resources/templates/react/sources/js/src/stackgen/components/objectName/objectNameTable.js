@@ -16,7 +16,7 @@ var {{objectname}}:{
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Card, Table, Row, Col, Nav, Button } from 'react-bootstrap';
+import { Card, Table, Row, Col, Button } from 'react-bootstrap';
 import { list{{objectname}}s, remove{{objectname}} } from '../../actions/{{objectname}}s'
 
 import {{objectname}} from './{{objectname}}';

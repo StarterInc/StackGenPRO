@@ -10,8 +10,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.starter.ignite.generator.Configuration;
-
 public class StackGenUtils {
 	public String			message;
 
@@ -30,8 +28,6 @@ public class StackGenUtils {
 	 * @throws JsonParseException 
 	 */
 	public static JSONObject loadSchema(String hostURL) throws JsonParseException, JsonMappingException, IOException {
-		JSONObject ret = new JSONObject();
-		String fullURL = Configuration.defaultHostname + API_JSON_URL;
 
 		// Connect to the URL using java's native library
 		URL url = new URL(hostURL);
