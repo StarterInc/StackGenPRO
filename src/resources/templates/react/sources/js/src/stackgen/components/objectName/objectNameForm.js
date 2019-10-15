@@ -13,13 +13,10 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux';
 import { Card, Form, Button } from 'react-bootstrap';
 
-import { add{{objectname}}, edit{{objectname}}, get{{objectname}} , reset{{objectname}} } from '../../actions/{{objectname}}s'
+import { reset{{objectname}} } from '../../actions/{{objectname}}s'
 import {{objectname}} from './{{objectname}}';
-
 import AlertDismissable from '../AlertDismissable';
 
 class {{objectname}}Form extends React.Component {
@@ -32,10 +29,7 @@ class {{objectname}}Form extends React.Component {
         {{/variables}}
         this.onSubmit = this.onSubmit.bind(this);
         this.state = {
-          {{#variables}}
-            {{variablename}}: props.{{objectname}} 
-            	? props.{{objectname}}.{{variablename}} : '{{variableval}}',
-          {{/variables}}
+        	props.{{objectnamevarname}},        
             error: '',
             validated: true
         };
@@ -56,7 +50,7 @@ class {{objectname}}Form extends React.Component {
   componentDidUpdate(previousProps, previousState){
     if(previousProps.submitting 
       && !this.props.errorMessage){
-        dispatch(reset{{objectname}}())
+        this.props.dispatch(reset{{objectname}}())
     }
   }
 
@@ -76,9 +70,8 @@ class {{objectname}}Form extends React.Component {
     }
 
     render() {
-        const { validated, validationErrors, validationErrorState , message, errorMessage }  = this.state;
+        const { validated, message, errorMessage }  = this.state;
         const { {{objectnamevarname}} } = this.props
-       // const {  }  = this.props.{{objectname}}s;
         const { dispatch } = this.props;
 
         return (
@@ -87,7 +80,7 @@ class {{objectname}}Form extends React.Component {
             <Card.Body>
 
               {message && <AlertDismissable className="alert-success" title="Success" >{message}</AlertDismissable>}
-              {errorMessage && <AlertDismissable show={(errorMessage !== '')} className="alert-danger" title="Error"> <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => dispatch(resetOptOuts())}>
+              {errorMessage && <AlertDismissable show={(errorMessage !== '')} className="alert-danger" title="Error"> <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => dispatch(reset{{objectname}}())}>
               
               {message && (
                       <AlertDismissable className="alert-success" title="Success">
@@ -114,11 +107,6 @@ class {{objectname}}Form extends React.Component {
                       </AlertDismissable>
                     )}
               
-              
-              
-              
-              
-              
               <span aria-hidden="true">&times;</span></button>{errorMessage}</AlertDismissable>}
 
                 <Form
@@ -132,7 +120,7 @@ class {{objectname}}Form extends React.Component {
 	              >
                   <Form.Label>{{variablename}}</Form.Label>
                   <Form.Control
-                    {{required}}
+                    { {required} && ''}
                     type="text"
                     placeholder="{{defaultValue}}"
                     defaultvalue="{{defaultValue}}"
@@ -144,6 +132,9 @@ class {{objectname}}Form extends React.Component {
                   </Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid">
                     Please enter a valid {{variablename}} i.e.: {{defaultValue}}
+                  </Form.Control.Feedback>
+                  <Form.Control.Feedback type="required">
+                  	A valid {{variablename}} is required
                   </Form.Control.Feedback>
 			          </Form.Group>
 			     
@@ -172,14 +163,4 @@ class {{objectname}}Form extends React.Component {
 	{{/variables}}		
 };
 
-function mapStateToProps(state) {
-    return { {{objectname}}s: state.{{objectnamevarname}}s }
-}
-
-//function mapDispatchToProps(dispatch) {
-  //  return bindActionCreators({ add{{objectname}} }, dispatch)
-//}
-
-// {( typeof({{objectnamevarname}}) !== 'undefined' ? edit{{objectname}} : add{{objectname}} )}
-
-export default connect(mapStateToProps)({{objectname}}Form);
+export default connect()({{objectname}}Form);
