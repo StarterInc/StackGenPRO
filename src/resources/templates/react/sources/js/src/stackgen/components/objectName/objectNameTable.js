@@ -35,7 +35,6 @@ const {{objectname}}Table = (props) => (
             </Col>    
         </Row>
     </Card.Header>
-
         <Card.Body>
         <Table striped hover responsive size="lg">
             <<%objectname%>Header/>
@@ -46,11 +45,15 @@ const {{objectname}}Table = (props) => (
                     <tr key={<%objectnamevarname%>.id} id={<%objectnamevarname%>.id}>
                         <<%objectname%> {...<%objectnamevarname%>} />
                         <td>
-                        <Button onClick={ () => { props.dispatch(remove<%objectname%>( { id } )); }}>
-                        delete
-                        </Button>
+	                        <Button onClick={ () => { props.dispatch(remove<%objectname%>( { id } )); }}>
+	                        delete
+	                        </Button>
                         </td>
-                    	<td><Link to={`/<%objectname%>/edit/${id}`}><b>edit</b></Link></td>
+                    	<td>
+	                    	<Button>
+	                    	<Link to={`#/<%objectname%>/edit/${id}`}><b>edit</b></Link>
+	                    	</Button>
+                    	</td>
                     </tr>
                 );
             }): <tr><td>no results</td></tr> }

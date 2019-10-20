@@ -47,6 +47,11 @@ public class AppEntityObject implements ReactGenConfiguration {
 
 	private static final Class<ApiModelProperty>	ANNOTATION_CLASS		= ApiModelProperty.class;
 
+	public String 									GENERATED_MESSAGE 		= "NOTE: THIS IS A STACKGEN GENERATED FILE: MAY BE OVERWRITTEN";
+	public String 									LICENSE 				= "GPL 3.0";
+	public String 									COMPANY_INFO 			= "Starter Inc.";
+	public String 									CONTACT_INFO 			= "support@stackgen.io";
+	
 	public String									appname;
 	public String									serverhost				= ReactGenConfiguration.defaultHostname;
 	public String									serverport				= ReactGenConfiguration.defaultPort;
@@ -102,7 +107,6 @@ public class AppEntityObject implements ReactGenConfiguration {
 	 */
 	private void processField(Field f) {
 		try {
-			logger.warn("FIELD FOUND: " + f.getName());
 			SecureField fa = f.getAnnotation(SECURE_ANNOTATION_CLASS);
 			JsonProperty jf = f.getAnnotation(FIELD_ANNOTATION_CLASS);
 			DataField df = f.getAnnotation(DATA_ANNOTATION_CLASS);
@@ -134,7 +138,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 		else
 			val = apia.example();
 		if (!apia.hidden() && val != null) {
-			logger.info("Processing : " + s.toGenericString() + " :" + val);
+			// logger.info("Processing : " + s.toGenericString() + " :" + val);
 			val = (getReturnValue(s) != null ? getReturnValue(s) : "");
 			String name = apia.name();
 			if (name.equals("")) {
@@ -148,9 +152,58 @@ public class AppEntityObject implements ReactGenConfiguration {
 				try {
 					f = s.getDeclaringClass().getDeclaredField(name);
 					String tf = f.getType().toString();
-					tf = tf.substring(tf.lastIndexOf(".") + 1);
-					v.variableType = tf.toLowerCase();
+					v.variableType = tf.substring(tf.lastIndexOf(".") + 1).toLowerCase();
+					v.variableFieldYupSchemaType = name + " : yup.";
+					switch (v.variableType){
+						
+						case "string" :
+							v.variableFieldYupSchemaType += "string()";
+							v.variableFieldType = "type=\"text\"";
+							break;
+							
+						case "boolean" :
+							
+						    v.variableFieldType = "type=\"checkbox\"";
+							v.variableFieldYupSchemaType += "bool()";
+							// ok here is where we would want to look up alt configured components
+							// v.variableFieldType = "type=\"switch\"";
+							break;
+							
+						case "integer" :
+							v.variableFieldYupSchemaType += "number()";
+							v.variableFieldType = "type=\"text\"";
+							break;
 
+						case "float" :
+							v.variableFieldYupSchemaType += "number()";
+							v.variableFieldType = "type=\"text\"";
+							break;
+
+						case "double" :
+							v.variableFieldYupSchemaType += "number()";
+							v.variableFieldType = "type=\"text\"";
+							break;
+
+						case "long" :
+							v.variableFieldYupSchemaType += "number()";
+							v.variableFieldType = "type=\"text\"";
+							break;					
+							
+						default :
+							v.variableFieldYupSchemaType = "";
+							v.variableFieldType = "type=\"text\"";
+							break;
+							
+					}
+					
+					if(!v.variableFieldYupSchemaType.equals("")) {
+						if(apia.required()) {
+							v.variableFieldYupSchemaType += ".required()";
+						}
+						v.variableFieldYupSchemaType += ",";
+					}
+					
+					
 				} catch (NoSuchFieldException | SecurityException e1) {
 					e1.printStackTrace();
 					throw new RuntimeException(
@@ -160,11 +213,11 @@ public class AppEntityObject implements ReactGenConfiguration {
 				}
 				v.defaultValue = apia.example();
 				v.description = apia.value();
-				v.required = apia.required();
+				v.required = (apia.required() ? "required" : "");
 
-				// this one ...
-				v.hidden = apia.hidden(); // does not work?
-
+				// TODO: fix hidden fields
+				v.hidden = (apia.hidden() ? "hidden" : "");  // does not work?
+				
 				try {
 					Extension[] els = apia.extensions();
 					if (els != null && els[0].properties() != null) {
@@ -257,15 +310,19 @@ public class AppEntityObject implements ReactGenConfiguration {
 
 	static class Variable {
 
-		public boolean	required		= false;
-		public boolean	hidden			= false;
+		public String	required		= "";
+		public String	hidden			= "";
 		public Object	variableval;
 		public String	variablename;
 		public String	validationString;
 		public String	defaultValue;
 		public String	description;
-		public Object	variableType	= "";
+		
+		public String	variableType	= ""; // simple string of Javascript data type (string, number, object)
+		public String	variableFieldType	= ""; // the 'type="text"' output text
+		public String	variableFieldYupSchemaType	= ""; // the Yup schema data type
 
+		
 		// StackGen Extensions
 		public String	secure;
 		public String	dataField;
