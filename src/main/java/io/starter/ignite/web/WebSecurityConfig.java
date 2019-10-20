@@ -17,52 +17,36 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import de.codecentric.boot.admin.server.config.AdminServerProperties;
-
 @Configuration
 @PropertySources({ @PropertySource("classpath:application.properties") })
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	protected static final Logger	logger	= LoggerFactory
-			.getLogger(WebSecurityConfig.class);
+	protected static final Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
 
-	private final String			adminContextPath;
-
-	public WebSecurityConfig(AdminServerProperties adminServerProperties) {
-		this.adminContextPath = adminServerProperties.getContextPath();
-	}
+	private final String adminContextPath = "";
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
 		SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
-        successHandler.setTargetUrlParameter("redirectTo");
-        successHandler.setDefaultTargetUrl(adminContextPath + "/");
+		successHandler.setTargetUrlParameter("redirectTo");
+		successHandler.setDefaultTargetUrl(adminContextPath + "/");
 
-        http.authorizeRequests()
-            .antMatchers(adminContextPath + "/assets/**").permitAll() 
-            .antMatchers(adminContextPath + "/index.html").permitAll()
-            .anyRequest().authenticated() 
-            .and()
-        .formLogin().loginPage(adminContextPath + "/index.html").successHandler(successHandler).and() 
-        .logout().logoutUrl(adminContextPath + "/logout").and()
-        .httpBasic().and()
-     // by default uses a Bean by the name of corsConfigurationSource
-        .cors().and()
-        .csrf()
-            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())  
-            .ignoringAntMatchers(
-                adminContextPath + "/instances",   
-                adminContextPath + "/actuator/**"  
-            );
-        // @formatter:on
+		http.authorizeRequests().antMatchers(adminContextPath + "/assets/**").permitAll()
+				.antMatchers(adminContextPath + "/index.html").permitAll().anyRequest().authenticated().and()
+				.formLogin().loginPage(adminContextPath + "/index.html").successHandler(successHandler).and().logout()
+				.logoutUrl(adminContextPath + "/logout").and().httpBasic().and()
+				// by default uses a Bean by the name of corsConfigurationSource
+				.cors().and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+				.ignoringAntMatchers(adminContextPath + "/instances", adminContextPath + "/actuator/**");
+		// @formatter:on
 	}
 
 	@Value("${io.starter.stackgen.CORSOrigins:localhost}")
-	public String	CORSOrigins;
+	public String CORSOrigins;
 
 	@Value("${io.starter.stackgen.CORSMapping:/**}")
-	public String	CORSMapping;
+	public String CORSMapping;
 
 	/**
 	 * the CORS configuration for the REST api
@@ -71,14 +55,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
-		logger.warn("Initializing CORS Config Origins: CORSOrigins "
-				+ CORSOrigins);
-		logger.warn("Initializing CORS Config Mapping: CORSMapping "
-				+ CORSMapping);
+		logger.warn("Initializing CORS Config Origins: CORSOrigins " + CORSOrigins);
+		logger.warn("Initializing CORS Config Mapping: CORSMapping " + CORSMapping);
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Arrays.asList(CORSOrigins));
-		configuration.setAllowedMethods(Arrays
-				.asList("GET", "POST", "INSERT", "DELETE", "HEAD", "OPTIONS"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "INSERT", "DELETE", "HEAD", "OPTIONS"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration(CORSMapping, configuration);
 		return source;

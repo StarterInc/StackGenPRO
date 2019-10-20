@@ -53,17 +53,17 @@ export default (state = {{objectname}}sReducerDefaultState, action) => {
         case actionTypes.LIST_{{objectnameupper}}S:
             return action.{{objectname}}s;            
             
-            
+
         case actionTypes.GET_{{objectnameupper}}:
-                return {
-                	state,
-                	{{objectnamevarname}}: ...action.{{objectname}},
-                	selectedId: action.
-                    submitting:false,
-                    message : action.message,
-                    errorMessage: action.errorMessage
-                };
-            });
+            return {
+            	...state,
+            	{{objectnamevarname}}: action.{{objectname}},
+            	selectedId: action.{{objectname}}.id,
+                submitting:false,
+                message : action.message,
+                errorMessage: action.errorMessage
+            };
+        
 
         case actionTypes.{{objectnameupper}}_ERROR:
             return {

@@ -24,6 +24,6 @@ export const actionTypes = {
     // DUPLICATE_{{objnameupper}}	: 'DUPLICATE_{{objnameupper}}',
     
     {{objnameupper}}_MESSAGE	: '{{objnameupper}}_MESSAGE',
-    {{objnameupper}}_ERROR 		: '{{objnameupper}}_ERROR'
+    {{objnameupper}}_ERROR 		: '{{objnameupper}}_ERROR',
 {{/dataobjects}}
 }

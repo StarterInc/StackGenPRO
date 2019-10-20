@@ -20,21 +20,9 @@ import io.swagger.annotations.Extension;
 import io.swagger.annotations.ExtensionProperty;
 
 /**
- * Contains and initializes Redux template Mplugining info for a passed in
+ * Contains and initializes Plugin template mustaching info for a passed in
  * EntityObject. <br/>
- * Example Redux State Template Code:<code>
- * <p>
- * <p>
- * {{#objects}}
- * {{objectname}}Info:{
- * {{#variables}}
- * {{variablename}}: '{{variableval}}',
- * {{/variables}}
- * },
- * {{/objects}}
- *
- * </code>
- *
+ * 
  * @author John McMahon (@TechnoCharms)
  */
 public class PluginEntityObject implements ReactGenConfiguration {

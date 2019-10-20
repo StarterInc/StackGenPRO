@@ -4,17 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
-import de.codecentric.boot.admin.server.config.EnableAdminServer;
-
-@EnableAdminServer
 @SpringBootApplication
 @Configuration
 @PropertySources({ @PropertySource("classpath:application.properties") })
@@ -43,13 +37,5 @@ public class IgniteApplication {
 
 	@Value("${spring.datasource.url:jdbc:mysql://127.0.0.1:3306/ignite-spring-boot?characterEncoding=UTF-8}")
 	public String	dbUrl;
-
-	@Bean
-	public ServletRegistrationBean<IgniteServlet> IgniteServletBean() {
-		ServletRegistrationBean<IgniteServlet> bean = new ServletRegistrationBean<IgniteServlet>(
-				new IgniteServlet(), "/ignite/*");
-		bean.setLoadOnStartup(1);
-		return bean;
-	}
 
 }

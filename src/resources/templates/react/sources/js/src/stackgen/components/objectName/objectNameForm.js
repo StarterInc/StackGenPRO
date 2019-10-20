@@ -13,53 +13,60 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux';
 import { Card, Form, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
-import { add{{objectname}}, edit{{objectname}}, get{{objectname}} , reset{{objectname}} } from '../../actions/{{objectname}}s'
+import { Formik, Field, ErrorMessage } from 'formik';
+import * as yup from 'yup';
+
 import {{objectname}} from './{{objectname}}';
+
+import { reset{{objectname}} } from '../../actions/{{objectname}}s'
 
 import AlertDismissable from '../AlertDismissable';
 
+/**
+ *  this form is shared between ADD and EDIT views
+ */
 class {{objectname}}Form extends React.Component {
 
 	constructor(props) {
         super(props);
 
-        {{#variables}}
-        this.on{{variablename}}Change = this.on{{variablename}}Change.bind(this);
-        {{/variables}}
         this.onSubmit = this.onSubmit.bind(this);
+		 
+        let  stack  = { ...props.stack} ;
+
         this.state = {
-          {{#variables}}
-            {{variablename}}: props.{{objectname}} 
-            	? props.{{objectname}}.{{variablename}} : '{{variableval}}',
-          {{/variables}}
+            stack:stack,
             error: '',
             validated: true
         };
+        
     }
   
-  {{#variables}}
-  /**
-	 * {{objectname}} 
-	 * Data Action Event Listener
-	 * 
-	 */
-    on{{variablename}}Change(e) {
-        const {{variablename}}val = e.target.value;
-        this.setState(() => ({ {{variablename}}: {{variablename}}val }));
-    }
-  {{/variables}}
-
   componentDidUpdate(previousProps, previousState){
     if(previousProps.submitting 
       && !this.props.errorMessage){
-        dispatch(reset{{objectname}}())
+        this.props.dispatch(reset{{objectname}}())
     }
   }
 
+  
+  onSubmit(values, actions){
+	// actions.preventDefault();
+	actions.setSubmitting(true);
+	alert(JSON.stringify(values, null, 2));
+	this.setState(() => ({ error: '' }));
+	this.props.onSubmitStack({
+		...values
+	});
+	actions.setSubmitting(false);
+	alert('submitted')
+	
+  }
+  
+  /*
     onSubmit(e) {
         e.preventDefault();
       if(this.state.validated) {
@@ -73,21 +80,19 @@ class {{objectname}}Form extends React.Component {
       }else{
             this.setState(() => ({errorMessage: "Please fix Validation Errors" }))
         }
-    }
+    }*/
 
     render() {
-        const { validated, validationErrors, validationErrorState , message, errorMessage }  = this.state;
-        const { {{objectnamevarname}} } = this.props
-       // const {  }  = this.props.{{objectname}}s;
-        const { dispatch } = this.props;
-
+        
+    	const { {{objectnamevarname}}, dispatch , validated, message, errorMessage } = this.props;
+        
         return (
           <>
           	<Card>
             <Card.Body>
 
               {message && <AlertDismissable className="alert-success" title="Success" >{message}</AlertDismissable>}
-              {errorMessage && <AlertDismissable show={(errorMessage !== '')} className="alert-danger" title="Error"> <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => dispatch(resetOptOuts())}>
+              {errorMessage && <AlertDismissable show={(errorMessage !== '')} className="alert-danger" title="Error"> <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => dispatch(reset{{objectname}}())}>
               
               {message && (
                       <AlertDismissable className="alert-success" title="Success">
@@ -114,56 +119,84 @@ class {{objectname}}Form extends React.Component {
                       </AlertDismissable>
                     )}
               
-              
-              
-              
-              
-              
               <span aria-hidden="true">&times;</span></button>{errorMessage}</AlertDismissable>}
 
+              <Formik
+              validationSchema={schema}
+              onSubmit={this.onSubmit}              
+              initialValues={ {{objectnamevarname}} }
+              >
+              {({
+                handleSubmit,
+                isSubmitting,
+                handleChange,
+                handleBlur,
+                values,
+                touched,
+                isValid,
+                errors,
+              }) => (
+              
                 <Form
-	                validate
-	                validated={validated}
-	                form onSubmit={this.onSubmit}
+                	id='{{variablename}}-form'
+	                form onSubmit={handleSubmit}
                 >
                 {{#variables}}
-                 <Form.Group
-                  controlId="validationCustom02"
-	              >
-                  <Form.Label>{{variablename}}</Form.Label>
-                  <Form.Control
-                    {{required}}
-                    type="text"
-                    placeholder="{{defaultValue}}"
-                    defaultvalue="{{defaultValue}}"
-                    value={( typeof({{objectnamevarname}}) !== 'undefined' ? {{objectnamevarname}}.{{variablename}} : null ) }
-                    onChange={this.on{{variablename}}Change}
-                  />
-                  <Form.Control.Feedback>
-                    NICE WORK!
-                  </Form.Control.Feedback>
-                  <Form.Control.Feedback type="invalid">
-                    Please enter a valid {{variablename}} i.e.: {{defaultValue}}
-                  </Form.Control.Feedback>
-			          </Form.Group>
+                 <Form.Group controlId="{{variablename}}">
+	                  <Form.Label>{{variablename}}</Form.Label>
+	                  <Field
+	                  	id="{{variablename}}"
+	                  	name="{{variablename}}"
+	                    {{{required}}}
+	                  	{{{variableFieldType}}}
+	                    placeholder="{{defaultValue}}"
+                    	 className={`form-control ${
+                            touched.{{variablename}} && errors.{{variablename}} ? "is-invalid" : ""
+                          }`}
+	                    />
+	                 
+		                <ErrorMessage
+	                      component="div"
+	                      name="{{variablename}}"
+	                      className="invalid-feedback"
+	                    />
+                    	<Form.Control.Feedback>
+                    		That {{variablename}} entry looks good!
+                    	</Form.Control.Feedback>
+	                    
+                    	<Form.Control.Feedback type="invalid">
+	                    	{errors.{{variablename}}}
+	                    </Form.Control.Feedback>
+	                    
+						<Form.Control.Feedback type="invalid">
+							Please enter a valid {{objectnamevarname}} {{variablename}} i.e.: {{defaultValue}}
+						</Form.Control.Feedback>
+  
+	              </Form.Group>
 			     
               	{{/variables}}
 
-                <Button type="submit"
-                    disabled={(validated &&
-                        errorMessage === '')
-                            }>
+
+                
+                <Button type="submit" disabled={isSubmitting || !isValid} >
                     <span>{( typeof({{objectnamevarname}}) !== 'undefined' ? 'Edit' : 'Add' )} {{objectname}}</span>
                 </Button>
 
-              </Form>
+               </Form>
+              )}
+              </Formik>
             </Card.Body>
             </Card>
             </>
-          
         );
     }
-}
+}              
+
+const schema = yup.object({
+	{{#variables}}
+		{{variableFieldYupSchemaType}}
+	{{/variables}}
+});
 
 
 {{objectname}}.propTypes = {
@@ -172,14 +205,4 @@ class {{objectname}}Form extends React.Component {
 	{{/variables}}		
 };
 
-function mapStateToProps(state) {
-    return { {{objectname}}s: state.{{objectnamevarname}}s }
-}
-
-//function mapDispatchToProps(dispatch) {
-  //  return bindActionCreators({ add{{objectname}} }, dispatch)
-//}
-
-// {( typeof({{objectnamevarname}}) !== 'undefined' ? edit{{objectname}} : add{{objectname}} )}
-
-export default connect(mapStateToProps)({{objectname}}Form);
+export default ({{objectname}}Form);

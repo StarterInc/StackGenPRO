@@ -10,9 +10,7 @@
 import React from 'react';
 import {{objectname}}Form from './{{objectname}}Form';
 import { connect } from 'react-redux';
-import { Col, Row, Card } from 'react-bootstrap';
-
-import {{objectname}} from './{{objectname}}';
+import { Card } from 'react-bootstrap';
 import { edit{{objectname}} } from '../../actions/{{objectname}}s';
 
 const Edit{{objectname}} = (props) => (
