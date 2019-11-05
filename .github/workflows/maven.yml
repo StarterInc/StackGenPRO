@@ -1,7 +1,9 @@
-name: Java CI
+name: 'StackGen PRO CI'
 
-on: [push]
-
+on:
+  push:
+    branches:
+      - '*'
 jobs:
   build:
 
