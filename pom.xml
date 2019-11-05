@@ -5,7 +5,7 @@
 
 	<parent>
 		<groupId>io.starter</groupId>
-		<version>0.9.2-SNAPSHOT</version>
+		<version>0.9.4-SNAPSHOT</version>
 		<artifactId>stackgen-parent</artifactId>
 	</parent>
 
@@ -15,8 +15,12 @@
 	<url>http://docs.stackgen.io</url>
 
 	<properties>
+		<!-- stackgen version can diverge from parent -->
+		<stackgen.version>0.9.4</stackgen.version>
+		
 		<!-- The main class to start by executing "java -jar" -->
 		<start-class>io.starter.ignite.Application</start-class>
+		
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<springfox-version>2.9.2</springfox-version>
 	</properties>
@@ -25,7 +29,7 @@
 		<dependency>
 			<groupId>io.starter</groupId>
 			<artifactId>stackgen</artifactId>
-			<version>${project.version}</version>
+			<version>${stackgen.version}</version>
 		</dependency>
 
 		<!-- 1.12 -->

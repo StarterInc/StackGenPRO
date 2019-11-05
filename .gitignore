@@ -1,3 +1,6 @@
+.idea/
+.DS_Store
+.eclipse/
 /archive/
 /logs/
 /bin/
