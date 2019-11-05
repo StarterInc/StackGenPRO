@@ -1,6 +1,6 @@
 # Starter StackGen PRO
 
-Starter StackGen PRO is the Professional version of Starter StackGen Service generation toolkit.
+Starter StackGen PRO is the Professional version of Starter StackGen.
 
 Starter StackGen PRO adds the following features to the Standard Starter StackGen product:
 
@@ -10,7 +10,7 @@ Starter StackGen PRO adds the following features to the Standard Starter StackGe
 - Standardized generated code is easily modified  after generation
 - React Component Library contains a wealth of easily customized React components read to use in your StackGen application
 
-### Advanced Encryption Support: Additional peace of mind at a great value 
+### Advanced Encryption Support: Defense in Depth with Encryption at rest 
 - COMING SOON: Key rotation makes changing keys a breeze
 - COMING SOON: Per-user and per-row keys
 - COMING SOON: PBE crypto for end-user securing of data
