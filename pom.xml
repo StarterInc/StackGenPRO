@@ -5,18 +5,22 @@
 
 	<parent>
 		<groupId>io.starter</groupId>
-		<version>1.2.1-SNAPSHOT</version>
-		<artifactId>ignite-parent-pom</artifactId>
+		<version>0.9.4-SNAPSHOT</version>
+		<artifactId>stackgen-parent</artifactId>
 	</parent>
 
-	<artifactId>StarterIgnitePRO</artifactId>
-	<name>Starter Ignite PRO</name>
+	<artifactId>stackgen-pro</artifactId>
+	<name>Starter StackGen PRO</name>
 	<description>Starter StackGen PRO</description>
-	<url>http://starter.io</url>
+	<url>http://docs.stackgen.io</url>
 
 	<properties>
+		<!-- stackgen version can diverge from parent -->
+		<stackgen.version>0.9.4</stackgen.version>
+		
 		<!-- The main class to start by executing "java -jar" -->
 		<start-class>io.starter.ignite.Application</start-class>
+		
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<springfox-version>2.9.2</springfox-version>
 	</properties>
@@ -24,8 +28,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.starter</groupId>
-			<artifactId>StarterIgnite</artifactId>
-			<version>${project.version}</version>
+			<artifactId>stackgen</artifactId>
+			<version>${stackgen.version}</version>
 		</dependency>
 
 		<!-- 1.12 -->
