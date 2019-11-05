@@ -7,7 +7,7 @@ Starter StackGen PRO adds the following features to the Standard Starter StackGe
 ### React Support: Create full stack mobile, web, desktop and VR apps
 - Generate React View component for each Data Model Object
 - Customizable React templates are easily modified before generation
-- Standardized generated code is easily modified  after generation
+- Standardized generated code is easily modified after generation
 - React Component Library contains a wealth of easily customized React components read to use in your StackGen application
 
 ### Advanced Encryption Support: Defense in Depth with Encryption at rest 
