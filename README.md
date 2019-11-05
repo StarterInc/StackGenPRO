@@ -2,7 +2,7 @@
 
 Starter StackGen PRO is the Professional version of Starter StackGen.
 
-Starter StackGen PRO adds the following features to the Standard Starter StackGen product:
+Starter StackGen PRO adds these features to the Standard Starter StackGen product:
 
 ### React Support: Create full stack mobile, web, desktop and VR apps
 - Generate React View component for each Data Model Object
