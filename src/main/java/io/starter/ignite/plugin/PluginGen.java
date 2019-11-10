@@ -268,8 +268,8 @@ public class PluginGen extends Gen implements Generator {
 				fout.createNewFile();
 				Writer fwriter = new FileWriter(fout);
 
-				logger.info("Mustaching template: " + finp + " to output file: "
-						+ fout);
+				// logger.info("Mustaching template: " + finp + " to output file: "
+				//		+ fout);
 				Mustache reactmf = mf.compile(fread, PLUGIN_OUTPUT_FOLDER);
 
 				// if we are dealing with a sub-object

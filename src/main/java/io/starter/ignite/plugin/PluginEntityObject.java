@@ -91,7 +91,6 @@ public class PluginEntityObject implements ReactGenConfiguration {
 	 */
 	private void processField(Field f) {
 		try {
-			logger.warn("FIELD FOUND: " + f.getName());
 			SecureField fa = f.getAnnotation(SECURE_ANNOTATION_CLASS);
 			JsonProperty jf = f.getAnnotation(FIELD_ANNOTATION_CLASS);
 			DataField df = f.getAnnotation(DATA_ANNOTATION_CLASS);
@@ -100,7 +99,9 @@ public class PluginEntityObject implements ReactGenConfiguration {
 				val = jf.value();
 			else
 				val = fa.strength();
-			logger.warn("FIELD FOUND: " + f.getName());
+			
+			
+			logger.trace("FIELD FOUND: " + f.getName());
 		} catch (SecurityException e) {
 			logger.error("FIELD ERROR: " + f.getName()); // skip
 		}

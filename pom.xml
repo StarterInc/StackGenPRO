@@ -2,10 +2,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
+	
 	<parent>
 		<groupId>io.starter</groupId>
-		<version>0.9.4</version>
+		<version>0.9.5-SNAPSHOT</version>
 		<artifactId>stackgen-parent</artifactId>
 	</parent>
 
@@ -15,8 +15,8 @@
 	<url>http://docs.stackgen.io</url>
 
 	<properties>
-		<!-- stackgen version can diverge from parent -->
-		<stackgen.version>0.9.5</stackgen.version>
+		<!-- stackgen version can diverge from stackgen-parent -->
+		<stackgen.version>0.9.7-SNAPSHOT</stackgen.version>
 		
 		<!-- The main class to start by executing "java -jar" -->
 		<start-class>io.starter.ignite.Application</start-class>

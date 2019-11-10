@@ -11,11 +11,13 @@
 import axios from '../axios/axios';
 import { actionTypes } from '../reducers/actionTypes'
 
+/*
 const {{objectnamevarname}}Data = {
 {{#variables}}
     {{variablename}}: '{{variableval}}',
 {{/variables}}
 }
+*/
 
 export const reset{{objectname}} = () => ({
     type: actionTypes.RESET_{{objectnameupper}},
@@ -32,14 +34,14 @@ const _add{{objectname}} = ({{objectname}}) => ({
 
 export const add{{objectname}} = ({{objectnamevarname}}Data) => {
     return (dispatch) => {
-        axios.post('{{objectname}}/', {{objectnamevarname}}Data)
-          .then(result => {
-            dispatch(_add{{objectname}}(result.data));
-          })
-          .catch(function (error) {
-              console.log("StackGen Redux add {{objectname}} Action failed: " + error);
-              dispatch(_{{objectnamevarname}}Error(`ERROR posting {{objectname}} ${JSON.stringify(error)}`));
-          });
+	    axios.post('{{objectname}}/', {{objectnamevarname}}Data)
+	      .then(result => {
+	        dispatch(_add{{objectname}}(result.data));
+	      })
+	      .catch(function (error) {
+	          console.log("{{objectname}}Gen Redux add {{objectname}} Action failed: " + error);
+	          dispatch(_{{objectnamevarname}}Error(`ERROR posting {{objectname}} ${JSON.stringify(error)}`));
+	      });
     };
 };
 
@@ -69,18 +71,24 @@ const _edit{{objectname}} = (id, updates) => ({
     updates
 });
 
+
 export const edit{{objectname}} = (id, updates) => {
-    return (dispatch) => {
-        return axios.put(`{{objectname}}/${id}`, updates).then(() => {
-            dispatch(_edit{{objectname}}(id, updates));
-        }).catch(function (error){
-        	if(error.response && error.response.status === 404){
-        		dispatch(_{{objectnamevarname}}Error(`Could not find {{objectname}}: ${id}`));
-        	}else{
-        		dispatch(_{{objectnamevarname}}Error(`ERROR updating {{objectname}} ${JSON.stringify(error)}`));
-        	}
-        });
-    }
+  return dispatch => {
+    return axios
+      .put(`{{objectname}}/${id}`, updates)
+      .then(() => {
+        dispatch(_edit{{objectname}}(id, updates));
+      })
+      .catch(function(error) {
+        if (error.response && error.response.status === 404) {
+          dispatch(_stackError(`Could not find {{objectname}}: ${id}`));
+        } else {
+          dispatch(
+            _stackError(`ERROR updating {{objectname}} ${JSON.stringify(error)}`)
+          );
+        }
+      });
+  };
 };
 
 const _list{{objectname}}s = ({{objectname}}s) => ({
@@ -92,20 +100,20 @@ export const list{{objectname}}s = (startIndex, limit) => {
 	if(typeof(limit) === 'undefined'){
 		limit = 100;
 	}
-    return (dispatch) => {
-        return axios.get(`{{objectname}}/list/${limit}`).then(result => {
-            const {{objectname}}s = [];
-
-            result.data.forEach(item => {
-                {{objectname}}s.push(item);
-            })
-
-            dispatch(_list{{objectname}}s({{objectname}}s));
-        }).catch(function (error){
-        	if(error.response && error.response.status === 404){
-        		dispatch(_{{objectnamevarname}}Error(`No results fetching {{objectname}} list.`));
-        	}else{
-        		dispatch(_{{objectnamevarname}}Error(`ERROR fetching {{objectname}} list ${JSON.stringify(error)}`));
+	return (dispatch) => {
+	    return axios.get(`{{objectname}}/list/${limit}`).then(result => {
+	        const {{objectname}}s = [];
+	
+	        result.data.forEach(item => {
+	            {{objectname}}s.push(item);
+	        })
+	
+	        dispatch(_list{{objectname}}s({{objectname}}s));
+	    }).catch(function (error){
+    	if(error.response && error.response.status === 404){
+    		dispatch(_{{objectnamevarname}}Error(`No results fetching {{objectname}} list.`));
+    	}else{
+    		dispatch(_{{objectnamevarname}}Error(`ERROR fetching {{objectname}} list ${JSON.stringify(error)}`));
         	}
         });
     };

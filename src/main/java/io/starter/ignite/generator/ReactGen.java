@@ -251,8 +251,7 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 				fout.createNewFile();
 				Writer fwriter = new FileWriter(fout);
 
-				logger.info("Mustaching template: " + finp + " to output file: "
-						+ fout);
+				// logger.trace("Mustaching template: " + finp + " to output file: " + fout);
 				Mustache reactmf = mf.compile(fread, REACT_APP_OUTPUT_FOLDER);
 
 				// if we are dealing with a sub-object
