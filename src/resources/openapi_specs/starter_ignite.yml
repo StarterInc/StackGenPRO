@@ -275,7 +275,14 @@ definitions:
         type: string
         example: HardToGuess1980
         minLength: 10
-        x-starter-secureField: true
+        # encryption handled by authorization code
+        x-starter-secureField: true, Type=HASHED, strength=5
+      passwordSalt:
+        type: string
+        example: very random
+        minLength: 10
+        readOnly: true
+        x-starter-secureField: true        
       homePage:
         type: string
         format: url
@@ -572,7 +579,7 @@ definitions:
         example: "ABDCEDF"
         maxLength: 256 
         description: "database password for the system" 
-        x-starter-secureField: true
+        x-starter-secureField: true, Type=HASHED, strength=5
       dbGenDropTable:
         type: boolean
         example: true 

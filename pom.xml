@@ -2,10 +2,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>io.starter</groupId>
-		<version>0.9.6</version>
+		<version>0.9.7-SNAPSHOT</version>
 		<artifactId>stackgen-parent</artifactId>
 	</parent>
 
@@ -16,11 +16,11 @@
 
 	<properties>
 		<!-- stackgen version can diverge from stackgen-parent -->
-		<stackgen.version>0.9.7</stackgen.version>
-		
+		<stackgen.version>0.9.8-SNAPSHOT</stackgen.version>
+
 		<!-- The main class to start by executing "java -jar" -->
-		<start-class>io.starter.ignite.Application</start-class>
-		
+		<start-class>io.starter.stackgen.web.StackGenApplication</start-class>
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<springfox-version>2.9.2</springfox-version>
 	</properties>
@@ -47,5 +47,25 @@
 		</dependency>
 
 	</dependencies>
+	<build>
+		<plugins><!-- allows
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<mainClass>io.starter.ignite.generator.ReactGenerator</mainClass>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+ -->
+		</plugins>
+	</build>
 
 </project>

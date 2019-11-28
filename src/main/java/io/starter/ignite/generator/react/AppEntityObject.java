@@ -34,7 +34,7 @@ import io.swagger.annotations.ExtensionProperty;
  *
  * </code>
  *
- * @author John McMahon (@TechnoCharms)
+ * @author John McMahon ~ github: SpaceGhost69 | twitter: @TechnoCharms
  */
 public class AppEntityObject implements ReactGenConfiguration {
 

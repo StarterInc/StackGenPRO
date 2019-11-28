@@ -13,7 +13,7 @@ import io.starter.ignite.generator.react.AppEntityObject;
  * <p>
  * or on the command line:
  *
- * @author John McMahon (@TechnoCharms)
+ * @author John McMahon ~ github: SpaceGhost69 | twitter: @TechnoCharms
  */
 public interface ReactGenConfiguration extends Configuration {
 

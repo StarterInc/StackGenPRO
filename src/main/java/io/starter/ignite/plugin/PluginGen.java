@@ -42,7 +42,7 @@ import io.starter.toolkit.StringTool;
  * Mustache lib used:
  * https://github.com/spullara/mustache.java
  *
- * @author John McMahon (@TechnoCharms)
+ * @author John McMahon ~ github: SpaceGhost69 | twitter: @TechnoCharms
  */
 public class PluginGen extends Gen implements Generator {
 
@@ -145,9 +145,6 @@ public class PluginGen extends Gen implements Generator {
 			String fname = o.toString();
 			String shortName = fname.substring(fname.lastIndexOf("/") + 1);
 
-			// NEEDED? fname = PluginGen.renamePaths(fname,
-			// PLUGIN_NAME);
-
 			// for each object in system, create a REDUX
 			// action and reducer from templates
 			if (shouldParse(shortName)) {
@@ -172,13 +169,6 @@ public class PluginGen extends Gen implements Generator {
 
 		// copy the files to the target project folder
 		export(gen);
-
-		logger.error("TODO: FIX RUN NPM");
-
-		// run npm to build and run react native app!
-		// String[] args1 = { "npm", "install" };
-		// RunCommand.runSafe("npm", args1);
-
 	}
 
 	private static boolean shouldParse(String shortName) {

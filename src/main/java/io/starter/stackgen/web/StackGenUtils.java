@@ -1,4 +1,4 @@
-package io.starter.ignite.web;
+package io.starter.stackgen.web;
 
 import java.io.IOException;
 import java.net.URL;

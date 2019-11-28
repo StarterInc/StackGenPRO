@@ -29,16 +29,16 @@ import io.starter.toolkit.StringTool;
 
 /**
  * 
- * ReactGen uses Java introspection to scan the StackGen generated REST/Model classes and 
- * derive front-end configuration information.
+ * ReactGen uses Java introspection to scan the StackGen
+ * generated REST/Model classes and derive front-end configuration information.
  * 
  * ReactGEn then uses Mustache templates to generate React front end(s).
- * 
  * 
  * Mustache lib used:
  * https://github.com/spullara/mustache.java
  *
- * @author John McMahon (@TechnoCharms)
+ * @author John McMahon ~ github: SpaceGhost69 | twitter: @TechnoCharms
+ * 
  */
 public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 
@@ -46,10 +46,12 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 			.getLogger(ReactGen.class);
 
 	/**
-	 * copy the resulting output to the export folder
+	 * 
+	 * Copy the resulting output to the export folder
 	 *
 	 * @param gen
 	 * @throws IOException
+	 * 
 	 */
 	private static void export(ReactGen gen) throws IOException {
 		logger.info("Exporting: " + REACT_EXPORT_FOLDER + REACT_APP_NAME
@@ -59,11 +61,13 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 	}
 
 	/**
+	 * 
 	 * Create Entity Objects which are basically schema of Objects with
 	 * configuration data for the React Native generation
 	 *
 	 * @param gen
 	 * @throws Exception
+	 * 
 	 */
 	static void generateEntitiesFromModelFolder(ReactGen gen) throws Exception {
 		logger.info("Iterate Data Object Entities and create React App Entity Classes...");
@@ -128,9 +132,6 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 			String fname = o.toString();
 			String shortName = fname.substring(fname.lastIndexOf("/") + 1);
 
-			// NEEDED? fname = ReactGen.renamePaths(fname,
-			// REACT_APP_NAME);
-
 			// for each object in system, create a REDUX
 			// action and reducer from templates
 			if (shouldParse(shortName)) {
@@ -156,7 +157,7 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 		// copy the files to the target project folder
 		export(gen);
 
-		logger.error("TODO: FIX RUN NPM");
+		logger.error("Done processing " + REACT_DATA_OBJECTS.size() + " React Objects");
 
 		// run npm to build and run react native app!
 		// String[] args1 = { "npm", "install" };
@@ -171,47 +172,12 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 	}
 
 	/**
-	 * @param mf
-	 * @param appVals
-	 * @throws IOException
-	 * @throws FileNotFoundException
-	 */
-	private static void copyFileTemplate(Object gen, String fname, String multifile) throws IOException, FileNotFoundException {
-
-		String foutp = StringTool.replaceText(fname, REACT_TEMPLATE_APP_FOLDER
-				+ "/", REACT_EXPORT_FOLDER + REACT_APP_NAME + "/starter/");
-
-		// read in template file
-		if (multifile != null) {
-			foutp = StringTool.replaceText(multifile, REACT_TEMPLATE_APP_FOLDER
-					+ "/", REACT_EXPORT_FOLDER + REACT_APP_NAME + "/starter/");
-		}
-
-		File fout = new File(foutp);
-		File finp = new File(fname);
-
-		logger.info("Copying : " + fname + " to " + foutp);
-		fout.mkdirs();
-		if (fout.isDirectory())
-			fout.delete();
-		if (!finp.isDirectory()) {
-			try {
-				Reader fread = new FileReader(finp);
-
-				fout.delete();
-				fout.createNewFile();
-				Writer fwriter = new FileWriter(fout);
-
-				fwriter.flush();
-			} catch (Exception e) {
-				logger.error("Failed to copy file template: " + e);
-			}
-		}
-	}
-
-	/**
-	 * @param mf
-	 * @param appVals
+	 * 
+	 * generate output file from input template file and spec object
+	 * 
+	 * @param gen generation config object
+	 * @param fmame output file name
+	 * @param multifile whether this template is a folder containing template files
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
@@ -270,7 +236,6 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 		if (fieldName.startsWith("ajc$")) // skip aspects
 			return null;
 
-		Class fieldType = fld.getType();
 		String fldName = StringTool.proper(fieldName);
 		fldName = "get" + fldName;
 

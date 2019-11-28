@@ -1,4 +1,4 @@
-package io.starter.ignite;
+package io.starter.stackgen;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import io.starter.ignite.web.StackGenUtils;
+import io.starter.stackgen.web.StackGenUtils;
 
 public class StackGenUtilsIT {
 

@@ -59,7 +59,7 @@ import org.osaf.caldav4j.util.ICalendarUtils;
  * connecting_to_googles_caldav_server
  * 
  * 
- * @author john
+ * @author John McMahon ~ github: SpaceGhost69 | twitter: @TechnoCharms
  * 
  */
 public class TestCalDAV {

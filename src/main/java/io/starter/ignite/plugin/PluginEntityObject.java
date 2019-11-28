@@ -23,7 +23,7 @@ import io.swagger.annotations.ExtensionProperty;
  * Contains and initializes Plugin template mustaching info for a passed in
  * EntityObject. <br/>
  * 
- * @author John McMahon (@TechnoCharms)
+ * @author John McMahon ~ github: SpaceGhost69 | twitter: @TechnoCharms
  */
 public class PluginEntityObject implements ReactGenConfiguration {
 
