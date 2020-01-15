@@ -157,11 +157,10 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 		// copy the files to the target project folder
 		export(gen);
 
-		logger.error("Done processing " + REACT_DATA_OBJECTS.size() + " React Objects");
+		logger.info("Done processing " + REACT_DATA_OBJECTS.size() + " React Objects");
 
-		// run npm to build and run react native app!
-		// String[] args1 = { "npm", "install" };
-		// RunCommand.runSafe("npm", args1);
+		// TODO: conditionally run maven build
+		
 
 	}
 

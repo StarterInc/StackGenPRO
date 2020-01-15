@@ -18,7 +18,7 @@ import getAppStore from './stackgen/store/store';
 
 // import the generated data object CRUD actions
 {{#dataobjects}}
-import { get{{objname}}s } from './stackgen/actions/{{objname}}s'
+// import { get{{objname}}s } from './stackgen/actions/{{objname}}s'
 {{/dataobjects}}
 
 import './stackgen/styles/styles.scss';
@@ -37,15 +37,15 @@ const appRendering = (
  * TODO: implement offline capability / cache
  *
  */
-function initAllData(){
-  var ret = {
+// function initAllData(){
+ // var ret = {
 
   {{#dataobjects}}
   //... 	get{{objname}}s(),
   {{/dataobjects}}
-  }
-  return {};
-}
+ // }
+ //  return {};
+// }
 
   // TODO: fix data fetch here not hardcoded to getUsers()
 // store.dispatch(getUsers()).then(() => {

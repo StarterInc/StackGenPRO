@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Row, Col } from 'react-bootstrap';
+
+import { Row } from 'react-bootstrap';
 
 {{#dataobjects}}
 import {{objname}}Table from './{{objname}}/{{objname}}Table';

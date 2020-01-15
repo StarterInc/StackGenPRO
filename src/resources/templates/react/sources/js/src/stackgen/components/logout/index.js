@@ -1,29 +1,20 @@
 /*
  * Logout Form
  *
- * {{GENERATED_MESSAGE}}
- * {{LICENSE}}
- * {{COMPANY_INFO}}
- * {{CONTACT_INFO}}
+ * NOTE: THIS IS A STACKGEN GENERATED FILE: MAY BE OVERWRITTEN
+ * GPL 3.0
+ * Starter Inc.
+ * support@stackgen.io
  *
  *
  */
-import React, { useState } from "react"
+import React  from "react"
 import { Card, Row, Col } from "react-bootstrap"
 
 import "./Logout.css"
 
-const mappings = {
-  {{#dataobjects}}
-   {{index}}: {
-    text: "{{objname}}",
-    state: "mapping"
-  },
-  {{/dataobjects}}
-}
-
 function Logout() {
-  const [mappingValues, setValue] = useState(mappings)
+  // const [mappingValues, setValue] = useState(mappings)
 
   return (
     <div>

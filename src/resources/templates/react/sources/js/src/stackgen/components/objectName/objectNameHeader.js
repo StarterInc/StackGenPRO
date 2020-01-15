@@ -8,9 +8,8 @@
  *
  */
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const {{objectname}}Header = ({ }) => (
+const {{objectname}}Header = () => (
 	  <>
     <thead>
   		  <tr>

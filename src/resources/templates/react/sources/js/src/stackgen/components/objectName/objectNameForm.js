@@ -14,7 +14,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Form, Button } from 'react-bootstrap';
-import { connect } from 'react-redux';
 
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
@@ -84,7 +83,7 @@ class {{objectname}}Form extends React.Component {
 
     render() {
         
-    	const { {{objectnamevarname}}, dispatch , validated, message, errorMessage } = this.props;
+    	const { {{objectnamevarname}}, dispatch , message, errorMessage } = this.props;
         
         return (
           <>

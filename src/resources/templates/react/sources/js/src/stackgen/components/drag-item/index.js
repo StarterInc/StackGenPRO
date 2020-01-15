@@ -2,10 +2,10 @@ import React, { useState, useRef } from "react"
 import useDrag from "../../hooks/useDrag"
 import View from "./view"
 
-export default ({ dragEffect, data, key, id }) => {
+export default ({ dragEffect, data, id }) => {
   const dragRef = useRef()
   const [classValue, setClassValue] = useState("grab")
-  const { dragState } = useDrag({
+  useDrag({
     id,
     effect: dragEffect,
     ref: dragRef,

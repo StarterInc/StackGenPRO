@@ -7,8 +7,8 @@
     <environment id="production">
       <transactionManager type="JDBC" />
       <dataSource type="POOLED">
-        <property name="driver" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://${dbUrl}:3306/${dbName}?autoReconnect=true" />
+        <property name="driver" value="com.mysql.cj.jdbc.Driver" />
+        <property name="url" value="${dbUrl}/${dbName}?autoReconnect=true" />
         <property name="username" value="${dbUser}" />
         <property name="password" value="${dbPassword}" />
         <property name="poolMaximumActiveConnections" value="5" />
@@ -21,8 +21,8 @@
     <environment id="staging">
       <transactionManager type="JDBC" />
       <dataSource type="POOLED">
-        <property name="driver" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://${dbUrl}:3306/${dbName}?autoReconnect=true" />
+        <property name="driver" value="com.mysql.cj.jdbc.Driver" />
+        <property name="url" value="${dbUrl}/${dbName}?autoReconnect=true" />
         <property name="username" value="${dbUser}" />
         <property name="password" value="${dbPassword}" />
         <property name="poolMaximumActiveConnections" value="5" />
@@ -42,33 +42,6 @@
       </dataSource>
     </environment>
   </environments>
-  <mappers>
-    <mapper resource="io/starter/stackgen/model/dao/StackgenOrderMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenModelApiResponseMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenCalendarEventMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenCalendarMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenAuditLogMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenTagMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenPrivilegeMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenOrganizationMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenCategoryMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenCsatMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenUserMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenCalendarEventMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenAccountMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenDataMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenOrderDetailMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenTradeOrderMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenLedgerEntryMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenWorkFlowsMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenContactMethodMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenLocationMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenRoleMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenCategoryMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenStackMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenContentMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenCategoryMapper.xml" />
-    <mapper resource="io/starter/stackgen/model/dao/StackgenItemMapper.xml" />
-  </mappers>
+
 </configuration>
 

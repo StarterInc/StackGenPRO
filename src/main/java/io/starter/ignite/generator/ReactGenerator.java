@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 
 /**
  * <h2>Generates an app from a Swagger Spec</h2>
@@ -34,6 +36,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author John McMahon ~ github: SpaceGhost69 | twitter: @TechnoCharms
  */
 @SpringBootApplication
+@Order(Ordered.HIGHEST_PRECEDENCE) // run after Main Generator
 public class ReactGenerator extends Main implements ReactGenConfiguration, CommandLineRunner {
 
 	protected static final Logger logger = LoggerFactory.getLogger(ReactGenerator.class);
@@ -42,20 +45,26 @@ public class ReactGenerator extends Main implements ReactGenConfiguration, Comma
 	 * a list of file paths to copy relative to project root
 	 */
 	private static String[][] sf = {
-			{ "/lib/StarterIgnite-1.2.1-SNAPSHOT.jar", "/lib/StarterIgnite-1.2.1-SNAPSHOT.jar" },
+			//{ "/lib/StarterIgnite-1.2.1-SNAPSHOT.jar", "/lib/StarterIgnite-1.2.1-SNAPSHOT.jar" },
 
 			{ "/src/resources/templates/application.yml", "/src/main/resources/application.yml" },
 
 			{ "/src/resources/templates/log4j.properties", "/src/main/resources/log4j.properties" },
 
 			{ "/logs/logfile_placeholder.txt", "/logs/logfile_placeholder.txt" },
-
-			{ "/src/resources/templates/starter-ignite-banner.txt",
-					"/src/main/java/io/starter/spring/boot/starter-ignite-banner.txt" } };
+	
+			{ "/src/test/java/io/starter/ignite/security/securefield/SecureFieldTest.java",
+				"/src/test/java/io/starter/ignite/security/securefield/SecureFieldTest.java" },
+	
+			{ "/src/main/java/io/starter/spring/boot/stackgen-pro.txt",
+				"/src/main/java/io/starter/spring/boot/stackgen-pro.txt" } };
 
 	public static void main(String[] args) throws Exception {
 		
 		checkLog4j();
+		if(args==null) {
+			args = new String[0];
+		}
 		SpringApplication.run(ReactGenerator.class, args);
 
 	}

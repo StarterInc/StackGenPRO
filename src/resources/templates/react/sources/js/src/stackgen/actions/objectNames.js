@@ -81,10 +81,10 @@ export const edit{{objectname}} = (id, updates) => {
       })
       .catch(function(error) {
         if (error.response && error.response.status === 404) {
-          dispatch(_stackError(`Could not find {{objectname}}: ${id}`));
+          dispatch( _{{objectnamevarname}}Error(`Could not find {{objectname}}: ${id}`));
         } else {
           dispatch(
-            _stackError(`ERROR updating {{objectname}} ${JSON.stringify(error)}`)
+        	_{{objectnamevarname}}Error(`ERROR updating {{objectname}} ${JSON.stringify(error)}`)
           );
         }
       });
@@ -137,11 +137,6 @@ export const get{{objectname}} = (id) => {
         });
     };
 };
-
-const _{{objectnamevarname}}Message = (message) => ({
-    type: actionTypes.{{objectnameupper}}_MESSAGE,
-    message : message
-});
 
 const _{{objectnamevarname}}Error = (message) => ({
     type: actionTypes.{{objectnameupper}}_ERROR,

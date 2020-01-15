@@ -1,14 +1,14 @@
 /*
  * attach drag event handling to react components
 
- * {{GENERATED_MESSAGE}}
- * {{LICENSE}}
- * {{COMPANY_INFO}}
- * {{CONTACT_INFO}}
+ * NOTE: THIS IS A STACKGEN GENERATED FILE: MAY BE OVERWRITTEN
+ * GPL 3.0
+ * Starter Inc.
+ * support@stackgen.io
 
  *
  */
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const useDrag = ({ id, effect, ref, onDragStart, onDragOver, onDragEnd }) => {
   const [dragState, updateDragState] = useState("draggable");

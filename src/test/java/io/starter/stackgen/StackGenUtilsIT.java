@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
 
 import org.json.JSONObject;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -15,9 +16,10 @@ import io.starter.stackgen.web.StackGenUtils;
 public class StackGenUtilsIT {
 
 	@Test
+	@Ignore
 	public void testInstantiateSchemaFromURL() throws JsonParseException, JsonMappingException, IOException {
 
-		String hostURL = "http://localhost:8100/api-docs";
+		String hostURL = "https://sgdev.stackgen.io:8443/api-docs";
 		JSONObject job = StackGenUtils.loadSchema(hostURL);
 		assertNotNull(job);
 

@@ -9,7 +9,6 @@
  *
  */
 import React, { useState } from "react"
-import { Card, Row, Col } from "react-bootstrap"
 
 import "./FieldMapper.css"
 import DropItem from "../drop-item"

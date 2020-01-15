@@ -5,7 +5,7 @@ import useDrop from "../../hooks/useDrop";
 
 export default ({ children, heading, onDrop }) => {
   const dropRef = useRef();
-  const { dropState, droppedItem } = useDrop({
+  const { droppedItem } = useDrop({
     ref: dropRef,
     onDrop
   });

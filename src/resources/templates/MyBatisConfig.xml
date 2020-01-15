@@ -9,12 +9,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<environment id="production">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
-				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="driver" value="com.mysql.cj.jdbc.Driver" />
 				<property name="url"
-					value="jdbc:mysql://${dbUrl}:3306/${dbName}?autoReconnect=true" />
+					value="${dbUrl}:330/${dbName}?autoReconnect=true" />
 				<property name="username" value="${dbUser}" />
 				<property name="password" value="${dbPassword}" />
-				<property name="poolMaximumActiveConnections" value="5" />
+				<property name="poolMaximumActiveConnections" value="50" />
 				<property name="poolMaximumIdleConnections" value="3" />
 				<property name="poolPingEnabled" value="true" />
 				<property name="poolPingQuery" value="select 1" />
@@ -25,16 +25,16 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<environment id="staging">
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
-				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="driver" value="com.mysql.cj.jdbc.Driver" />
 				<property name="url"
-					value="jdbc:mysql://${dbUrl}:3306/${dbName}?autoReconnect=true" />
+					value="${dbUrl}/${dbName}?autoReconnect=true" />
 				<property name="username" value="${dbUser}" />
 				<property name="password" value="${dbPassword}" />
-				<property name="poolMaximumActiveConnections" value="5" />
+				<property name="poolMaximumActiveConnections" value="50" />
 				<property name="poolMaximumIdleConnections" value="3" />
 				<property name="poolPingEnabled" value="true" />
 				<property name="poolPingQuery" value="select 1" />
-				<property name="poolTimeToWait" value="20000" />
+				<property name="poolTimeToWait" value="10000" />
 				<property name="poolMaximumCheckoutTime" value="60000" />
 			</dataSource>
 		</environment>
