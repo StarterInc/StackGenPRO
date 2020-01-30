@@ -1,4 +1,5 @@
 swagger: '2.0'
+
 info:
   description: Starter StackGen API
   version: 1.0.0
@@ -10,6 +11,7 @@ info:
     name: AGPL 3.0
     url: https://www.gnu.org/licenses/agpl-3.0.html
   termsOfService: http://stackgen.io/tos/
+
 servers:
   url: https://{username}.stackgen.io:{port}/{basePath}
   description: The production API server
@@ -25,22 +27,25 @@ servers:
     basePath:
       # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `v2`
       default: v2      
+
 # tags are used for organizing operations
 tags:
 - name: admins
   description: Secured Admin-only calls
 - name: users
   description: Operations available to regular users
+
 schemes:
 - https
+
 paths:
-  /user-login:
+  /login:
     get:
       tags:
       - "user"
       summary: "Logs user into the system"
       description: ""
-      operationId: "loginUser"
+      operationId: "login"
       produces:
       - "application/xml"
       - "application/json"
@@ -71,7 +76,21 @@ paths:
               description: "date in UTC when token expires"
         400:
           description: "Invalid username/password supplied"
-  /user-logout:
+  /signup:
+    get:
+      tags:
+      - "user"
+      summary: "Signup a new user"
+      description: ""
+      operationId: "signup"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"          
+  /logout:
     get:
       tags:
       - "user"
@@ -85,6 +104,7 @@ paths:
       responses:
         default:
           description: "successful operation"
+          
 securityDefinitions:
   automator_auth:
     type: "oauth2"
@@ -94,16 +114,14 @@ securityDefinitions:
       write:items: "modify owned items"
       read:items: "read owned items"
   api_key:
-    type: "apiKey"
-    name: "api_key"
+    type: "jwt"
+    name: "jwt"
     in: "header"
+    
 definitions:
   Account:
     type: "object"
     properties:
-      id:
-        type: "integer"
-        format: "int64"
       balance:
         type: "number"
         format: "double"
@@ -128,12 +146,10 @@ definitions:
         default: false
     xml:
       name: "Account"
+      
   LedgerEntry:
     type: "object"
     properties:
-      id:
-        type: "integer"
-        format: "int64"
       accountId:
         type: "integer"
         format: "int64"
@@ -171,8 +187,9 @@ definitions:
         type: boolean
         default: false
     xml:
-      name: "Account"
-  TradeOrder:
+      name: "LedgerEntry"
+      
+  Order:
     type: "object"
     properties:
       tradeId:
@@ -189,13 +206,16 @@ definitions:
         description: "Order Status"
         enum:
         - "placed"
+        - "pending"
         - "approved"
         - "executed"
+        - "declined"
       complete:
         type: boolean
         default: false
     xml:
       name: "Order"
+      
   Content:
     type: object
     required:
@@ -222,6 +242,7 @@ definitions:
         format: "int64"
     xml:
       name: "Content"    
+      
   Organization:
     required:
     - name
@@ -240,17 +261,14 @@ definitions:
         type: string
         example: 415-867-5309
     xml:
-      name: "Organization"         
+      name: "Organization"       
+        
   User:
     required:
     - username
     - password
     - email
     properties:
-      fingerprint:
-        type: string
-        example: DK$DFSJaraDD
-        x-starter-secureField: true
       firstName:
         description: first name of person (encrypted)
         type: string
@@ -277,12 +295,10 @@ definitions:
         minLength: 10
         # encryption handled by authorization code
         x-starter-secureField: true, Type=HASHED, strength=5
-      passwordSalt:
+      fingerprint:
         type: string
-        example: very random
-        minLength: 10
-        readOnly: true
-        x-starter-secureField: true        
+        example: DK$DFSJaraDD
+        x-starter-secureField: true
       homePage:
         type: string
         format: url
@@ -334,6 +350,7 @@ definitions:
      
     xml:
       name: "User"
+      
   Role:
     required:
     - name
@@ -342,7 +359,7 @@ definitions:
         type: "integer"
         format: "int64"
       name:
-        description: first name of person (encrypted)
+        description: Name of the Role
         type: string
         example: Karena
       type:
@@ -350,7 +367,8 @@ definitions:
         example: HardToGuess1980
         minLength: 10
     xml:
-      name: "Role"      
+      name: "Role"     
+       
   Privilege:
     required:
     - name
@@ -359,10 +377,11 @@ definitions:
         type: "integer"
         format: "int64"
       name:
-        description: name of the system privilege
+        description: Name of the System Privilege
         type: string
         example: Read Access to Content
       type:
+        description: Name of the System Privilege
         type: "string"
         description: "Privilege Type"
         enum:
@@ -517,13 +536,13 @@ definitions:
         $ref: "#/definitions/Category"
       name:
         type: "string"
-        example: "My Microservice API"
+        example: "My New Stack"
         description: "name of the service API displayed in the UI"    
       adminServerHost:
         type: "string"
-        example: "www.myco.com"
+        example: "www.mycompany.com"
         maxLength: 256
-        description: "host name of to connect to the admin server"
+        description: "host (FQDN) name of to connect to the admin server -- do not include 'http(s):' or slashes"
       adminServerPort:
         type: "string"
         example: "8009"
@@ -533,7 +552,7 @@ definitions:
         type: "string"
         example: "localhost"
         maxLength: 256 
-        description: "host of this service"          
+        description: "host of this service (FQDN) -- do not include 'http(s):' or slashes"          
       hostPort:
         type: "string"
         example: "8099"
@@ -541,9 +560,19 @@ definitions:
         description: "port of this service"
       orgName:
         type: "string"
-        example: "io.starter"
+        example: "Starter Inc."
         maxLength: 256 
         description: "the name of the organization owner of the service used in classpath"
+      gitUser:
+        type: string
+        example: StarterInc
+        maxLength: 256
+        description: "The name of the git USER or ORG to push generated stack code"
+      gitRepo:
+        type: string
+        example: MyStackGenApp
+        maxLength: 256
+        description: "YAML Swagger/OpenAPI Schema"        
       myBatisMain:
         type: "string"
         example: "gen/src/"
@@ -561,14 +590,14 @@ definitions:
         description: "Secure key used to encrypt the data in the new platform"                     
       dbUrl:
         type: "string"
-        example: "db.myco.com"
+        example: "jdbc:mysql//db.myco.com"
         maxLength: 256 
-        description: "database for the system"          
+        description: "database url for the system"          
       dbName:
         type: "string"
-        example: "StackGen"
+        example: "StackGenApp1"
         maxLength: 256 
-        description: "db schema for the system - must exist prior to initialization"          
+        description: "db name (schema name) for the system - must exist prior to initialization"          
       dbUser:
         type: "string"
         example: "igniteuser"
@@ -576,10 +605,10 @@ definitions:
         description: "database user for the system"    
       dbPassword:
         type: "string"
-        example: "ABDCEDF"
+        example: "hard2Gu3ss"
         maxLength: 256 
         description: "database password for the system" 
-        x-starter-secureField: true, Type=HASHED, strength=5
+        x-starter-secureField: true
       dbGenDropTable:
         type: boolean
         example: true 
@@ -588,11 +617,12 @@ definitions:
         type: "string"
         example: "starter"
         maxLength: 256 
-        description: "database table prefix" 
+        description: "Name for the Schema" 
       schemaData:
         type: string
         example: Sparkyt
-        maxLength: 100000    
+        maxLength: 1000000
+        description: "YAML Swagger/OpenAPI Schema"      
       artifactId:
         type: "string"
         example: "StackGen"
@@ -661,5 +691,5 @@ definitions:
       message:
         type: "string" 
 externalDocs:
-  description: "Find out more about Starter StackGen"
-  url: "http://StackGen.io/"    
+  description: "Learn more about Starter StackGen"
+  url: "https://docs.stackgen.io/"    

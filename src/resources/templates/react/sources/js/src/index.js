@@ -1,11 +1,13 @@
 /**
  * Main entrypoint of the StackGen React app.
  *
- * {{GENERATED_MESSAGE}}
- * {{LICENSE}}
- * {{COMPANY_INFO}}
- * {{CONTACT_INFO}}}
-
+ * {{GENERATED_MESSAGE}} 
+ * 
+ * {{LICENSE}} 
+ * 
+ * {{COMPANY_INFO}} 
+ * 
+ * {{CONTACT_INFO}}
  *
  *
  */

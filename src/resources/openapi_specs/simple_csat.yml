@@ -54,7 +54,12 @@ definitions:
       comments:
         type: string
         example: Your real feelings
-        maxLength: 100000  
+        maxLength: 1000000
+      contentUrl:
+        type: string
+        description: The URL of the resource being rated
+        example: http://someco.com/somepage.html?someparam=somevalue
+        maxLength: 512        
       rating:
         type:  "integer"
         format: "int64"

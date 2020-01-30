@@ -48,24 +48,52 @@
 
 	</dependencies>
 	<build>
-		<plugins><!-- allows
+		<plugins><!-- allows <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>exec-maven-plugin</artifactId> 
+				<executions> <execution> <phase>generate</phase> <goals> <goal>java</goal> 
+				</goals> <configuration> <mainClass>io.starter.ignite.generator.ReactGenerator</mainClass> 
+				</configuration> </execution> </executions> </plugin> -->
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
+				<groupId>io.starter</groupId>
+				<artifactId>aspectj-maven-plugin</artifactId>
+				<version>${aspectjplugin.version}</version>
 				<executions>
 					<execution>
-						<phase>generate</phase>
 						<goals>
-							<goal>java</goal>
+							<goal>compile</goal>
+							<goal>test-compile</goal>
 						</goals>
 						<configuration>
-							<mainClass>io.starter.ignite.generator.ReactGenerator</mainClass>
+							<aspectLibraries>
+								<aspectLibrary>
+									<groupId>io.starter</groupId>
+									<artifactId>stackgen</artifactId>
+								</aspectLibrary>
+							</aspectLibraries>
+							<!-- MUST use 10, NOT 1.10 or ajc breaks -->
+							<source>1.8</source>
+							<target>1.8</target>
+							<complianceLevel>1.8</complianceLevel>
+							<sources>
+								<source>
+									<basedir>src/test/java</basedir>
+									<includes>
+										<include>**/*.jav≠a</include>
+									</includes>
+								</source>
+								<source>
+									<basedir>src/main/java</basedir>
+									<includes>
+										<include>**/*.java</include>
+									</includes>
+								</source>
+							</sources>
+							<showWeaveInfo>true</showWeaveInfo>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
- -->
 		</plugins>
 	</build>
+
 
 </project>

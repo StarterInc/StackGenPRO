@@ -1,10 +1,13 @@
 /**
  * Main router for the app data management views
- * * {{GENERATED_MESSAGE}}
- * {{LICENSE}}
- * {{COMPANY_INFO}}
+ *
+ * {{GENERATED_MESSAGE}} 
+ * 
+ * {{LICENSE}} 
+ * 
+ * {{COMPANY_INFO}} 
+ * 
  * {{CONTACT_INFO}}
-
  *
  */
 import React from 'react';

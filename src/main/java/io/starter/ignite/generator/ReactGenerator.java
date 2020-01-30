@@ -2,10 +2,6 @@ package io.starter.ignite.generator;
 
 import java.security.NoSuchAlgorithmException;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -28,7 +24,7 @@ import org.springframework.core.annotation.Order;
  * </pre>
  *
  * <h2>NOTE: Generate a SecureField key</h2>
- * 
+ *
  * <pre>
  * 	java io.starter.ignite.generator.Main -Dio.starter.generateKey=<secretkey> -jar StarterIgnite-1.0.1.jar
  * </pre>
@@ -45,52 +41,55 @@ public class ReactGenerator extends Main implements ReactGenConfiguration, Comma
 	 * a list of file paths to copy relative to project root
 	 */
 	private static String[][] sf = {
-			//{ "/lib/StarterIgnite-1.2.1-SNAPSHOT.jar", "/lib/StarterIgnite-1.2.1-SNAPSHOT.jar" },
+			// { "/lib/StarterIgnite-1.2.1-SNAPSHOT.jar",
+			// "/lib/StarterIgnite-1.2.1-SNAPSHOT.jar" },
 
 			{ "/src/resources/templates/application.yml", "/src/main/resources/application.yml" },
 
 			{ "/src/resources/templates/log4j.properties", "/src/main/resources/log4j.properties" },
 
 			{ "/logs/logfile_placeholder.txt", "/logs/logfile_placeholder.txt" },
-	
-			{ "/src/test/java/io/starter/ignite/security/securefield/SecureFieldTest.java",
-				"/src/test/java/io/starter/ignite/security/securefield/SecureFieldTest.java" },
-	
+
 			{ "/src/main/java/io/starter/spring/boot/stackgen-pro.txt",
-				"/src/main/java/io/starter/spring/boot/stackgen-pro.txt" } };
+					"/src/main/java/io/starter/spring/boot/stackgen-pro.txt" } };
 
 	public static void main(String[] args) throws Exception {
-		
-		checkLog4j();
-		if(args==null) {
+
+		Main.checkLog4j();
+		if (args == null) {
 			args = new String[0];
 		}
 		SpringApplication.run(ReactGenerator.class, args);
-
+		System.exit(0);
 	}
 
-	
 	@Override
 	public void run(String... args) throws IllegalArgumentException, IllegalAccessException, NoSuchAlgorithmException {
 
 		// String inputSpecFile = "simple_cms.yml"; // simple_cms
 		args = new String[1];
-		if (args.length == 1 && args[0] == null)
+		if ((args.length == 1) && (args[0] == null)) {
 			args[0] = System.getProperty("schemaFile");
+		}
 
-		if (!REACT_SKIP_STACKGEN) {
+		if (!ReactGenConfiguration.skipBackendGen) {
 			super.run(args);
 
 			// copy Ignite files into gen project
-			copyStaticFiles(staticFiles);
+			Main.copyStaticFiles(Main.staticFiles);
+
 		}
 
-		// copy React files into gen project
-		copyStaticFiles(sf);
-		try {
-			ReactGen.generateReact();
-		} catch (Exception e) {
-			throw new RuntimeException(e.toString());
+		if (!Configuration.skipReactGen) {
+			// copy React files into gen project
+			Main.copyStaticFiles(ReactGenerator.sf);
+			try {
+				ReactGen.generateReact();
+			} catch (final Exception e) {
+				throw new IgniteException(e.toString());
+			}
+		} else {
+			ReactGenerator.logger.info("Skipping React Generation");
 		}
 
 	}

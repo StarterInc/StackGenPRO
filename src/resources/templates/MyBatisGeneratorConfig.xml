@@ -42,9 +42,10 @@
 		<sqlMapGenerator targetPackage="${MODEL_DAO_PACKAGE}"
 			targetProject="${myBatisMain}main/resources" />
 
-		<javaClientGenerator
+		<javaClientGenerator 
+			type="io.starter.ignite.generator.MyBatisIgniteJavaMapperGenerator" 
 			targetPackage="${MODEL_DAO_PACKAGE}"
-			targetProject="${myBatisMain}main/java" type="XMLMAPPER">
+			targetProject="${myBatisMain}main/java">
 			<property name="useActualColumnNames" value="true" />
 		</javaClientGenerator>
 

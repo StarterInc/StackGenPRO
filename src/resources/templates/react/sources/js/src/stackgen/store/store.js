@@ -1,11 +1,13 @@
 /**
  * Create the Redux Store
-
- * {{GENERATED_MESSAGE}}
- * {{LICENSE}}
- * {{COMPANY_INFO}}
+ * 
+ * {{GENERATED_MESSAGE}} 
+ * 
+ * {{LICENSE}} 
+ * 
+ * {{COMPANY_INFO}} 
+ * 
  * {{CONTACT_INFO}}
-
  *  
  */
 import {

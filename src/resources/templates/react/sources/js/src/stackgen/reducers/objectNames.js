@@ -1,12 +1,14 @@
 /**
  * Reducer for {{objectname}}
-
- * {{GENERATED_MESSAGE}}
- * {{LICENSE}}
- * {{COMPANY_INFO}}
- * {{CONTACT_INFO}}
-
  * 
+ * {{GENERATED_MESSAGE}} 
+ * 
+ * {{LICENSE}} 
+ * 
+ * {{COMPANY_INFO}} 
+ * 
+ * {{CONTACT_INFO}}
+ *  
  */
 import {actionTypes} from "./actionTypes";
 

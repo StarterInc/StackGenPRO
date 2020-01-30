@@ -1,40 +1,43 @@
 /**
  * {{objectname}} Data Table
  * 
- * {{GENERATED_MESSAGE}}
- * {{LICENSE}}
- * {{COMPANY_INFO}}
+ * {{GENERATED_MESSAGE}} 
+ * 
+ * {{LICENSE}} 
+ * 
+ * {{COMPANY_INFO}} 
+ * 
  * {{CONTACT_INFO}}
- *
- *
-var {{objectname}}:{
-	{{#variables}}
-		{{variablename}}: '{{variableval}}',
-	{{/variables}}
-}
-*/
+ * 
+ * 
+ * var {{objectname}}:{ {{#variables}} {{variablename}}: '{{variableval}}',
+ * {{/variables}} }
+ */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Card, Table, Row, Col, Button } from 'react-bootstrap';
+import { Accordion, Card, Table, Row, Col, Button } from 'react-bootstrap';
 import { list{{objectname}}s, remove{{objectname}} } from '../../actions/{{objectname}}s'
-
+import { FaTrash, FaEdit } from 'react-icons/fa';
 import {{objectname}} from './{{objectname}}';
 import {{objectname}}Header from './{{objectname}}Header';
 
 const {{objectname}}Table = (props) => (
 {{=<% %>=}}
-    <Card style={{ width: '100%' }}>
-    <Card.Header>
-        <Row>
-            <Col>
-                <%objectname%> List
-            </Col>
-            <Col style={{float:"right"}}>
-                <Link to={`/<%objectname%>/add/`}> <b>add</b></Link> | <Button onClick={ () => { props.dispatch(list<%objectname%>s()); }}>load</Button>
-            </Col>    
-        </Row>
+    <Card style={{ width: '100%'}}>
+    
+    <Card.Header  style={{ width: '100%', paddingLeft:10 }}
+    	onClick={ () => { props.dispatch(list<%objectname%>s()); }}>
+    
+    	<Accordion.Toggle as={Row} variant="link" eventKey="<%objectname%>" 
+            style={{marginLeft:'30px'}}
+        >
+        	<b><%objectname%></b>
+        </Accordion.Toggle>
+        
     </Card.Header>
+    
+    <Accordion.Collapse eventKey="<%objectname%>">
         <Card.Body>
         <Table striped hover responsive size="lg">
             <<%objectname%>Header/>
@@ -43,23 +46,32 @@ const {{objectname}}Table = (props) => (
             	const {id} = <%objectnamevarname%>;
                 return (
                     <tr key={<%objectnamevarname%>.id} id={<%objectnamevarname%>.id}>
-                        <<%objectname%> {...<%objectnamevarname%>} />
-                        <td>
-	                        <Button onClick={ () => { props.dispatch(remove<%objectname%>( { id } )); }}>
-	                        delete
-	                        </Button>
-                        </td>
-                    	<td>
-	                    	<Button>
-	                    	<Link to={`#/<%objectname%>/edit/${id}`}><b>edit</b></Link>
-	                    	</Button>
-                    	</td>
+                    <td>
+	                    <Button size="sm" onClick={ () => { props.dispatch(remove<%objectname%>( { id } )); }}>
+                        <FaTrash
+                            size={15}
+                        />
+                        </Button>
+	                    
+	                </td>
+	            	<td>
+	            		<Link to={`/<%objectname%>/edit/${id}`}>
+	            		<Button size="sm" >
+                        <FaEdit
+                            size={15}
+                        />
+                        </Button>
+	                	</Link>
+	            	</td>
+                    <<%objectname%> {...<%objectnamevarname%>} />
+                        
                     </tr>
                 );
             }): <tr><td>no results</td></tr> }
             </tbody>
             </Table>
         </Card.Body>
+        </Accordion.Collapse>
     </Card>
 <%={{  }}=%>
 );

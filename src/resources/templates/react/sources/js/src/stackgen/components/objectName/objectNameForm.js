@@ -2,10 +2,12 @@
  * 
  * {{objectname}} Data Entry FORM
  *  
- * {{GENERATED_MESSAGE}}
+ * {{GENERATED_MESSAGE}} 
  * 
- * {{LICENSE}}
- * {{COMPANY_INFO}}
+ * {{LICENSE}} 
+ * 
+ * {{COMPANY_INFO}} 
+ * 
  * {{CONTACT_INFO}}
  * 
  * var {{objectname}}:{ {{#variables}} {{variablename}}: '{{variableval}}',
@@ -34,12 +36,13 @@ class {{objectname}}Form extends React.Component {
 
         this.onSubmit = this.onSubmit.bind(this);
 		 
-        let  stack  = { ...props.stack} ;
+        let  {{objectnamevarname}}  = { ...props.{{objectnamevarname}}} ;
 
         this.state = {
-            stack:stack,
-            error: '',
-            validated: true
+        	{{objectname}}:{{objectnamevarname}},
+            message: '',
+            errorMessage:'',
+            validated: false
         };
         
     }
@@ -55,14 +58,14 @@ class {{objectname}}Form extends React.Component {
   onSubmit(values, actions){
 	// actions.preventDefault();
 	actions.setSubmitting(true);
-	alert(JSON.stringify(values, null, 2));
-	this.setState(() => ({ error: '' }));
-	this.props.onSubmitStack({
+	console.log('Submitting values: ' + JSON.stringify(values, null, 2));
+	this.setState(() => ({ errorMessage: '' }));
+	this.props.onSubmit{{objectname}}({
 		...values
 	});
-	actions.setSubmitting(false);
-	alert('submitted')
 	
+	actions.setSubmitting(false);
+	this.props.history.push('/Datamanagement');
   }
   
   /*
@@ -142,23 +145,18 @@ class {{objectname}}Form extends React.Component {
                 >
                 {{#variables}}
                  <Form.Group controlId="{{variablename}}">
-	                  <Form.Label>{{variablename}}</Form.Label>
+	                  <Form.Label>{{displayName}}</Form.Label>
 	                  <Field
 	                  	id="{{variablename}}"
 	                  	name="{{variablename}}"
 	                    {{{required}}}
 	                  	{{{variableFieldType}}}
-	                    placeholder="{{defaultValue}}"
+	                   // placeholder="{{defaultValue}}"
                     	 className={`form-control ${
                             touched.{{variablename}} && errors.{{variablename}} ? "is-invalid" : ""
                           }`}
 	                    />
 	                 
-		                <ErrorMessage
-	                      component="div"
-	                      name="{{variablename}}"
-	                      className="invalid-feedback"
-	                    />
                     	<Form.Control.Feedback>
                     		That {{variablename}} entry looks good!
                     	</Form.Control.Feedback>

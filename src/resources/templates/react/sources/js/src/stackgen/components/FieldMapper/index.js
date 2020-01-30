@@ -1,11 +1,13 @@
 /*
  * Field mapper
-
- * {{GENERATED_MESSAGE}}
- * {{LICENSE}}
- * {{COMPANY_INFO}}
+ * 
+ * {{GENERATED_MESSAGE}} 
+ * 
+ * {{LICENSE}} 
+ * 
+ * {{COMPANY_INFO}} 
+ * 
  * {{CONTACT_INFO}}
-
  *
  */
 import React, { useState } from "react"

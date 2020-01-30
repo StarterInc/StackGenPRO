@@ -1,11 +1,13 @@
 /*
  * attach drag event handling to react components
-
- * {{GENERATED_MESSAGE}}
- * {{LICENSE}}
- * {{COMPANY_INFO}}
+ * 
+ * {{GENERATED_MESSAGE}} 
+ * 
+ * {{LICENSE}} 
+ * 
+ * {{COMPANY_INFO}} 
+ * 
  * {{CONTACT_INFO}}
-
  *
  */
 import { useState, useEffect } from "react";

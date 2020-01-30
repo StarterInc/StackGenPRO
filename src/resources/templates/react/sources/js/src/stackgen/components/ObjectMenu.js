@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row } from 'react-bootstrap';
+import { Row, Accordion } from 'react-bootstrap';
 
 {{#dataobjects}}
 import {{objname}}Table from './{{objname}}/{{objname}}Table';
@@ -11,9 +11,11 @@ import {{objname}}Table from './{{objname}}/{{objname}}Table';
  */
 const ObjectMenu = () => (
     <Row>
+    <Accordion style={ {margin:'10px', width:'100%'} }>
     {{#dataobjects}}
       <{{objname}}Table />
     {{/dataobjects}}
+    </Accordion>
     </Row>
 );
 
