@@ -2,11 +2,14 @@ package io.starter.ignite.generator;
 
 import java.security.NoSuchAlgorithmException;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
@@ -59,7 +62,10 @@ public class ReactGenerator extends Main implements ReactGenConfiguration, Comma
 		if (args == null) {
 			args = new String[0];
 		}
-		SpringApplication.run(ReactGenerator.class, args);
+		SpringApplication app = new SpringApplication(ReactGenerator.class);
+		app.setWebApplicationType(WebApplicationType.NONE);
+		ConfigurableApplicationContext context = app.run(args);
+		context.close();
 		System.exit(0);
 	}
 
@@ -68,7 +74,7 @@ public class ReactGenerator extends Main implements ReactGenConfiguration, Comma
 
 		// String inputSpecFile = "simple_cms.yml"; // simple_cms
 		args = new String[1];
-		if ((args.length == 1) && (args[0] == null)) {
+		if (args.length == 1 && args[0] == null) {
 			args[0] = System.getProperty("schemaFile");
 		}
 
@@ -93,5 +99,23 @@ public class ReactGenerator extends Main implements ReactGenConfiguration, Comma
 		}
 
 	}
+	
+	/**
+	 * Create and initialize a new SwaggerGen from a JSON config object
+	 *
+	 * @param inputSpec JSONObject containing config data
+	 * @return
+	 */
+	public static void generateApp(JSONObject config) throws Exception {
 
+		try {
+			Configuration.copyJSONConfigToSysprops(config);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			Main.logger
+					.error("Copying Configuration values from JSON to Sysprops failed while starting App Generation");
+			e.printStackTrace();
+		}
+		Main.generateStack(config.getString("schemaFile"));
+
+	}
 }
