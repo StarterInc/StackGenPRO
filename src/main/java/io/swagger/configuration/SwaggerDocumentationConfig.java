@@ -48,9 +48,9 @@ public class SwaggerDocumentationConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
-		logger.warn("Init CORS Config Origins: CORSOrigins "
+		logger.warn("SGP SWAGDOCFG: Init CORS Config Origins: CORSOrigins "
 				+ CORSOrigins);
-		logger.warn("Init CORS Config Mapping: CORSMapping "
+		logger.warn("SGP SWAGDOCFG: Init CORS Config Mapping: CORSMapping "
 				+ CORSMapping);
 		final CorsConfiguration configuration = new CorsConfiguration();
 		configuration.addAllowedHeader("*");
@@ -61,7 +61,7 @@ public class SwaggerDocumentationConfig extends WebSecurityConfigurerAdapter {
 
 		configuration.setAllowedOrigins(Arrays.asList(CORSOrigins));
 		configuration.setAllowedMethods(Arrays
-				.asList("GET", "POST", "INSERT", "DELETE", "HEAD", "OPTIONS"));
+				.asList("GET", "POST", "INSERT", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"));
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration(CORSMapping, configuration);
 		return source;

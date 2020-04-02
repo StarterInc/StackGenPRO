@@ -298,6 +298,6 @@ public class PluginGen extends Gen implements Generator {
 	}
 
 	@Override
-	public void generate(String className, List<FieldSpec> fieldList, List<MethodSpec> getters, List<MethodSpec> setters) throws Exception {}
+	public void generate(String className, List<Object> fieldList, List<MethodSpec> getters, List<MethodSpec> setters) throws Exception {}
 
 }

@@ -74,17 +74,17 @@ public class ReactGenerator extends Main implements ReactGenConfiguration, Comma
 
 		// String inputSpecFile = "simple_cms.yml"; // simple_cms
 		args = new String[1];
-		if (args.length == 1 && args[0] == null) {
+		///if (args.length == 1 && args[0] == null) {
 			args[0] = System.getProperty("schemaFile");
-		}
+		//}
 
-		if (!ReactGenConfiguration.skipBackendGen) {
+		// if (!ReactGenConfiguration.skipBackendGen) {
 			super.run(args);
 
 			// copy Ignite files into gen project
 			Main.copyStaticFiles(Main.staticFiles);
 
-		}
+		//}
 
 		if (!Configuration.skipReactGen) {
 			// copy React files into gen project

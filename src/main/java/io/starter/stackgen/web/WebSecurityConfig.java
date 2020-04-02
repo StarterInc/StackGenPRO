@@ -55,8 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
-		logger.warn("Initializing CORS Config Origins: CORSOrigins " + CORSOrigins);
-		logger.warn("Initializing CORS Config Mapping: CORSMapping " + CORSMapping);
+		logger.warn("SGP-WSC: Initializing CORS Config Origins: CORSOrigins " + CORSOrigins);
+		logger.warn("SGP-WSC: Initializing CORS Config Mapping: CORSMapping " + CORSMapping);
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Arrays.asList(CORSOrigins));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "INSERT", "DELETE", "HEAD", "OPTIONS"));
