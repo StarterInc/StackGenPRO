@@ -1,8 +1,11 @@
 package io.starter.ignite.generator.react;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -64,6 +67,18 @@ public class AppEntityObject implements ReactGenConfiguration {
 	// view-hints info stored in DataField config
 	public String componentspec;
 
+	
+	private static Annotation getAnnotationForMethod(Method m, Class<?> lookingFor) {
+		Annotation[] decl = m.getDeclaredAnnotations();
+		for(Annotation c : decl) {
+			Class<?> tn = c.annotationType();
+			if(tn.toString().equals(lookingFor.toString())) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
 	/**
 	 * Wrap a class with our JSON Redux state templated output
 	 *
@@ -78,21 +93,33 @@ public class AppEntityObject implements ReactGenConfiguration {
 
 		// add variables find by annotated method
 		Stream.of(cx.getDeclaredMethods()).filter(s -> {
-			return (s.getAnnotation(AppEntityObject.ANNOTATION_CLASS)) != null;
+			Annotation decl =getAnnotationForMethod(s,AppEntityObject.ANNOTATION_CLASS);			
+			return decl != null;
 		}).forEach(s -> {
-			processMethod(s);
+			try {
+				processMethod(s, cx);
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				AppEntityObject.logger.error("AppEntityObject is invalid: " + s.toString());
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if (!isValid()) {
-				AppEntityObject.logger.error("WARNING: AppEntityObject is invalid: " + s.toString());
+				AppEntityObject.logger.warn("AppEntityObject is invalid: " + s.toString());
 			}
 		});
 
-		// add variables find by annotated method
+		// add variables find by annotated field
 		Stream.of(cx.getDeclaredFields()).filter(s -> {
 			return true;
 		}).forEach(s -> {
 			processField(s);
 			if (!isValid()) {
-				AppEntityObject.logger.error("WARNING: AppEntityObject is invalid: " + s.toString());
+				AppEntityObject.logger.warn("AppEntityObject is invalid: " + s.toString());
 			}
 		});
 	}
@@ -121,26 +148,46 @@ public class AppEntityObject implements ReactGenConfiguration {
 
 	}
 
+	public static Object getAPIAnnotatedValue(Method method, String vName) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		Annotation ano = getAnnotationForMethod(method, AppEntityObject.ANNOTATION_CLASS);
+		if(ano == null) {
+			return null;
+		}
+		return ano.annotationType().getMethod(vName).invoke(ano);
+	}
+	
 	/**
 	 * set values from data object class
 	 *
 	 * @param s
+	 * @param cx 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
 	 *
 	 */
-	private void processMethod(Method s) {
-		final JsonProperty jf = s.getAnnotation(AppEntityObject.FIELD_ANNOTATION_CLASS);
-		final ApiModelProperty apia = s.getAnnotation(AppEntityObject.ANNOTATION_CLASS);
-		final DataField df = s.getAnnotation(AppEntityObject.DATA_ANNOTATION_CLASS);
+	private void processMethod(Method s, Class<?> cx) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		// this.getAnnotationForMethod(s, AppEntityObject.FIELD_ANNOTATION_CLASS)
+		// final JsonProperty jf =(JsonProperty) s.invoke(fa); 
+		// Annotation anno = this.getAnnotationForMethod(s, AppEntityObject.ANNOTATION_CLASS);
+		
+		// s.invoke(cx).
+		//final ApiModelProperty apia = (ApiModelProperty)  anno.annotationType().invoke();
+		// final DataField df =  (DataField) s.invoke(this.getAnnotationForMethod(s, AppEntityObject.DATA_ANNOTATION_CLASS));
+		
 		Object val = null;
-		if (jf != null) {
-			val = jf.value();
-		} else {
-			val = apia.example();
-		}
-		if (!apia.hidden() && (val != null)) {
+		//if (jf != null) {
+		//	val = jf.value();
+		//} else {
+			val = getAPIAnnotatedValue(s, "example");
+		//}
+		boolean hidden = (Boolean)getAPIAnnotatedValue(s, "hidden");
+		if (!hidden && (val != null)) {
 			// logger.info("Processing : " + s.toGenericString() + " :" + val);
 			val = (getReturnValue(s) != null ? getReturnValue(s) : "");
-			String name = apia.name();
+			String name = getAPIAnnotatedValue(s, "name").toString();
 			if (name.equals("")) {
 				name = s.getName().replaceAll("get", "");
 			}
@@ -158,7 +205,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 
 					case "string":
 						v.variableFieldYupSchemaType += "string()";
-						if (apia.maxLength() > 256) {
+						if ((int)getAPIAnnotatedValue(s, "maxLength") > 256) {
 							v.variableFieldType = "as=\"textarea\"";
 						} else {
 							v.variableFieldType = "type=\"text\"";
@@ -207,7 +254,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 					}
 
 					if (!v.variableFieldYupSchemaType.equals("")) {
-						if (apia.required()) {
+						if ((boolean)getAPIAnnotatedValue(s, "required")) {
 							v.variableFieldYupSchemaType += ".required()";
 						}
 						v.variableFieldYupSchemaType += ",";
@@ -218,13 +265,14 @@ public class AppEntityObject implements ReactGenConfiguration {
 					throw new RuntimeException("ERROR in AppEntityObject.processMethod : " + s.toGenericString() + " :"
 							+ "ERROR_AEO_PM_" + name);
 				}
-				v.defaultValue = apia.example();
-				v.description = apia.value();
-				v.required = (apia.required() ? "required" : "");
+				v.defaultValue = getAPIAnnotatedValue(s, "example").toString();
+				v.description = getAPIAnnotatedValue(s, "value").toString();
+				v.required =  ((boolean) getAPIAnnotatedValue(s, "required") ? "required" : "");
 
 				// TODO: fix hidden fields
-				v.hidden = (apia.hidden() ? "hidden" : ""); // does not work?
+				v.hidden = (hidden ? "hidden" : ""); // does not work?
 
+				/*
 				try {
 					final Extension[] els = apia.extensions();
 					if ((els != null) && (els[0].properties() != null)) {
@@ -233,16 +281,16 @@ public class AppEntityObject implements ReactGenConfiguration {
 					}
 				} catch (final Exception e) {
 					// this is why we don't rely on sketchy props, guys
-				}
+				}*/
 
 				// the React configuration from Swagger/OpenAPI
-				handleStackGenExtensions(v, apia);
+				// handleStackGenExtensions(v, apia);
 
 				variables.add(v);
 			}
 
 		} else {
-			if (!apia.hidden()) {
+			if (hidden) {
 				AppEntityObject.logger.warn("Skipping Hidden Field: " + s.toGenericString() + " :" + val);
 			} else {
 				AppEntityObject.logger.error("Skipping Field Possible Error: " + s.toGenericString() + " :" + val);

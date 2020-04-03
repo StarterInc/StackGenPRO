@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -83,11 +84,11 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 			// cn = cn + ".class";
 			cn = Configuration.IGNITE_MODEL_PACKAGE + "." + cn;
 			ReactGen.logger.info("Loading Classes from ModelFile: " + cn);
-			try {
+			//try {
 				ReactGen.createAppEntities(gen, classLoader.loadClass(cn));
-			} catch (final Exception e) {
-				ReactGen.logger.error("ReactGen.generateEntitesFromModel failed: " + e.toString());
-			}
+			//} catch (final Exception e) {
+			//	ReactGen.logger.error("ReactGen.generateEntitesFromModel failed: " + e.toString());
+			//}
 		}
 		classLoader.close();
 	}

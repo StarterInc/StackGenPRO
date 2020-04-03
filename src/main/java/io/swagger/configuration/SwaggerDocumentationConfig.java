@@ -23,9 +23,6 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
-@javax.annotation.Generated(value = "io.starter.ignite.generator.swagger.languages.StackGenSpringCodegen", date = "2019-12-10T20:49:48.708-08:00")
-
-
 @Configuration
 @PropertySources({ @PropertySource("classpath:application.properties") })
 public class SwaggerDocumentationConfig extends WebSecurityConfigurerAdapter {
