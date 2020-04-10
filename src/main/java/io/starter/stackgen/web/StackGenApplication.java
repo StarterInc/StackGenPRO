@@ -28,7 +28,6 @@ public class StackGenApplication {
 	        app = new SpringApplication(StackGenApplication.class);
 	    }
 
-
 	    // launch the app
 	    ConfigurableApplicationContext context = app.run(args);
 	    

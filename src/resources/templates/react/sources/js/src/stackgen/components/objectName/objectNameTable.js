@@ -21,6 +21,8 @@ import { list{{objectname}}s, remove{{objectname}} } from '../../actions/{{objec
 import { FaTrash, FaEdit } from 'react-icons/fa';
 import {{objectname}} from './{{objectname}}';
 import {{objectname}}Header from './{{objectname}}Header';
+import {{objectname}}Chart from './{{objectname}}Chart';
+
 
 const {{objectname}}Table = (props) => (
 {{=<% %>=}}
@@ -39,26 +41,27 @@ const {{objectname}}Table = (props) => (
     
     <Accordion.Collapse eventKey="<%objectname%>">
         <Card.Body>
+        <<%objectname%>Chart/>
         <Table striped hover responsive size="lg">
             <<%objectname%>Header/>
             <tbody>
             {typeof(props.<%objectname%>s.map) !== 'undefined' ? props.<%objectname%>s.map(<%objectnamevarname%> => {
             	const {id} = <%objectnamevarname%>;
                 return (
-                    <tr key={<%objectnamevarname%>.id} id={<%objectnamevarname%>.id}>
-                    <td>
+                    <tr style={{margin:0, padding:0}} key={<%objectnamevarname%>.id} id={<%objectnamevarname%>.id}>
+                    <td style={{margin:0, padding:0}}>
 	                    <Button size="sm" onClick={ () => { props.dispatch(remove<%objectname%>( { id } )); }}>
                         <FaTrash
-                            size={15}
+                            size={10}
                         />
                         </Button>
 	                    
 	                </td>
-	            	<td>
+	            	<td style={{margin:0, padding:0}}>
 	            		<Link to={`/<%objectname%>/edit/${id}`}>
 	            		<Button size="sm" >
                         <FaEdit
-                            size={15}
+                            size={10}
                         />
                         </Button>
 	                	</Link>

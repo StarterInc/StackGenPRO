@@ -23,7 +23,7 @@ const {{objectname}} = ({ {{#variables}}
   {{/variables}} }) => (
     <>	
 	{{#variables}}
-		<td>
+		<td style={ {margin:0, padding:0} }>
 			{ {{variablename}} }
 		</td>
 	{{/variables}}

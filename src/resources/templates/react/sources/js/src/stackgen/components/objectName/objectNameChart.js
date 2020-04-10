@@ -1,5 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
+import {Button} from 'react-bootstrap'
 
 const data = {
   labels: [
@@ -21,14 +22,18 @@ const data = {
 class {{objectname}}Chart extends React.Component {
   render() {
     return (
+	<div style={ {maxWidth:'100%', maxHeight:350} }>
+      <Button onClick={this.fetchData} >
+        Refresh Data
+      </Button>
       <Bar
         data={data}
         options={ { maintainAspectRatio: false } }
-        width={600}
-        height={250}
+        
       />
+      </div>
     );
   }
 }
 
-export default Chart;
+export default {{objectname}}Chart;
