@@ -138,12 +138,27 @@ class {{objectname}}Form extends React.Component {
                 isValid,
                 errors,
               }) => (
-              
+            	
                 <Form
                 	id='{{variablename}}-form'
 	                form onSubmit={handleSubmit}
                 >
+                
+                <Button 
+				 onClick={() => {this.props.history.goBack()}}
+				 style={ {position:'fixed', marginTop:-50, left:20} }
+				>
+                   <span>Done</span>
+               </Button>
+               
+               <Button 
+				 style={ {position:'fixed', left:20} }
+				 type="submit" disabled={isSubmitting || !isValid} >
+				 	<span>{( typeof({{objectnamevarname}}) !== 'undefined' ? 'Save Changes to' : 'Add New ' )} {{objectname}}</span>
+               </Button>
+                
                 {{#variables}}
+                
                  <Form.Group controlId="{{variablename}}">
 	                  <Form.Label>{{displayName}}</Form.Label>
 	                  <Field
@@ -153,10 +168,13 @@ class {{objectname}}Form extends React.Component {
 	                  	{{{variableFieldType}}}
 	                   // placeholder="{{defaultValue}}"
                     	 className={`form-control ${
-                            touched.{{variablename}} && errors.{{variablename}} ? "is-invalid" : ""
-                          }`}
-	                    />
-	                 
+                    			touched.{{variablename}} && errors.{{variablename}} ? "is-invalid" : ""
+                         	}`}
+	                    
+                    	 {{{fieldEndTag}}}
+                    	 
+                    	 {{{enumOptions}}}
+                    	 
                     	<Form.Control.Feedback>
                     		That {{variablename}} entry looks good!
                     	</Form.Control.Feedback>
@@ -172,12 +190,6 @@ class {{objectname}}Form extends React.Component {
 	              </Form.Group>
 			     
               	{{/variables}}
-
-
-                
-                <Button type="submit" disabled={isSubmitting || !isValid} >
-                    <span>{( typeof({{objectnamevarname}}) !== 'undefined' ? 'Edit' : 'Add' )} {{objectname}}</span>
-                </Button>
 
                </Form>
               )}

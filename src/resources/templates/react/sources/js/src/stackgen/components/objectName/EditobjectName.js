@@ -24,11 +24,11 @@ const Edit{{objectname}} = (props) => (
         <Card.Header>Edit the {{objectname}}</Card.Header>
         <Card.Body>
         <{{objectname}}Form
+    	history={props.history}
         {{objectnamevarname}}={props.{{objectnamevarname}}}
         onSubmit{{objectname}}={({{objectnamevarname}}) => {
             props.dispatch(edit{{objectname}}(props.{{objectnamevarname}}.id,
             		{{objectnamevarname}}));
-            props.history.push('/');
         }}
         />
         </Card.Body>

@@ -21,9 +21,9 @@ const Add{{objectname}} = (props) => (
     <Card>
         <h3>Enter New {{objectname}}</h3>
         <{{objectname}}Form
+        	history={props.history}
             onSubmit{{objectname}}={({{objectnamevarname}}) => {
                 props.dispatch(add{{objectname}}({{objectnamevarname}}));
-                props.history.push('/');
             }}
         />
     </Card>

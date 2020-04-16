@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.starter.ignite.generator.ReactGenConfiguration;
 import io.starter.ignite.model.DataField;
 import io.starter.ignite.security.securefield.SecureField;
+import io.starter.stackgentest.model.User;
 import io.starter.toolkit.StringTool;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.Extension;
@@ -117,7 +118,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 		Stream.of(cx.getDeclaredFields()).filter(s -> {
 			return true;
 		}).forEach(s -> {
-			processField(s);
+			// processField(s);
 			if (!isValid()) {
 				AppEntityObject.logger.warn("AppEntityObject is invalid: " + s.toString());
 			}
@@ -169,20 +170,28 @@ public class AppEntityObject implements ReactGenConfiguration {
 	 *
 	 */
 	private void processMethod(Method s, Class<?> cx) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		// this.getAnnotationForMethod(s, AppEntityObject.FIELD_ANNOTATION_CLASS)
-		// final JsonProperty jf =(JsonProperty) s.invoke(fa); 
-		// Annotation anno = this.getAnnotationForMethod(s, AppEntityObject.ANNOTATION_CLASS);
 		
-		// s.invoke(cx).
-		//final ApiModelProperty apia = (ApiModelProperty)  anno.annotationType().invoke();
-		// final DataField df =  (DataField) s.invoke(this.getAnnotationForMethod(s, AppEntityObject.DATA_ANNOTATION_CLASS));
+		// get a handle on any Enum setting
+		Class ptype = s.getReturnType();
+		Class[] allClasses = cx.getDeclaredClasses();
 		
-		Object val = null;
-		//if (jf != null) {
-		//	val = jf.value();
-		//} else {
-			val = getAPIAnnotatedValue(s, "example");
-		//}
+		Class enumClass  = null;
+		String enumOptions = "";
+		// find the parameter type in the class's enums
+		for(Class<?> c : allClasses) {
+			if(c.getTypeName().equals(ptype.getTypeName())) {
+				enumClass = c;
+				Field[] allFields = c.getDeclaredFields();
+			    for (Field field : allFields) {
+			        if(!field.getName().equals("value") && !field.getName().contains("ENUM$VALUES")) {
+			        	enumOptions += "<option>" + field.getName() + "</option> \r\n";
+			        }
+			    }	
+			    enumOptions += "</Field> \r\n";
+			}
+		}
+		
+		Object val = getAPIAnnotatedValue(s, "example");
 		boolean hidden = (Boolean)getAPIAnnotatedValue(s, "hidden");
 		if (!hidden && (val != null)) {
 			// logger.info("Processing : " + s.toGenericString() + " :" + val);
@@ -253,6 +262,15 @@ public class AppEntityObject implements ReactGenConfiguration {
 
 					}
 
+					// handle enums
+					if(enumClass != null) {
+						logger.info("Setting Enum Options: " + enumOptions);
+						v.variableFieldType = "as=\"select\"";
+						v.enumOptions = enumOptions;
+						v.enumClass = enumClass;
+						v.fieldEndTag = ">"; // do no close the field end tag
+					}
+					
 					if (!v.variableFieldYupSchemaType.equals("")) {
 						if ((boolean)getAPIAnnotatedValue(s, "required")) {
 							v.variableFieldYupSchemaType += ".required()";
@@ -272,6 +290,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 				// TODO: fix hidden fields
 				v.hidden = (hidden ? "hidden" : ""); // does not work?
 
+				
 				/*
 				try {
 					final Extension[] els = apia.extensions();
@@ -364,8 +383,13 @@ public class AppEntityObject implements ReactGenConfiguration {
 		return sbout;
 	}
 
-	static class Variable {
+	public static class Variable {
 
+		// enumhandling
+		public Class enumClass = null;
+		public String enumOptions = "";
+		public String fieldEndTag = "/>"; // close tags by default
+		
 		public String required = "";
 		public String hidden = "";
 		public Object variableval;
