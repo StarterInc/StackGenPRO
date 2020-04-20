@@ -286,30 +286,42 @@ definitions:
         maxLength: 10
         minLength: 10
         x-starter-secureField: true
-      userName:
+      userName:        
+        description: Your account Username
+        minLength: 2
+        maxLength: 20
         type: string
         example: Sparky
       password:
+        description: Your account Password
         type: string
         example: HardToGuess1980
         minLength: 10
         # encryption handled by authorization code
         x-starter-secureField: true, Type=HASHED, strength=5
       fingerprint:
+        description: Encrypted identity (i.e.: Facial Recognition)
         type: string
         example: DK$DFSJaraDD
         x-starter-secureField: true
       homePage:
+        descripton: The web page for the Account
         type: string
         format: url
         example: https://www.acme-corp.com
       email:
-        description: the main email address for the user  (encrypted)
+        description: The main email address for the user (encrypted)
         type: string
         format: email
         example: wiley.coyote@acme-corp.com
-        x-starter-secureField: true        
+        x-starter-secureField: true
       social:
+        description: The username for your primary social account (if any)
+        type: string
+        format: url
+        example: https://twitter.com/StackGen
+      bio:
+        description: More in-depth information about you and your account
         type: string
         format: url
         example: https://twitter.com/StackGen
@@ -364,8 +376,8 @@ definitions:
         example: Karena
       type:
         type: string
-        example: HardToGuess1980
-        minLength: 10
+        example: executive
+        minLength: 2
     xml:
       name: "Role"     
        
@@ -393,6 +405,7 @@ definitions:
         - "all"
     xml:
       name: "Privilege"
+      
   WorkFlows:
     required:
     - description
@@ -419,6 +432,7 @@ definitions:
         example: Sparkyt
     xml:
       name: "Workflows"
+      
   ContactMethod:        
     type: object
     required:
@@ -455,6 +469,53 @@ definitions:
         default: false
     xml:
       name: "ContactMethod"
+      
+IntegrationAccount:        
+    type: object
+    required:
+    - accountUsername
+    - accountPassword
+    properties:
+      id:
+        type: "integer"
+        format: "int64"      
+      accountUsername:
+        type: string
+        example: @TechnoCharms
+        description: the username of the 3rd party account      
+      accountPassword:
+        type: string
+        example: E49232SSDFDF
+        description: the password for the 3rd party account
+        x-starter-secureField: true
+      accountDescription:
+        type: string
+        example: Marketing Twitter Account
+        description: description of the 3rd party account
+      accountType:
+        type: string
+        example: email
+        enum:
+        - "github"        
+        - "email"
+        - "twitter"
+        - "mobile"
+        - "sms"
+        - "facebook"
+      status:
+        type: "string"
+        description: "Account Status"
+        enum:
+        - "new"
+        - "validated"
+        - "closed"
+      disabled:
+        type: boolean
+        default: false
+    xml:
+      name: "IntegrationAccount"
+            
+      
   AuditLog:
     required:
     - sourceType

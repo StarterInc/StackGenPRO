@@ -3,8 +3,8 @@ import axios from 'axios';
 let stackgenId = '';
 
 export default axios.create({
-  baseURL: process.env.REACT_APP_SG_SERVICE_ENDPOINT,
-  // baseURL: '{{serverhost}}:{{serverport}}/', 
+  // baseURL: process.env.REACT_APP_SG_SERVICE_ENDPOINT,
+  baseURL: 'http://{{serverhost}}:{{serverport}}/', 
   headers: {
     'X-StackGen-ID': stackgenId,
     'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
