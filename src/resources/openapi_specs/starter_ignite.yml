@@ -2,7 +2,7 @@ swagger: '2.0'
 
 info:
   description: Starter StackGen API
-  version: 1.0.0
+  version: 1.0.2
   title: Starter StackGen API
   # put the contact info for your development or API team
   contact:
@@ -17,7 +17,6 @@ servers:
   description: The production API server
   variables:
     username:
-      # note! no enum here means it is an open value
       default: demo
       description: this value is assigned by the service provider
     port:
@@ -300,7 +299,7 @@ definitions:
         # encryption handled by authorization code
         x-starter-secureField: true, Type=HASHED, strength=5
       fingerprint:
-        description: Encrypted identity (i.e.: Facial Recognition)
+        description: Encrypted identity (Facial Recognition, Fingerprint Scanner, etc.)
         type: string
         example: DK$DFSJaraDD
         x-starter-secureField: true
@@ -325,6 +324,11 @@ definitions:
         type: string
         format: url
         example: https://twitter.com/StackGen
+      avatar_url:
+        description: URL for user avatar image
+        type: string
+        format: url
+        example: https://img.com/mypic.png
 
 # Spring Security User fields
 
@@ -470,19 +474,24 @@ definitions:
     xml:
       name: "ContactMethod"
       
-IntegrationAccount:        
+  IntegrationAccount:        
     type: object
     required:
+    - accountId
     - accountUsername
     - accountPassword
     properties:
       id:
         type: "integer"
         format: "int64"      
+      accountId:
+        type: "integer"
+        format: "int64"      
       accountUsername:
         type: string
-        example: @TechnoCharms
-        description: the username of the 3rd party account      
+        example: TechnoCharms
+        description: the username of the 3rd party account
+        x-starter-secureField: true      
       accountPassword:
         type: string
         example: E49232SSDFDF
@@ -514,7 +523,6 @@ IntegrationAccount:
         default: false
     xml:
       name: "IntegrationAccount"
-            
       
   AuditLog:
     required:
