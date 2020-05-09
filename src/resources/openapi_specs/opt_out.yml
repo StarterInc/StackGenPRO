@@ -6,16 +6,16 @@ swagger: '2.0'
 info:
   description: This is the ml_opt_out microservice API
   version: 1.0.0
-  title: The Mission Lane Mailing Opt-Out API
+  title: The Company Mailing Opt-Out API
   # put the contact info for your development or API team
   contact:
-    email: opt_out@missionlane.com
+    email: opt_out@company.com
   license:
     name: AGPL 3.0
     url: https://www.gnu.org/licenses/agpl-3.0.html
-  termsOfService: http://missionlane.com/tos/
+  termsOfService: http://company.com/tos/
 servers:
-  url: https://opt_out.missionlane.com:{port}/{basePath}
+  url: https://company.com:{port}/{basePath}
   description: The production API server
   variables:
     username:
@@ -93,7 +93,7 @@ paths:
 securityDefinitions:
   automator_auth:
     type: "oauth2"
-    authorizationUrl: "http://missionlane.com/oauth/dialog"
+    authorizationUrl: "http://company.com/oauth/dialog"
     flow: "implicit"
     scopes:
       write:items: "modify items in your account"
@@ -144,10 +144,6 @@ definitions:
         type: string
         example: 94210
         description: "5 digit zip code"
-      CIProfileLink:
-        type:  string
-        format: "date-time"
-        description: "CI Profile Link (Where Available)"
     xml:
       name: "OptOuts" 
 externalDocs:

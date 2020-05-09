@@ -17,6 +17,8 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
@@ -41,10 +43,19 @@ import io.starter.toolkit.StringTool;
  * @author John McMahon ~ github: SpaceGhost69 | twitter: @TechnoCharms
  *
  */
-public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
+@Component
+public class ReactGen extends Gen implements Generator {
 
 	protected static final Logger logger = LoggerFactory.getLogger(ReactGen.class);
 
+	static ReactConfigurator config = new ReactConfigurator();
+	
+	@Override
+	@Bean
+	public StackGenConfigurator getConfig() {
+		return config;
+	}
+	
 	/**
 	 *
 	 * Copy the resulting output to the export folder
@@ -54,10 +65,10 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 	 *
 	 */
 	private static void export(ReactGen gen) throws IOException {
-		ReactGen.logger.info("Exporting: " + ReactGenConfiguration.REACT_EXPORT_FOLDER
-				+ ReactGenConfiguration.REACT_APP_NAME + " to: " + ReactGenConfiguration.REACT_APP_OUTPUT_FOLDER);
-		FileUtil.copyFolder(ReactGenConfiguration.REACT_EXPORT_FOLDER + ReactGenConfiguration.REACT_APP_NAME,
-				ReactGenConfiguration.REACT_APP_OUTPUT_FOLDER + ReactGenConfiguration.REACT_APP_NAME);
+		ReactGen.logger.info("Exporting: " + config.REACT_EXPORT_FOLDER
+				+ config.REACT_APP_NAME + " to: " + config.REACT_APP_OUTPUT_FOLDER);
+		FileUtil.copyFolder(config.REACT_EXPORT_FOLDER + config.REACT_APP_NAME,
+				config.REACT_APP_OUTPUT_FOLDER + config.REACT_APP_NAME);
 	}
 
 	/**
@@ -69,26 +80,22 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 	 * @throws Exception
 	 *
 	 */
-	static void generateEntitiesFromModelFolder(ReactGen gen) throws Exception {
+	void generateEntitiesFromModelFolder(ReactGen gen) throws Exception {
 		ReactGen.logger.info("Iterate Data Object Entities and create React App Entity Classes...");
-		final String[] modelFiles = Gen.getModelFileNames();
+		final String[] modelFiles = getModelFileNames();
 
 		// load the newly compiled classes this should point to the
 		// top of the package structure
 		final URLClassLoader classLoader = new URLClassLoader(
-				new URL[] { new File(Configuration.JAVA_GEN_SRC_FOLDER).toURI().toURL(),
-						new File(Configuration.JAVA_GEN_RESOURCES_FOLDER).toURI().toURL() });
+				new URL[] { new File(config.getJavaGenSourceFolder()).toURI().toURL(),
+						new File(config.getJavaGenResourcesFolder()).toURI().toURL() });
 
 		for (final String mf : modelFiles) {
 			String cn = mf.substring(0, mf.indexOf("."));
 			// cn = cn + ".class";
-			cn = Configuration.IGNITE_MODEL_PACKAGE + "." + cn;
+			cn = config.getIgniteModelPackage() + "." + cn;
 			ReactGen.logger.info("Loading Classes from ModelFile: " + cn);
-			//try {
 				ReactGen.createAppEntities(gen, classLoader.loadClass(cn));
-			//} catch (final Exception e) {
-			//	ReactGen.logger.error("ReactGen.generateEntitesFromModel failed: " + e.toString());
-			//}
 		}
 		classLoader.close();
 	}
@@ -98,18 +105,18 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 		if (gen == null) {
 			throw new IllegalStateException("No ReactGen context in createAppEntities");
 		}
-		if (ReactGenConfiguration.REACT_APP_NAME == null) {
+		if (config.REACT_APP_NAME == null) {
 			throw new IllegalStateException("No AppName in createAppEntities");
 		}
 		if (forName == null) {
 			throw new IllegalStateException("No Class defined in createAppEntities");
 		}
 
-		final AppEntityObject ap = new AppEntityObject(ReactGenConfiguration.REACT_APP_NAME, forName);
-		ReactGenConfiguration.REACT_DATA_OBJECTS.add(ap);
+		final AppEntityObject ap = new AppEntityObject(config.REACT_APP_NAME, forName, config);
+		config.REACT_DATA_OBJECTS.add(ap);
 	}
 
-	public static void generateReact() throws Exception {
+	public void generateReact() throws Exception {
 		// System.setProperty("user.dir",
 		// "/user/projects/StarterIgnite/StarterIgniteServer");
 		// System.setProperty("user.dir",
@@ -117,14 +124,14 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 
 		final List<String> alreadyAdded = new ArrayList<>(); // dedupe
 		final ReactGen gen = new ReactGen();
-		ReactGen.generateEntitiesFromModelFolder(gen);
+		generateEntitiesFromModelFolder(gen);
 
-		final File[] templateFiles = Gen.getSourceFilesInFolder(new File(ReactGenConfiguration.REACT_TEMPLATE_FOLDER),
-				Configuration.FOLDER_SKIP_LIST);
+		final File[] templateFiles = getSourceFilesInFolder(new File(config.REACT_TEMPLATE_FOLDER),
+				config.FOLDER_SKIP_LIST);
 
 		final List<EntityObject> objnames = new ArrayList<>();
 		int i = 0;
-		for (final AppEntityObject oa : ReactGenConfiguration.REACT_DATA_OBJECTS) {
+		for (final AppEntityObject oa : config.REACT_DATA_OBJECTS) {
 			objnames.add(new EntityObject(oa.objectname, i++));
 		}
 
@@ -135,7 +142,7 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 			// for each object in system, create a REDUX
 			// action and reducer from templates
 			if (ReactGen.shouldParse(shortName)) {
-				for (final AppEntityObject aeo : ReactGenConfiguration.REACT_DATA_OBJECTS) {
+				for (final AppEntityObject aeo : config.REACT_DATA_OBJECTS) {
 
 					// read in template file
 					final String foutp = StringTool.replaceText(fname, "objectName", aeo.objectname);
@@ -156,7 +163,7 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 		// copy the files to the target project folder
 		ReactGen.export(gen);
 
-		ReactGen.logger.info("Done processing " + ReactGenConfiguration.REACT_DATA_OBJECTS.size() + " React Objects");
+		ReactGen.logger.info("Done processing " + config.REACT_DATA_OBJECTS.size() + " React Objects");
 
 		// TODO: conditionally run maven build
 
@@ -182,16 +189,16 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 			throws IOException, FileNotFoundException {
 
 		final MustacheFactory mf = new DefaultMustacheFactory();
-		String foutp = StringTool.replaceText(fname, ReactGenConfiguration.REACT_TEMPLATE_SOURCES_FOLDER,
-				ReactGenConfiguration.REACT_EXPORT_FOLDER + ReactGenConfiguration.REACT_APP_NAME + "/");
+		String foutp = StringTool.replaceText(fname, config.REACT_TEMPLATE_SOURCES_FOLDER,
+				config.REACT_EXPORT_FOLDER + config.REACT_APP_NAME + "/");
 
-		foutp = StringTool.replaceText(foutp, ReactGenConfiguration.REACT_TEMPLATE_FOLDER,
-				ReactGenConfiguration.REACT_EXPORT_FOLDER + ReactGenConfiguration.REACT_APP_NAME + "/");
+		foutp = StringTool.replaceText(foutp, config.REACT_TEMPLATE_FOLDER,
+				config.REACT_EXPORT_FOLDER + config.REACT_APP_NAME + "/");
 
 		// read in template file
 		if (multifile != null) {
-			foutp = StringTool.replaceText(multifile, ReactGenConfiguration.REACT_TEMPLATE_SOURCES_FOLDER,
-					ReactGenConfiguration.REACT_EXPORT_FOLDER + ReactGenConfiguration.REACT_APP_NAME + "/");
+			foutp = StringTool.replaceText(multifile, config.REACT_TEMPLATE_SOURCES_FOLDER,
+					config.REACT_EXPORT_FOLDER + config.REACT_APP_NAME + "/");
 		}
 
 		final File fout = new File(foutp);
@@ -214,7 +221,7 @@ public class ReactGen extends Gen implements Generator, ReactGenConfiguration {
 				final Writer fwriter = new FileWriter(fout);
 
 				// logger.trace("Mustaching template: " + finp + " to output file: " + fout);
-				final Mustache reactmf = mf.compile(fread, ReactGenConfiguration.REACT_APP_OUTPUT_FOLDER);
+				final Mustache reactmf = mf.compile(fread, config.REACT_APP_OUTPUT_FOLDER);
 
 				// if we are dealing with a sub-object
 				reactmf.execute(fwriter, gen);

@@ -9,13 +9,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import io.starter.stackgentest.model.User;
-import io.starter.ignite.generator.ReactGenConfiguration;
+import io.starter.ignite.generator.ReactConfigurator;
 import io.starter.ignite.generator.react.AppEntityObject;
 import io.starter.ignite.generator.react.AppEntityObject.Variable;
 import io.starter.ignite.security.crypto.EncryptionUtil;
 
 public class EnumTest {
 
+	ReactConfigurator config = new ReactConfigurator();
+	
 	@Before
 	public void setup() throws NoSuchAlgorithmException {
 		// transient encryption key
@@ -28,7 +30,7 @@ public class EnumTest {
 	public void testEnumsListed() {
 		final User s = new User();
 		
-		final AppEntityObject ap = new AppEntityObject(ReactGenConfiguration.REACT_APP_NAME, s.getClass());
+		final AppEntityObject ap = new AppEntityObject(config.REACT_APP_NAME, s.getClass(), config);
 		
 		assertEquals("There should be 18 fields on this User object", ap.variables.size(), 18);
 		

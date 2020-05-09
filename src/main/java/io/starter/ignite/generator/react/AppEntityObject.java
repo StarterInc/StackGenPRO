@@ -13,7 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import io.starter.ignite.generator.ReactGenConfiguration;
+import io.starter.ignite.generator.ReactConfigurator;
+
 import io.starter.ignite.model.DataField;
 import io.starter.ignite.security.securefield.SecureField;
 import io.starter.stackgentest.model.User;
@@ -40,10 +41,12 @@ import io.swagger.annotations.ExtensionProperty;
  *
  * @author John McMahon ~ github: SpaceGhost69 | twitter: @TechnoCharms
  */
-public class AppEntityObject implements ReactGenConfiguration {
+public class AppEntityObject {
 
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(AppEntityObject.class);
 
+	ReactConfigurator config;
+	
 	private static final Class<SecureField> SECURE_ANNOTATION_CLASS = SecureField.class;
 	private static final Class<DataField> DATA_ANNOTATION_CLASS = DataField.class;
 	private static final Class<JsonProperty> FIELD_ANNOTATION_CLASS = JsonProperty.class;
@@ -56,8 +59,8 @@ public class AppEntityObject implements ReactGenConfiguration {
 	public String CONTACT_INFO = "support@stackgen.io";
 
 	public String appname;
-	public String serverhost = ReactGenConfiguration.defaultHostname;
-	public String serverport = ReactGenConfiguration.defaultPort;
+	public String serverhost;
+	public String serverport;
 	public String objectname;
 	public String objectnamevarname;
 	public String objectnameupper;
@@ -85,8 +88,11 @@ public class AppEntityObject implements ReactGenConfiguration {
 	 *
 	 * @param cx
 	 */
-	public AppEntityObject(String app, Class<?> cx) {
+	public AppEntityObject(String app, Class<?> cx, ReactConfigurator cfg) {
 
+		this.config = cfg;
+		serverhost = config.defaultHostname;
+		serverport = config.defaultPort;
 		appname = app;
 		objectname = cx.getName().substring(cx.getName().lastIndexOf(".") + 1);
 		objectnameupper = objectname.toUpperCase();
@@ -201,7 +207,7 @@ public class AppEntityObject implements ReactGenConfiguration {
 				name = s.getName().replaceAll("get", "");
 			}
 			name = StringTool.getLowerCaseFirstLetter(name);
-			if (!ReactGenConfiguration.HIDE_FIELD_LIST.contains(name)) {
+			if (!config.HIDE_FIELD_LIST.contains(name)) {
 				final Variable v = new Variable(name, val);
 
 				Field f;

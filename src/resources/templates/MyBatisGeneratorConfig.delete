@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
+
 	<context id="context1">
+
 		<plugin
 			type="io.starter.ignite.generator.MyBatisIgnitePluginAdapter" />
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 
-
-		<jdbcConnection driverClass="${dbDriver}"
+		<!-- TODO <plugin type="io.starter.ignite.generator.MyBatisIgnitePluginAdapter"> 
+			<property name="annotationClass" value="io.starter.ignite.security.securefield.SecureField" 
+			/> <property name="annotationString" value="@SecureField" /> </plugin> -->
+		<jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
 			connectionURL="${dbUrl}/${dbName}?autoReconnect=true"
-			userId="${dbUser}" password="${dbPassword}" />
-
+			userId="${dbUser}" password="${dbPassword}">
+		</jdbcConnection>
+		
 		<javaTypeResolver type="io.starter.ignite.generator.MyBatisOffsetDateTimeTypeResolver">
 			<property name="useJSR310Types" value="true" />
 		</javaTypeResolver>
@@ -19,7 +26,9 @@
 		<!-- Model Class -->
 		<javaModelGenerator
 			targetPackage="${MODEL_DAO_PACKAGE}"
-			targetProject="${genOutputFolder}/src/main/java">
+
+			targetProject="${myBatisMain}main/java">
+
 			<property name="useActualColumnNames" value="true" />
 			<property name="enableSubPackages" value="false" />
 			<property name="trimStrings" value="true" />
@@ -30,16 +39,22 @@
 			<property name="addRemarkComments" value="true" />
 		</javaModelGenerator>
 
-		<javaClientGenerator
-			type="io.starter.ignite.generator.MyBatisIgniteJavaMapperGenerator"
+		<sqlMapGenerator targetPackage="${MODEL_DAO_PACKAGE}"
+			targetProject="${myBatisMain}main/resources" />
+
+		<javaClientGenerator 
+			type="io.starter.ignite.generator.MyBatisIgniteJavaMapperGenerator" 
 			targetPackage="${MODEL_DAO_PACKAGE}"
-			targetProject="${genOutputFolder}/src/main/java">
+			targetProject="${myBatisMain}main/java">
 			<property name="useActualColumnNames" value="true" />
 		</javaClientGenerator>
 
 		<table schema="${artifactId}" tableName="PLACEHOLDER_NODE"
-			modelType="hierarchical" />
+			modelType="hierarchical">
+			<generatedKey column="ID" sqlStatement="MYSQL"
+				identity="true" />
+		</table>
+
 	</context>
 
 </generatorConfiguration>
-
