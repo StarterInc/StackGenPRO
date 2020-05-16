@@ -240,7 +240,7 @@ public class ReactGen extends Gen implements Generator {
 			return null;
 		}
 
-		String fldName = StringTool.proper(fieldName);
+		String fldName = StringTool.getUpperCaseFirstLetter(fieldName);
 		fldName = "get" + fldName;
 
 		final String ret = fldName;

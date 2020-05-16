@@ -107,6 +107,7 @@ public class ReactGenerator extends Main implements CommandLineRunner {
 
 		ReactGen gx = new ReactGen();
 		if (!gx.getConfig().skipReactGen) {
+			
 			// copy React files into gen project
 			copyStaticFiles(ReactGenerator.sf);
 			try {
