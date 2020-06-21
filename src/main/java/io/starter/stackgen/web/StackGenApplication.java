@@ -25,14 +25,11 @@ public class StackGenApplication {
 	        // args = (String[])ArrayUtils.add(args, "--spring.jpa.hibernate.ddl-auto=create");
 		    
 	    } else {
-	        app = new SpringApplication(StackGenApplication.class);
+	        app = new SpringApplication(StackGenAppLauncher.class);
 	    }
 
 	    // launch the app
 	    ConfigurableApplicationContext context = app.run(args);
-	    
-	    // finished so close the context
-	    context.close();
 	}
 	
 }
