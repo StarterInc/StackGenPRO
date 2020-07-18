@@ -42,11 +42,8 @@ public class ReactGenerator extends Main implements CommandLineRunner {
 
 	protected static final Logger logger = LoggerFactory.getLogger(ReactGenerator.class);
 
-	@Autowired
-	ReactConfigurator config;
-
 	public ReactGenerator(StackGenConfigurator cfg) {
-		config = (ReactConfigurator) cfg;
+		config =cfg;
 	}
 
 	/**
@@ -86,7 +83,7 @@ public class ReactGenerator extends Main implements CommandLineRunner {
 		try {
 			config = (ReactConfigurator) ReactConfigurator.configureFromJSON(cfg, config);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
-			Main.logger.error("Copying config values from JSON to Swagger Config failed while starting App Generation");
+			logger.error("Copying config values from JSON to Swagger Config failed while starting App Generation");
 			e.printStackTrace();
 		}
 		generateStack(config);

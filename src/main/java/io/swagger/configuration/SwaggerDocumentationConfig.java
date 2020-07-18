@@ -23,6 +23,9 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+@javax.annotation.Generated(value = "io.starter.ignite.generator.swagger.languages.StackGenSpringCodegen", date = "2020-07-18T13:28:35.941-07:00")
+
+
 @Configuration
 @PropertySources({ @PropertySource("classpath:application.properties") })
 public class SwaggerDocumentationConfig extends WebSecurityConfigurerAdapter {
@@ -45,9 +48,9 @@ public class SwaggerDocumentationConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
-		logger.warn("SGP SWAGDOCFG: Init CORS Config Origins: CORSOrigins "
+		logger.warn("Init CORS Config Origins: CORSOrigins "
 				+ CORSOrigins);
-		logger.warn("SGP SWAGDOCFG: Init CORS Config Mapping: CORSMapping "
+		logger.warn("Init CORS Config Mapping: CORSMapping "
 				+ CORSMapping);
 		final CorsConfiguration configuration = new CorsConfiguration();
 		configuration.addAllowedHeader("*");
@@ -58,7 +61,7 @@ public class SwaggerDocumentationConfig extends WebSecurityConfigurerAdapter {
 
 		configuration.setAllowedOrigins(Arrays.asList(CORSOrigins));
 		configuration.setAllowedMethods(Arrays
-				.asList("GET", "POST", "INSERT", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"));
+				.asList("GET", "POST", "INSERT", "DELETE", "HEAD", "OPTIONS"));
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration(CORSMapping, configuration);
 		return source;
@@ -89,13 +92,13 @@ public class SwaggerDocumentationConfig extends WebSecurityConfigurerAdapter {
 	
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("TradeAutomator API")
-            .description("This is the TradeAutomator API")
+            .title("Starter StackGen API")
+            .description("Starter StackGen API")
             .license("AGPL 3.0")
             .licenseUrl("https://www.gnu.org/licenses/agpl-3.0.html")
             .termsOfServiceUrl("")
-            .version("1.0.0")
-            .contact(new Contact("","", "info@apicloud.co"))
+            .version("1.0.4")
+            .contact(new Contact("","", "info@StackGen.io"))
             .build();
     }
 
@@ -103,10 +106,10 @@ public class SwaggerDocumentationConfig extends WebSecurityConfigurerAdapter {
     public Docket customImplementation(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                    .apis(RequestHandlerSelectors.basePackage("io.starter.ignite.api"))
+                    .apis(RequestHandlerSelectors.basePackage("io.starter.StackGenUI.api"))
                     .build()
-                .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
-                .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
+                .directModelSubstitute(org.threeten.bp.LocalDate.class, java.sql.Date.class)
+                .directModelSubstitute(org.threeten.bp.OffsetDateTime.class, java.util.Date.class)
                 .apiInfo(apiInfo());
     }
 
