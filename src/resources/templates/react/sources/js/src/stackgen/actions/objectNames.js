@@ -14,13 +14,12 @@
 import axios from '../axios/axios';
 import { actionTypes } from '../reducers/actionTypes'
 
-/*
-const {{objectnamevarname}}Data = {
+// provide a default object with empty values
+export const {{objectnamevarname}}Data = {
 {{#variables}}
     {{variablename}}: '{{variableval}}',
 {{/variables}}
 }
-*/
 
 export const reset{{objectname}} = () => ({
     type: actionTypes.RESET_{{objectnameupper}},

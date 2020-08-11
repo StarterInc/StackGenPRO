@@ -20,19 +20,16 @@ import { edit{{objectname}} } from '../../actions/{{objectname}}s';
 const Edit{{objectname}} = (props) => (
 		
 	<EditorCardLayout>	
-    <Card>
-        <Card.Header>Edit the {{objectname}}</Card.Header>
-        <Card.Body>
+        <h3>Edit the {{objectname}}</h3>
         <{{objectname}}Form
-    	history={props.history}
-        {{objectnamevarname}}={props.{{objectnamevarname}}}
-        onSubmit{{objectname}}={({{objectnamevarname}}) => {
-            props.dispatch(edit{{objectname}}(props.{{objectnamevarname}}.id,
+            history={props.history}
+            {{objectnamevarname}}={props.{{objectnamevarname}}}
+            onSubmit{{objectname}}={({{objectnamevarname}}) => {
+                props.dispatch(edit{{objectname}}(props.{{objectnamevarname}}.id,
             		{{objectnamevarname}}));
         }}
-        />
-        </Card.Body>
-    </Card>
+    />
+    
     </EditorCardLayout>
     
 );
@@ -42,6 +39,14 @@ const Edit{{objectname}} = (props) => (
 * then return the form props with the data from the {{objectname}} instance.
 */
 const mapStateToProps = (state, props) => {
+
+    // in case the {{objectnamevarname}} is passed in as a prop
+    const {{objectnamevarname}} = props.{{objectnamevarname}};
+    if({{objectnamevarname}}){
+        return{
+            {{objectnamevarname}}:{{objectnamevarname}}
+        }
+    }
     const { {{objectname}}s } = state;
     const _id = parseInt(props.match.params.id);
     

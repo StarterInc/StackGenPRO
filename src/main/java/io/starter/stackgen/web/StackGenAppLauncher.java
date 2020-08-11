@@ -16,26 +16,30 @@ import org.springframework.context.annotation.Bean;
  *
  */
 @SpringBootApplication
-@ComponentScan(basePackages = {"io.starter.stackgen.web", "io.swagger.configuration"})
+@ComponentScan(basePackages = { "io.starter.stackgen.web", "io.swagger.configuration" })
 public class StackGenAppLauncher {
 
+	private static final boolean PRINT_BEANS = false;
+
 	public static void main(String[] args) {
-	    SpringApplication.run(StackGenAppLauncher.class, args);
-    }
+		SpringApplication.run(StackGenAppLauncher.class, args);
+	}
 
 	@Bean
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
 
-			System.out.println("Beans Provided by Spring Boot:");
+			if (PRINT_BEANS) {
+				System.out.println("Beans Provided by Spring Boot:");
 
-			String[] beanNames = ctx.getBeanDefinitionNames();
-			Arrays.sort(beanNames);
-			for (String beanName : beanNames) {
-				System.out.println(beanName);
+				String[] beanNames = ctx.getBeanDefinitionNames();
+				Arrays.sort(beanNames);
+				for (String beanName : beanNames) {
+					System.out.println(beanName);
+				}
 			}
 
 		};
 	}
-	
+
 }

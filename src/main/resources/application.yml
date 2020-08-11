@@ -1,19 +1,50 @@
+---
+info:
+  tags:
+    security: secured
+    
+logging:
+  file: "logs/stackgen-pro-service.log"
+
+jwt:
+  header: jwt
+  secret: cbbdfXX=
+
+cloud:
+  aws:
+    credentials:
+       accessKey: AKW123
+       secretKey: abc+234
+
+stackgen:
+  mailjet_sender: hello@yourco.co
+  mailjet_api_key: XXX
+  mailjet_api_secret: XXX
+  
+  stripe_public_key: pk_test_XXX
+  stripe_secret_key: sk_test_XXX
+  
+   
+# ...
 spring:
-  application:
-    name: stackgen-service-instance
-  boot:
-    admin:
-      client:
-        url: "${adminServiceURL}"   # Comma separated ordered list of URLs of the Spring Boot Admin server to register at. This triggers the AutoConfiguration. Mandatory.
-        instance:
-          service-base-url: "https://${serviceHost}:${servicePort}"
-        username: "${adminUser}"         # Username and password in case the SBA Server api is protected with HTTP Basic authentication.
-        password: "${adminPassword}"
+  
   profiles:
-    active:
-      - secure
+    active: ${environment:"dev"}
+
+  main:
+    allow-bean-definition-overriding: true
+  
+  devtools:
+    add-properties: false
+  
+  application:
+    name: StackGen PRO CodeGen Service
+  
+  banner:
+    location: classpath:/io/starter/spring/boot/stackgen-pro.txt
+  
   mustache:
-     check-template-location: false
+     check-template-location: false      
 
 management:
   endpoints:
@@ -25,24 +56,103 @@ management:
       show-details: ALWAYS
 
 ---
+######### DEV CONFIG #########
 spring:
-  profiles: insecure
+  profiles: dev
+  datasource:
+    driver-class-name: ${dbDriver}
+    url: ${dbUrl}
+    username: ${dbUser}
+    password: ${dbPassword}
+    hikari:
+      leak-detection-threshold: 60000
+      max-lifetime: 120000
+  boot:
+    admin:
+      client:
+        url: "${adminServiceURL}"   # Comma separated ordered list of URLs of the Spring Boot Admin server to register at. This triggers the AutoConfiguration. Mandatory.
+        instance:
+          service-base-url: "https://${serviceHost}:${servicePort}"
+          metadata:
+            user.name: "${adminUser}"         #These two are needed so that the server
+            user.password: "${adminPassword}" #can access the protected client endpoints
+        username: "${adminUser}"         # Username and password in case the SBA Server api is protected with HTTP Basic authentication.
+        password: "${adminPassword}"
+          
+  resources:
+    static-locations: 'classpath:static/.file:static/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/webapp/,classpath:/public/ '
 
----
-spring:
-  profiles: secure
   security:
     user:
       name: "${adminUser}"
       password: "${adminPassword}"
+
+    # GITHUB OAUTH
+    oauth2:
+      client:
+        registration:
+          github:
+            scope: repo, gist, org, user
+            clientId: yyy3423
+            clientSecret: xxx234
+
+---
+######### PROD CONFIG #########
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: ${dbDriver}
+    url: ${dbUrl}
+    username: ${dbUser}
+    password: ${dbPassword}
+    hikari:
+      leak-detection-threshold: 60000
+      max-lifetime: 120000
   boot:
     admin:
       client:
-        username: "${adminUser}"       #These two are needed so that the client
-        password: "${adminPassword}"   #can register at the protected server api
+        url: "${adminServiceURL}"   # Comma separated ordered list of URLs of the Spring Boot Admin server to register at. This triggers the AutoConfiguration. Mandatory.
         instance:
+          service-base-url: "https://${serviceHost}:${servicePort}"
           metadata:
             user.name: "${adminUser}"         #These two are needed so that the server
             user.password: "${adminPassword}" #can access the protected client endpoints
+        username: "${adminUser}"         # Username and password in case the SBA Server api is protected with HTTP Basic authentication.
+        password: "${adminPassword}"
+          
+  resources:
+    static-locations: 'classpath:static/.file:static/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/webapp/,classpath:/public/ '
 
-info.tags.security: secured            
+  security:
+    user:
+      name: "${adminUser}"
+      password: "${adminPassword}"
+
+    # GITHUB OAUTH
+    oauth2:
+      client:
+        registration:
+          github:
+            scope: repo, gist, org, user
+            clientId: xxx
+            clientSecret: xxxyyy
+
+# redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+
+# TODO: add support for redirecting HTTP -> HTTPS
+# https://www.thomasvitale.com/https-spring-boot-ssl-certificate/
+# server:ssl.key-store:/etc/letsencrypt/live/sg0.stackgen.io/keystore.p12
+
+server:
+  port: 8443
+  ssl:
+    key-store: ./keystore.p12
+    key-store-password: XXXXXXXXXXXXX
+    key-store-type: PKCS12
+    key-alias: tomcat
+    # key-password: another-secret # none set
+
+
+
+
+

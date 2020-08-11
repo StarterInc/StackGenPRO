@@ -18,7 +18,6 @@ import {{objectname}}Form from './{{objectname}}Form';
 import { add{{objectname}} } from '../../actions/{{objectname}}s';
 
 const Add{{objectname}} = (props) => (
-    <Card>
         <h3>Enter New {{objectname}}</h3>
         <{{objectname}}Form
         	history={props.history}
@@ -26,7 +25,6 @@ const Add{{objectname}} = (props) => (
                 props.dispatch(add{{objectname}}({{objectnamevarname}}));
             }}
         />
-    </Card>
 );
 
 function mapStateToProps(state) {

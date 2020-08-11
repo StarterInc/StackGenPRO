@@ -4,7 +4,8 @@ let stackgenId = '';
 
 export default axios.create({
   // baseURL: process.env.REACT_APP_SG_SERVICE_ENDPOINT,
-  baseURL: 'http://{{serverhost}}:{{serverport}}/', 
+  baseURL: process.env.REACT_APP_SG_SERVICE_ENDPOINT,
+  // baseURL: 'http://{{servicehost}}:{{serviceport}}/', 
   headers: {
     'X-StackGen-ID': stackgenId,
     'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
