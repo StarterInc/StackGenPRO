@@ -189,7 +189,7 @@ public class AppEntityObject {
 				enumClass = c;
 				Field[] allFields = c.getDeclaredFields();
 			    for (Field field : allFields) {
-			        if(!field.getName().equals("value") && !field.getName().contains("ENUM$VALUES")) {
+			        if(!field.getName().equals("value") && !field.getName().contains("$VALUES")) {
 			        	enumOptions += "<option>" + field.getName() + "</option> \r\n";
 			        }
 			    }	

@@ -15,16 +15,19 @@ import { connect } from 'react-redux';
 import { Card } from 'react-bootstrap';
 
 import {{objectname}}Form from './{{objectname}}Form';
-import { add{{objectname}} } from '../../actions/{{objectname}}s';
+import { add{{objectname}} , {{objectnamevarname}}Data } from '../../actions/{{objectname}}s';
 
 const Add{{objectname}} = (props) => (
+    <>
         <h3>Enter New {{objectname}}</h3>
         <{{objectname}}Form
+            {{objectnamevarname}}={ {{objectnamevarname}}Data }
         	history={props.history}
             onSubmit{{objectname}}={({{objectnamevarname}}) => {
                 props.dispatch(add{{objectname}}({{objectnamevarname}}));
             }}
         />
+    </>    
 );
 
 function mapStateToProps(state) {

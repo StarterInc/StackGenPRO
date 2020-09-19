@@ -41,25 +41,29 @@ const Edit{{objectname}} = (props) => (
 const mapStateToProps = (state, props) => {
 
     // in case the {{objectnamevarname}} is passed in as a prop
-    const {{objectnamevarname}} = props.{{objectnamevarname}};
-    if({{objectnamevarname}}){
+	const { {{objectname}}s } = props;    
+	const { {{objectname}} } = {{objectname}}s;    
+
+	if({{objectname}}){
         return{
-            {{objectnamevarname}}:{{objectnamevarname}}
+            {{objectnamevarname}}:{{objectname}}
         }
     }
-    const { {{objectname}}s } = state;
-    const _id = parseInt(props.match.params.id);
-    
-    const { {{objectname}} } = {{objectname}}s ;
-    if({{objectname}} != undefined && {{objectname}}.id == _id){
-        return {
-        	{{objectnamevarname}}:{{objectname}}
-        }
+
+    // else find it in the list
+    var _id = parseInt(props.match.params.id);
+
+	if(_id != null){
+        var ret = {{objectname}}s.find(
+            {{objectname}} => {{objectname}}.id === _id);
+        
+        return { 
+            {{objectnamevarname}}:ret
+        };
     }
-    
-    return { 
-        {{objectnamevarname}}:{{objectname}}s.find( {{objectnamevarname}} => {{objectnamevarname}}.id === _id)
-    };
+	return props;
 }; 
+
+
 
 export default connect(mapStateToProps)(Edit{{objectname}});

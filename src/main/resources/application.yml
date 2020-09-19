@@ -72,7 +72,7 @@ spring:
       client:
         url: "${adminServiceURL}"   # Comma separated ordered list of URLs of the Spring Boot Admin server to register at. This triggers the AutoConfiguration. Mandatory.
         instance:
-          service-base-url: "https://${serviceHost}:${servicePort}"
+          service-base-url: "https://${serviceHost:admin.stackgen.io}:${servicePort:8443}"
           metadata:
             user.name: "${adminUser}"         #These two are needed so that the server
             user.password: "${adminPassword}" #can access the protected client endpoints
@@ -113,7 +113,7 @@ spring:
       client:
         url: "${adminServiceURL}"   # Comma separated ordered list of URLs of the Spring Boot Admin server to register at. This triggers the AutoConfiguration. Mandatory.
         instance:
-          service-base-url: "https://${serviceHost}:${servicePort}"
+          service-base-url: "https://${serviceHost:admin.stackgen.io}:${servicePort:8443}"
           metadata:
             user.name: "${adminUser}"         #These two are needed so that the server
             user.password: "${adminPassword}" #can access the protected client endpoints

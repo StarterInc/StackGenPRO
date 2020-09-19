@@ -20,9 +20,10 @@ const {{objectname}}Header = () => (
     <thead>
   		  <tr>
 			  <th colspan='2'>
+			  <br/><br/><br/>
 				  <Link to={`/{{objectname}}/add/`}>
 				  <Button size="sm" variant={'success'}>
-				  	<FaPlusCircle size='15' /> add new
+				  	<FaPlusCircle size='20' /> New {{objectname}}
 	              </Button>
               </Link>
           

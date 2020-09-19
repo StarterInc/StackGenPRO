@@ -1,0 +1,69 @@
+swagger: '2.0'
+info:
+  description: "Starter Connect Location Service"
+  version: "1.0.0"
+  title: "starter eStore"
+  termsOfService: "http://starter.io/terms/"
+  contact:
+    email: "apiteam@starter.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "itemstore.starter.io"
+basePath: "/v2"
+
+# tags are used for organizing operations
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: users
+  description: Operations available to regular users
+
+schemes:
+- http
+- https
+
+# intentionally empty
+paths:
+        
+# intentionally empty
+securityDefinitions:
+              
+definitions:
+  Location:
+    type: "object"
+    required:
+    - name
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      elevation:
+        type: "number"
+        example: 37.7564084
+      latitude:
+        type: "number"
+        example: 37.7564084
+      longitude:
+        type: string
+        example: 122.4717396
+      name:
+        type: string
+        example: Grand View Park
+        secureField: true
+      country:
+        type: string
+        example: USA
+      email:
+        type: string
+        example: sparky@starter.io
+      homePage:
+        type: string
+        format: url
+        example:  https://www.starter.io
+      phone:
+        type: string
+        example: 222-333-4444
+    xml:
+      name: "Location"
+    x-automator-tag: "agd2asadss"

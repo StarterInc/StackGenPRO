@@ -45,7 +45,7 @@ const {{objectname}}Table = (props) => (
         <Table striped hover responsive size="lg">
             <<%objectname%>Header/>
             <tbody>
-            {typeof(props.<%objectname%>s.map) !== 'undefined' ? props.<%objectname%>s.map(<%objectnamevarname%> => {
+            {props.<%objectname%>s && typeof(props.<%objectname%>s.map) !== 'undefined' ? props.<%objectname%>s.map(<%objectnamevarname%> => {
             	const {id} = <%objectnamevarname%>;
                 return (
                     <tr style={{margin:0, padding:0}} key={<%objectnamevarname%>.id} id={<%objectnamevarname%>.id}>

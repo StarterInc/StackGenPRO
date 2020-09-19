@@ -9,7 +9,7 @@ import io.starter.ignite.util.SystemConstants;
 
 /**
  * 
- * @author johnmcmahon
+ * @author John McMahon ~ github: SpaceGhost69 | twitter: @TechnoCharms
  *
  */
 public class ReactConfigurator extends StackGenConfigurator{
@@ -35,7 +35,7 @@ public class ReactConfigurator extends StackGenConfigurator{
 
 		String REACT_TEMPLATE_FOLDER = (System.getProperty("REACT_TEMPLATE_FOLDER") != null
 				? System.getProperty("REACT_TEMPLATE_FOLDER")
-				: SystemConstants.rootFolder + getSourceResources() + "/templates/react/");
+				: SystemConstants.rootFolder + "/" + ReactConfigurator.getSourceResources() + "/templates/react/");
 
 		String REACT_TEMPLATE_SOURCES_FOLDER = REACT_TEMPLATE_FOLDER + "sources/js";
 

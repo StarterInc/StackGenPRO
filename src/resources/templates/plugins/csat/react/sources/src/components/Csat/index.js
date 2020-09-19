@@ -27,7 +27,7 @@ class Csat extends Component {
   }
 
   submit(_this) {
-    axios.post("Csat/{param}", this.state).then(function(response) {
+    axios.post("Csat/{id}", this.state).then(function(response) {
       console.log(response.data)
       console.log(response.status)
       console.log(response.statusText)

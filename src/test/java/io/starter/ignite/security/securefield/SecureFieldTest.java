@@ -33,6 +33,27 @@ public class SecureFieldTest {
 	}
 
 	@Test
+	public void emailEncryptionBug() throws Exception {
+		User testUser = new User(); // no need to load from DB
+		String email = "jimbo@gma.co";
+		String fname = "jimbo";
+
+		testUser.setFirstName(fname);
+		System.err.print(testUser.getFirstName());
+		Assert.assertEquals(fname, testUser.getFirstName());
+		
+		testUser.setEmail(email);
+
+		final Field f = testUser.getClass().getField("email");
+		final String emailCheck = f.get(testUser).toString();
+		System.out.println("USER LASTNAME: " + testUser.getLastName() + ":" + emailCheck);
+
+		System.err.println( " " + testUser.getEmail());
+		Assert.assertEquals(email, testUser.getEmail());
+	}
+	
+
+	@Test
 	@Ignore(value = "TODO: finish mock definition and asserts")
 	public void testSecureFieldGet() throws Throwable {
 		// @Around(FIELD_SET)

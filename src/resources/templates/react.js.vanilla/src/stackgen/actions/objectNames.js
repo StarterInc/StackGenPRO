@@ -18,7 +18,7 @@ export const add{{objectname}} = ({{objectnamevarname}}Data = {
         	{{/variables}}
         };
 
-        return axios.post('{{objectname}}/{param}', {{objectnamevarname}}).then(result => {
+        return axios.post('{{objectname}}/{id}', {{objectnamevarname}}).then(result => {
             dispatch(_add{{objectname}}(result.data));
         });
     };

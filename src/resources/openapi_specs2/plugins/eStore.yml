@@ -1,0 +1,151 @@
+swagger: '2.0'
+info:
+  description: "Starter Connect Calendar Service"
+  version: "1.0.0"
+  title: "Starter Connect Calendar"
+  termsOfService: "http://starter.io/terms/"
+  contact:
+    email: "info@starter.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "itemstore.starter.io"
+basePath: "/v2"
+paths:
+
+securityDefinitions:
+  itemstore_auth:
+    type: "oauth2"
+    authorizationUrl: "http://itemstore.Starter.io/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:items: "modify items in your account"
+      read:items: "read your items"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+
+definitions:
+
+  Order:
+    type: "object"
+    properties:
+      description:
+        type: "string"
+      purchaseOrder:
+        type: "string"
+      locationId:
+        type: "integer"
+        format: "int64"    
+      customerId:
+        type: "integer"
+        format: "int64"
+      salesId:
+        type: "integer"
+        format: "int64"
+      quantity:
+        type: "integer"
+        format: "int32"
+      adjustment:
+        type: "number"
+        format: "double"
+        description: "Account balance point in time"
+        x-starter-dataField: component=AccountBalance
+      status:
+        type: "string"
+        description: "Order Status"
+        enum:
+        - "placed"
+        - "approved"
+        - "delivered"
+      complete:
+        type: "boolean"
+        default: false
+    xml:
+      name: "Order"
+  
+  OrderDetail:
+    type: "object"
+    properties:
+      orderId:
+        type: "integer"
+        format: "int64"
+      itemId:
+        type: "integer"
+        format: "int64"
+      quantity:
+        type: "integer"
+        format: "int32"
+      shipDate:
+        type: "string"
+        format: "date-time"
+      status:
+        type: "string"
+        description: "Order Status"
+        enum:
+        - "placed"
+        - "approved"
+        - "delivered"
+      complete:
+        type: "boolean"
+        default: false
+    xml:
+      name: "Order"      
+  Tag:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+    xml:
+      name: "Tag"
+  Item:
+    type: "object"
+    required:
+    - "name"
+    - "photoUrls"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      category:
+        $ref: "#/definitions/Category"
+      name:
+        type: "string"
+        example: "doggie"
+      photoUrls:
+        type: "array"
+        xml:
+          name: "photoUrl"
+          wrapped: true
+        items:
+          type: "string"
+      tags:
+        type: "array"
+        xml:
+          name: "tag"
+          wrapped: true
+        items:
+          $ref: "#/definitions/Tag"
+      status:
+        type: "string"
+        description: "item status in the store"
+        enum:
+        - "available"
+        - "pending"
+        - "sold"
+    xml:
+      name: "Item"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"

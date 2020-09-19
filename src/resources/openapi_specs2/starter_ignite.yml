@@ -104,52 +104,20 @@ paths:
         default:
           description: "successful operation"
           
-          
 securityDefinitions:
   automator_auth:
-    type: oauth2
-    authorizationUrl: "https://{username}.stackgen.io:{port}/oauth"
+    type: "oauth2"
+    authorizationUrl: " https://{username}.stackgen.io:{port}/oauth"
     flow: "implicit"
     scopes:
       write:items: "modify owned items"
       read:items: "read owned items"
-  
   api_key:
-    type: "oauth2"
-    flow: "implicit"
-    authorizationUrl: https://auth.stackgen.io
+    type: "jwt"
+    name: "jwt"
+    in: "header"
     
 definitions:
-
-
-  Csat:
-    type: object
-    required:
-    - contentId
-    properties:
-      userId:
-        type: "integer"
-        format: "int64"    
-      contentId:
-        type: "integer"
-        format: "int64"
-      comments:
-        type: string
-        example: Your real feelings
-        maxLength: 1000000
-      contentUrl:
-        type: string
-        description: The URL of the resource being rated
-        example: http://someco.com/somepage.html?someparam=somevalue
-        maxLength: 512        
-      rating:
-        type:  "integer"
-        format: "int64"
-        minimum: 0
-        maximum: 10
-    xml:
-      name: "Csat"   
-
   Account:
     type: "object"
     properties:
@@ -220,11 +188,14 @@ definitions:
     xml:
       name: "LedgerEntry"
       
-  Order:
+    Order:
     type: "object"
     required:
       - customerId
     properties:
+      id:
+        type: "integer"
+        format: "int64"
       customerId:
         type: "integer"
         format: "int64"
@@ -238,9 +209,6 @@ definitions:
         - "placed"
         - "approved"
         - "delivered"
-      totalAmount:
-        type: "number"
-        format: "double"  
       complete:
         type: "boolean"
         default: false
@@ -254,6 +222,9 @@ definitions:
       - itemId
       - quantity
     properties:
+      id:
+        type: "integer"
+        format: "int64"
       orderId:
         type: "integer"
         format: "int64"
@@ -265,12 +236,6 @@ definitions:
       itemId:
         type: "string"
         format: "date-time"
-      itemAmount:
-        type: "number"
-        format: "double"                
-      lineTotalAmount:
-        type: "number"
-        format: "double"        
       status:
         type: "string"
         description: "Order Status"
@@ -323,11 +288,6 @@ definitions:
       organizationId:
         type: "integer"
         format: "int64"
-      headerImageUrl:
-        description: URL for content header image
-        type: string
-        format: url
-        example: https://img.com/mypic.png        
     xml:
       name: "Content"    
       
@@ -348,51 +308,8 @@ definitions:
       phone:
         type: string
         example: 415-867-5309
-      addressId:
-        type: "integer"
-        format: "int64"
     xml:
       name: "Organization"       
-        
-  Address:
-    type: object
-    required:
-    - name
-    - lastName
-    - street1
-    - city
-    - state
-    - zip
-    properties:
-      id:
-        type: "integer"
-        format: "int64"    
-      name:
-        type: string
-        example: Wendy
-        description: "full first name of addressee"
-      street1:
-        type: string
-        example: 123 Daydream Blvd.
-        description: "Street address line 1"
-      street2:
-        type:  string
-        example: Apt. 7
-        description: "Street address line 2"
-      city:
-        type: string
-        example: San Francisco       
-        description: "full name of city"
-      state:
-        type:  string
-        format: "date-time"
-        description: "2 character state code (upper case)"
-      zip:
-        type: string
-        example: 94210
-        description: "5 digit zip code"
-    xml:
-      name: "Address"        
         
   User:
     required:
@@ -464,10 +381,8 @@ definitions:
       organizationId:
         type: "integer"
         format: "int64"
-      addressId:
-        type: "integer"
-        format: "int64"
-   # Spring Security User fields
+
+# Spring Security User fields
 
    # isCredentialsNonExpired
       credentialNonExpired:

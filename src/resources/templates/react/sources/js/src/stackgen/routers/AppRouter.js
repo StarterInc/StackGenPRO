@@ -25,6 +25,10 @@ import Edit{{objname}} from '../components/{{objname}}/Edit{{objname}}';
 import NotFound from '../components/NotFound';
 
 const AppRouter = () => (
+	
+	// TODO: implement auth
+	var authenticated = true;
+	
     <BrowserRouter>
         <div className='container'>
             <Header />
@@ -34,8 +38,22 @@ const AppRouter = () => (
                 <Route path="/login" component={Login} exact={true} />
                 <Route path="/logout" component={Logout} exact={true} />
                 {{#dataobjects}}
-                <Route path="/{{objname}}/add" component={Add{{objname}}}  exact={true}/>
-                <Route path="/{{objname}}/edit/:id" component={Edit{{objname}}} exact={true}/>
+
+				<Route
+	              exact={true}
+	              path="/{{objname}}/add"
+	              render={
+	                (routeProps) => <Add{{objname}} {...props} {...routeProps} authenticated={authenticated}/>
+	              }
+	            />
+				<Route
+	              exact={true}
+	              path="/{{objname}}/edit/:id"
+	              render={
+	                (routeProps) => <Edit{{objname}} {...props} {...routeProps} authenticated={authenticated}/>
+	              }
+	            />
+                
                 {{/dataobjects}}
                 <Route component={NotFound} />
 

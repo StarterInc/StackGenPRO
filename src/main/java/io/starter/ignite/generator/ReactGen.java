@@ -115,10 +115,6 @@ public class ReactGen extends Gen implements Generator {
 	}
 
 	public void generateReact() throws Exception {
-		// System.setProperty("user.dir",
-		// "/user/projects/StarterIgnite/StarterIgniteServer");
-		// System.setProperty("user.dir",
-		// "/StarterIgniteServer");
 
 		final List<String> alreadyAdded = new ArrayList<>(); // dedupe
 		final ReactGen gen = new ReactGen();
@@ -160,10 +156,7 @@ public class ReactGen extends Gen implements Generator {
 
 		// copy the files to the target project folder
 		ReactGen.export(gen);
-
 		ReactGen.logger.info("Done processing " + config.REACT_DATA_OBJECTS.size() + " React Objects");
-
-		// TODO: conditionally run maven build
 
 	}
 
@@ -187,16 +180,15 @@ public class ReactGen extends Gen implements Generator {
 			throws IOException, FileNotFoundException {
 
 		final MustacheFactory mf = new DefaultMustacheFactory();
-		String foutp = StringTool.replaceText(fname, config.REACT_TEMPLATE_SOURCES_FOLDER,
-				config.REACT_EXPORT_FOLDER + config.REACT_APP_NAME + "/");
-
-		foutp = StringTool.replaceText(foutp, config.REACT_TEMPLATE_FOLDER,
-				config.REACT_EXPORT_FOLDER + config.REACT_APP_NAME + "/");
-
+		
+		String foutp = null;
 		// read in template file
 		if (multifile != null) {
 			foutp = StringTool.replaceText(multifile, config.REACT_TEMPLATE_SOURCES_FOLDER,
-					config.REACT_EXPORT_FOLDER + config.REACT_APP_NAME + "/");
+					config.REACT_EXPORT_FOLDER + config.REACT_APP_NAME );
+		} else {
+			foutp = StringTool.replaceText(fname, config.REACT_TEMPLATE_SOURCES_FOLDER,
+					config.REACT_EXPORT_FOLDER + config.REACT_APP_NAME );
 		}
 
 		final File fout = new File(foutp);

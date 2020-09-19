@@ -10,7 +10,8 @@
  * 
  * {{CONTACT_INFO}}
  * 
- * var {{objectname}}:{{#variables}}
+ * var {{objectname}}:
+ * {{#variables}}
  *  {{variablename}}: '{{variableval}}',
  * {{/variables}} 
  * 
@@ -21,7 +22,7 @@ import PropTypes from 'prop-types';
 
 import { Card, Col, Form, Button, ButtonGroup } from "react-bootstrap";
 
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Formik, Field } from 'formik';
 import * as yup from 'yup';
 
 import {{objectname}} from './{{objectname}}';
@@ -44,8 +45,8 @@ class {{objectname}}Form extends React.Component {
       
      
         var {{objectnamevarname}} = { ...props.{{objectnamevarname}} };
-        if(!{{objectnamevarname}}){
-           let {{objectnamevarname}} = { ...{{objectnamevarname}}Data };
+        if(!{{objectnamevarname}}.id){
+           {{objectnamevarname}} = { ...{{objectnamevarname}}Data };
         }
         // configure list of 'advanced' fields:
         let advancedList = [
@@ -63,7 +64,7 @@ class {{objectname}}Form extends React.Component {
 
         
         this.state = {
-        	  {{objectname}}:{{objectnamevarname}},
+          {{objectnamevarname}}:{{objectnamevarname}},
             message: "",
             errorMessage:"",
             validated: false,
@@ -102,7 +103,9 @@ class {{objectname}}Form extends React.Component {
 	  });
 	
     actions.setSubmitting(false);
-    this.props.history.goBack();
+    if(this.props.history){
+      this.props.history.goBack();
+    }
     this.setState(() => ({ errorMessage: '' }));
   
 //	  this.props.history.push('/Datamanagement');
@@ -133,7 +136,7 @@ class {{objectname}}Form extends React.Component {
                     className="close"
                     data-dismiss="alert"
                     aria-label="Close"
-                    onClick={() => dispatch(resetStack())}
+                    onClick={() => dispatch(reset{{objectname}}())}
                   >
                     {message && (
                       <AlertDismissable className="alert-success" title="Success">
@@ -152,7 +155,7 @@ class {{objectname}}Form extends React.Component {
                           className="close"
                           data-dismiss="alert"
                           aria-label="Close"
-                          onClick={() => dispatch(resetStack())}
+                          onClick={() => dispatch(reset{{objectname}}())}
                         >
                           <span aria-hidden="true">&times;</span>
                         </button>
@@ -169,7 +172,7 @@ class {{objectname}}Form extends React.Component {
         <Formik
               validationSchema={schema}
               onSubmit={this.onSubmit}
-              initialValues={<%objectnamevarname%> }
+              initialValues={<%objectnamevarname%>}
             >
               {({
                 handleSubmit,
@@ -183,7 +186,7 @@ class {{objectname}}Form extends React.Component {
               }) => (
                 <Form onSubmit={handleSubmit}>
                   <ButtonGroup>
-                    <Button
+                    {this.props.history && <Button
                       size="sm"
                       onClick={() => {
                         this.props.history.goBack();
@@ -192,7 +195,7 @@ class {{objectname}}Form extends React.Component {
                     >
                       <span>Done</span>
                     </Button>
-
+                    }
                     <Button
                       size="sm"
                       // style={ {position:'fixed', left:20} }
@@ -200,7 +203,7 @@ class {{objectname}}Form extends React.Component {
                       disabled={isSubmitting || !isValid}
                     >
                       <span>
-                        {typeof stack !== "undefined"
+                        {<%objectnamevarname%>.id !== ""
                           ? "Save Changes to <%objectname%>"
                           : "Add New <%objectname%>"}
                         <%objectname%>

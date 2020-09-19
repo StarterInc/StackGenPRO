@@ -1,0 +1,5934 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "This is the Starter Ignite API",
+		"version": "1.0.0",
+		"title": "Starter Ignite API",
+		"contact": {
+			"email": "info@ignite.starter.io"
+		},
+		"license": {
+			"name": "AGPL 3.0",
+			"url": "https://www.gnu.org/licenses/agpl-3.0.html"
+		}
+	},
+	"host": "localhost:8100",
+	"basePath": "/",
+	"tags": [
+		{
+			"name": "work-flows-api-controller",
+			"description": "the WorkFlows API"
+		},
+		{
+			"name": "organization-api-controller",
+			"description": "the Organization API"
+		},
+		{
+			"name": "stack-api-controller",
+			"description": "the Stack API"
+		},
+		{
+			"name": "account-api-controller",
+			"description": "the Account API"
+		},
+		{
+			"name": "data-api-controller",
+			"description": "the Data API"
+		},
+		{
+			"name": "calendar-api-controller",
+			"description": "the Calendar API"
+		},
+		{
+			"name": "category-api-controller",
+			"description": "the Category API"
+		},
+		{
+			"name": "trade-order-api-controller",
+			"description": "the TradeOrder API"
+		},
+		{
+			"name": "location-api-controller",
+			"description": "the Location API"
+		},
+		{
+			"name": "contact-method-api-controller",
+			"description": "the ContactMethod API"
+		},
+		{
+			"name": "calendar-event-api-controller",
+			"description": "the CalendarEvent API"
+		},
+		{
+			"name": "order-detail-api-controller",
+			"description": "the OrderDetail API"
+		},
+		{
+			"name": "tag-api-controller",
+			"description": "the Tag API"
+		},
+		{
+			"name": "content-api-controller",
+			"description": "the Content API"
+		},
+		{
+			"name": "item-api-controller",
+			"description": "the Item API"
+		},
+		{
+			"name": "audit-log-api-controller",
+			"description": "the AuditLog API"
+		},
+		{
+			"name": "ledger-entry-api-controller",
+			"description": "the LedgerEntry API"
+		},
+		{
+			"name": "order-api-controller",
+			"description": "the Order API"
+		},
+		{
+			"name": "user-api-controller",
+			"description": "the User API"
+		}
+	],
+	"paths": {
+		"/Account/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"account-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Account/{param}": {
+			"get": {
+				"tags": [
+					"account-api-controller"
+				],
+				"summary": "Load a Account from the system",
+				"description": "Starter Ignite Auto Generated Account:load",
+				"operationId": "load",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"account-api-controller"
+				],
+				"summary": "Insert a new Account into the system",
+				"description": "Starter Ignite Auto Generated Account:insert",
+				"operationId": "insert",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Account"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/Account"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"account-api-controller"
+				],
+				"summary": "Update a Account in the system",
+				"description": "Starter Ignite Auto Generated Account:update",
+				"operationId": "update",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Account"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"account-api-controller"
+				],
+				"summary": "Delete an Account from the system",
+				"description": "Starter Ignite Auto Generated Account:delete",
+				"operationId": "delete",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/AuditLog/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"audit-log-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_1",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/AuditLog/{param}": {
+			"get": {
+				"tags": [
+					"audit-log-api-controller"
+				],
+				"summary": "Load a AuditLog from the system",
+				"description": "Starter Ignite Auto Generated AuditLog:load",
+				"operationId": "load_1",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"audit-log-api-controller"
+				],
+				"summary": "Insert a new AuditLog into the system",
+				"description": "Starter Ignite Auto Generated AuditLog:insert",
+				"operationId": "insert_1",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/AuditLog"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/AuditLog"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"audit-log-api-controller"
+				],
+				"summary": "Update a AuditLog in the system",
+				"description": "Starter Ignite Auto Generated AuditLog:update",
+				"operationId": "update_1",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/AuditLog"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"audit-log-api-controller"
+				],
+				"summary": "Delete an AuditLog from the system",
+				"description": "Starter Ignite Auto Generated AuditLog:delete",
+				"operationId": "delete_1",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Calendar/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"calendar-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_2",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/Calendar/{param}": {
+			"get": {
+				"tags": [
+					"calendar-api-controller"
+				],
+				"summary": "Load a Calendar from the system",
+				"description": "Starter Ignite Auto Generated Calendar:load",
+				"operationId": "load_2",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"calendar-api-controller"
+				],
+				"summary": "Insert a new Calendar into the system",
+				"description": "Starter Ignite Auto Generated Calendar:insert",
+				"operationId": "insert_2",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Calendar"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/Calendar"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"calendar-api-controller"
+				],
+				"summary": "Update a Calendar in the system",
+				"description": "Starter Ignite Auto Generated Calendar:update",
+				"operationId": "update_2",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Calendar"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"calendar-api-controller"
+				],
+				"summary": "Delete an Calendar from the system",
+				"description": "Starter Ignite Auto Generated Calendar:delete",
+				"operationId": "delete_2",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				}
+			}
+		},
+		"/CalendarEvent/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"calendar-event-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_3",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/CalendarEvent/{param}": {
+			"get": {
+				"tags": [
+					"calendar-event-api-controller"
+				],
+				"summary": "Load a CalendarEvent from the system",
+				"description": "Starter Ignite Auto Generated CalendarEvent:load",
+				"operationId": "load_3",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"calendar-event-api-controller"
+				],
+				"summary": "Insert a new CalendarEvent into the system",
+				"description": "Starter Ignite Auto Generated CalendarEvent:insert",
+				"operationId": "insert_3",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CalendarEvent"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/CalendarEvent"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"calendar-event-api-controller"
+				],
+				"summary": "Update a CalendarEvent in the system",
+				"description": "Starter Ignite Auto Generated CalendarEvent:update",
+				"operationId": "update_3",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/CalendarEvent"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"calendar-event-api-controller"
+				],
+				"summary": "Delete an CalendarEvent from the system",
+				"description": "Starter Ignite Auto Generated CalendarEvent:delete",
+				"operationId": "delete_3",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				}
+			}
+		},
+		"/Category/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"category-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_4",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Category/{param}": {
+			"get": {
+				"tags": [
+					"category-api-controller"
+				],
+				"summary": "Load a Category from the system",
+				"description": "Starter Ignite Auto Generated Category:load",
+				"operationId": "load_4",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"category-api-controller"
+				],
+				"summary": "Insert a new Category into the system",
+				"description": "Starter Ignite Auto Generated Category:insert",
+				"operationId": "insert_4",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Category"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/Category"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"category-api-controller"
+				],
+				"summary": "Update a Category in the system",
+				"description": "Starter Ignite Auto Generated Category:update",
+				"operationId": "update_4",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Category"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"category-api-controller"
+				],
+				"summary": "Delete an Category from the system",
+				"description": "Starter Ignite Auto Generated Category:delete",
+				"operationId": "delete_4",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/ContactMethod/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"contact-method-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_5",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/ContactMethod/{param}": {
+			"get": {
+				"tags": [
+					"contact-method-api-controller"
+				],
+				"summary": "Load a ContactMethod from the system",
+				"description": "Starter Ignite Auto Generated ContactMethod:load",
+				"operationId": "load_5",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"contact-method-api-controller"
+				],
+				"summary": "Insert a new ContactMethod into the system",
+				"description": "Starter Ignite Auto Generated ContactMethod:insert",
+				"operationId": "insert_5",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/ContactMethod"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/ContactMethod"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"contact-method-api-controller"
+				],
+				"summary": "Update a ContactMethod in the system",
+				"description": "Starter Ignite Auto Generated ContactMethod:update",
+				"operationId": "update_5",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/ContactMethod"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"contact-method-api-controller"
+				],
+				"summary": "Delete an ContactMethod from the system",
+				"description": "Starter Ignite Auto Generated ContactMethod:delete",
+				"operationId": "delete_5",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Content/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"content-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_6",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Content/{param}": {
+			"get": {
+				"tags": [
+					"content-api-controller"
+				],
+				"summary": "Load a Content from the system",
+				"description": "Starter Ignite Auto Generated Content:load",
+				"operationId": "load_6",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"content-api-controller"
+				],
+				"summary": "Insert a new Content into the system",
+				"description": "Starter Ignite Auto Generated Content:insert",
+				"operationId": "insert_6",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Content"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/Content"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"content-api-controller"
+				],
+				"summary": "Update a Content in the system",
+				"description": "Starter Ignite Auto Generated Content:update",
+				"operationId": "update_6",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Content"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"content-api-controller"
+				],
+				"summary": "Delete an Content from the system",
+				"description": "Starter Ignite Auto Generated Content:delete",
+				"operationId": "delete_6",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Data/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"data-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_7",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Data/{param}": {
+			"get": {
+				"tags": [
+					"data-api-controller"
+				],
+				"summary": "Load a Data from the system",
+				"description": "Starter Ignite Auto Generated Data:load",
+				"operationId": "load_7",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"data-api-controller"
+				],
+				"summary": "Insert a new Data into the system",
+				"description": "Starter Ignite Auto Generated Data:insert",
+				"operationId": "insert_7",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Data"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/Data"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"data-api-controller"
+				],
+				"summary": "Update a Data in the system",
+				"description": "Starter Ignite Auto Generated Data:update",
+				"operationId": "update_7",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Data"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"data-api-controller"
+				],
+				"summary": "Delete an Data from the system",
+				"description": "Starter Ignite Auto Generated Data:delete",
+				"operationId": "delete_7",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Item/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"item-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_8",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Item/{param}": {
+			"get": {
+				"tags": [
+					"item-api-controller"
+				],
+				"summary": "Load a Item from the system",
+				"description": "Starter Ignite Auto Generated Item:load",
+				"operationId": "load_8",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"item-api-controller"
+				],
+				"summary": "Insert a new Item into the system",
+				"description": "Starter Ignite Auto Generated Item:insert",
+				"operationId": "insert_8",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Item"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/Item"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"item-api-controller"
+				],
+				"summary": "Update a Item in the system",
+				"description": "Starter Ignite Auto Generated Item:update",
+				"operationId": "update_8",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Item"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"item-api-controller"
+				],
+				"summary": "Delete an Item from the system",
+				"description": "Starter Ignite Auto Generated Item:delete",
+				"operationId": "delete_8",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/LedgerEntry/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"ledger-entry-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_9",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/LedgerEntry/{param}": {
+			"get": {
+				"tags": [
+					"ledger-entry-api-controller"
+				],
+				"summary": "Load a LedgerEntry from the system",
+				"description": "Starter Ignite Auto Generated LedgerEntry:load",
+				"operationId": "load_9",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"ledger-entry-api-controller"
+				],
+				"summary": "Insert a new LedgerEntry into the system",
+				"description": "Starter Ignite Auto Generated LedgerEntry:insert",
+				"operationId": "insert_9",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/LedgerEntry"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/LedgerEntry"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"ledger-entry-api-controller"
+				],
+				"summary": "Update a LedgerEntry in the system",
+				"description": "Starter Ignite Auto Generated LedgerEntry:update",
+				"operationId": "update_9",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/LedgerEntry"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"ledger-entry-api-controller"
+				],
+				"summary": "Delete an LedgerEntry from the system",
+				"description": "Starter Ignite Auto Generated LedgerEntry:delete",
+				"operationId": "delete_9",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Location/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"location-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_10",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/Location/{param}": {
+			"get": {
+				"tags": [
+					"location-api-controller"
+				],
+				"summary": "Load a Location from the system",
+				"description": "Starter Ignite Auto Generated Location:load",
+				"operationId": "load_10",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"location-api-controller"
+				],
+				"summary": "Insert a new Location into the system",
+				"description": "Starter Ignite Auto Generated Location:insert",
+				"operationId": "insert_10",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Location"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/Location"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"location-api-controller"
+				],
+				"summary": "Update a Location in the system",
+				"description": "Starter Ignite Auto Generated Location:update",
+				"operationId": "update_10",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Location"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"location-api-controller"
+				],
+				"summary": "Delete an Location from the system",
+				"description": "Starter Ignite Auto Generated Location:delete",
+				"operationId": "delete_10",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				}
+			}
+		},
+		"/Order/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"order-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_11",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/Order/{param}": {
+			"get": {
+				"tags": [
+					"order-api-controller"
+				],
+				"summary": "Load a Order from the system",
+				"description": "Starter Ignite Auto Generated Order:load",
+				"operationId": "load_11",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"order-api-controller"
+				],
+				"summary": "Insert a new Order into the system",
+				"description": "Starter Ignite Auto Generated Order:insert",
+				"operationId": "insert_11",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Order"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/Order"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"order-api-controller"
+				],
+				"summary": "Update a Order in the system",
+				"description": "Starter Ignite Auto Generated Order:update",
+				"operationId": "update_11",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Order"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"order-api-controller"
+				],
+				"summary": "Delete an Order from the system",
+				"description": "Starter Ignite Auto Generated Order:delete",
+				"operationId": "delete_11",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				}
+			}
+		},
+		"/OrderDetail/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"order-detail-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_12",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			}
+		},
+		"/OrderDetail/{param}": {
+			"get": {
+				"tags": [
+					"order-detail-api-controller"
+				],
+				"summary": "Load a OrderDetail from the system",
+				"description": "Starter Ignite Auto Generated OrderDetail:load",
+				"operationId": "load_12",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"order-detail-api-controller"
+				],
+				"summary": "Insert a new OrderDetail into the system",
+				"description": "Starter Ignite Auto Generated OrderDetail:insert",
+				"operationId": "insert_12",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/OrderDetail"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/OrderDetail"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"put": {
+				"tags": [
+					"order-detail-api-controller"
+				],
+				"summary": "Update a OrderDetail in the system",
+				"description": "Starter Ignite Auto Generated OrderDetail:update",
+				"operationId": "update_12",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/OrderDetail"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"order-detail-api-controller"
+				],
+				"summary": "Delete an OrderDetail from the system",
+				"description": "Starter Ignite Auto Generated OrderDetail:delete",
+				"operationId": "delete_12",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				}
+			}
+		},
+		"/Organization/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"organization-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_13",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Organization/{param}": {
+			"get": {
+				"tags": [
+					"organization-api-controller"
+				],
+				"summary": "Load a Organization from the system",
+				"description": "Starter Ignite Auto Generated Organization:load",
+				"operationId": "load_13",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"organization-api-controller"
+				],
+				"summary": "Insert a new Organization into the system",
+				"description": "Starter Ignite Auto Generated Organization:insert",
+				"operationId": "insert_13",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Organization"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/Organization"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"organization-api-controller"
+				],
+				"summary": "Update a Organization in the system",
+				"description": "Starter Ignite Auto Generated Organization:update",
+				"operationId": "update_13",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Organization"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"organization-api-controller"
+				],
+				"summary": "Delete an Organization from the system",
+				"description": "Starter Ignite Auto Generated Organization:delete",
+				"operationId": "delete_13",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Stack/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"stack-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_14",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Stack/{param}": {
+			"get": {
+				"tags": [
+					"stack-api-controller"
+				],
+				"summary": "Load a Stack from the system",
+				"description": "Starter Ignite Auto Generated Stack:load",
+				"operationId": "load_14",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"stack-api-controller"
+				],
+				"summary": "Insert a new Stack into the system",
+				"description": "Starter Ignite Auto Generated Stack:insert",
+				"operationId": "insert_14",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Stack"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/Stack"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"stack-api-controller"
+				],
+				"summary": "Update a Stack in the system",
+				"description": "Starter Ignite Auto Generated Stack:update",
+				"operationId": "update_14",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Stack"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"stack-api-controller"
+				],
+				"summary": "Delete an Stack from the system",
+				"description": "Starter Ignite Auto Generated Stack:delete",
+				"operationId": "delete_14",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Tag/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"tag-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_15",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/Tag/{param}": {
+			"get": {
+				"tags": [
+					"tag-api-controller"
+				],
+				"summary": "Load a Tag from the system",
+				"description": "Starter Ignite Auto Generated Tag:load",
+				"operationId": "load_15",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"tag-api-controller"
+				],
+				"summary": "Insert a new Tag into the system",
+				"description": "Starter Ignite Auto Generated Tag:insert",
+				"operationId": "insert_15",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Tag"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/Tag"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"tag-api-controller"
+				],
+				"summary": "Update a Tag in the system",
+				"description": "Starter Ignite Auto Generated Tag:update",
+				"operationId": "update_15",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/Tag"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"tag-api-controller"
+				],
+				"summary": "Delete an Tag from the system",
+				"description": "Starter Ignite Auto Generated Tag:delete",
+				"operationId": "delete_15",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/TradeOrder/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"trade-order-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_16",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/TradeOrder/{param}": {
+			"get": {
+				"tags": [
+					"trade-order-api-controller"
+				],
+				"summary": "Load a TradeOrder from the system",
+				"description": "Starter Ignite Auto Generated TradeOrder:load",
+				"operationId": "load_16",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"trade-order-api-controller"
+				],
+				"summary": "Insert a new TradeOrder into the system",
+				"description": "Starter Ignite Auto Generated TradeOrder:insert",
+				"operationId": "insert_16",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/TradeOrder"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/TradeOrder"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"trade-order-api-controller"
+				],
+				"summary": "Update a TradeOrder in the system",
+				"description": "Starter Ignite Auto Generated TradeOrder:update",
+				"operationId": "update_16",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/TradeOrder"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"trade-order-api-controller"
+				],
+				"summary": "Delete an TradeOrder from the system",
+				"description": "Starter Ignite Auto Generated TradeOrder:delete",
+				"operationId": "delete_16",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/User/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"user-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_17",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/User/{param}": {
+			"get": {
+				"tags": [
+					"user-api-controller"
+				],
+				"summary": "Load a User from the system",
+				"description": "Starter Ignite Auto Generated User:load",
+				"operationId": "load_17",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"user-api-controller"
+				],
+				"summary": "Insert a new User into the system",
+				"description": "Starter Ignite Auto Generated User:insert",
+				"operationId": "insert_17",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"user-api-controller"
+				],
+				"summary": "Update a User in the system",
+				"description": "Starter Ignite Auto Generated User:update",
+				"operationId": "update_17",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"user-api-controller"
+				],
+				"summary": "Delete an User from the system",
+				"description": "Starter Ignite Auto Generated User:delete",
+				"operationId": "delete_17",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/WorkFlows/list/{searchparam}": {
+			"get": {
+				"tags": [
+					"work-flows-api-controller"
+				],
+				"summary": "Listing",
+				"description": "Starter Ignite Auto Generated Listing",
+				"operationId": "list_18",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "searchparam",
+						"in": "path",
+						"description": "Search example: JSON",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object"
+							}
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		},
+		"/WorkFlows/{param}": {
+			"get": {
+				"tags": [
+					"work-flows-api-controller"
+				],
+				"summary": "Load a WorkFlows from the system",
+				"description": "Starter Ignite Auto Generated WorkFlows:load",
+				"operationId": "load_18",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"post": {
+				"tags": [
+					"work-flows-api-controller"
+				],
+				"summary": "Insert a new WorkFlows into the system",
+				"description": "Starter Ignite Auto Generated WorkFlows:insert",
+				"operationId": "insert_18",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"application/json"
+				],
+				"parameters": [
+					{
+						"in": "body",
+						"name": "param",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/WorkFlows"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"$ref": "#/definitions/WorkFlows"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"put": {
+				"tags": [
+					"work-flows-api-controller"
+				],
+				"summary": "Update a WorkFlows in the system",
+				"description": "Starter Ignite Auto Generated WorkFlows:update",
+				"operationId": "update_18",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					},
+					{
+						"in": "body",
+						"name": "param2",
+						"description": "Updated JSON data",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/WorkFlows"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Results fetched OK",
+						"schema": {
+							"type": "object"
+						}
+					},
+					"201": {
+						"description": "Created"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					},
+					"404": {
+						"description": "Not Found"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			},
+			"delete": {
+				"tags": [
+					"work-flows-api-controller"
+				],
+				"summary": "Delete an WorkFlows from the system",
+				"description": "Starter Ignite Auto Generated WorkFlows:delete",
+				"operationId": "delete_18",
+				"consumes": [
+					"application/json"
+				],
+				"produces": [
+					"*/*"
+				],
+				"parameters": [
+					{
+						"name": "param",
+						"in": "path",
+						"description": "Retreive a single result by ID",
+						"required": true,
+						"type": "integer",
+						"format": "int32"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					},
+					"204": {
+						"description": "No Content"
+					},
+					"401": {
+						"description": "Unauthorized"
+					},
+					"403": {
+						"description": "Forbidden"
+					}
+				},
+				"security": [
+					{
+						"automator_auth": []
+					}
+				]
+			}
+		}
+	},
+	"definitions": {
+		"Account": {
+			"type": "object",
+			"properties": {
+				"accountNumber": {
+					"type": "string"
+				},
+				"balance": {
+					"type": "number",
+					"format": "double",
+					"description": "Account balance point in time"
+				},
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"institutionName": {
+					"type": "string"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"routingNumber": {
+					"type": "string"
+				},
+				"status": {
+					"type": "string",
+					"description": "Account Status",
+					"enum": [
+						"ready",
+						"closed",
+						"executed"
+					]
+				},
+				"verified": {
+					"type": "boolean",
+					"example": false
+				}
+			}
+		},
+		"AuditLog": {
+			"type": "object",
+			"required": [
+				"json",
+				"sourceType"
+			],
+			"properties": {
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"fingerprint": {
+					"type": "string",
+					"example": "DK$DFSJaraDD"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"json": {
+					"type": "string",
+					"example": "Sparkyt"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"sourceOwner": {
+					"type": "string",
+					"example": "userId:1000"
+				},
+				"sourceType": {
+					"type": "string",
+					"example": "user"
+				}
+			}
+		},
+		"Calendar": {
+			"type": "object",
+			"properties": {
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"description": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"events": {
+					"$ref": "#/definitions/CalendarEvent"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"remoteUrl": {
+					"type": "string",
+					"example": "caldav://cal.starter.io"
+				},
+				"timezone": {
+					"type": "string",
+					"description": "Display Color",
+					"enum": [
+						"red",
+						"blue",
+						"green",
+						"yellow",
+						"black",
+						"white",
+						"orange"
+					]
+				}
+			}
+		},
+		"CalendarEvent": {
+			"type": "object",
+			"required": [
+				"calendarId"
+			],
+			"properties": {
+				"calendarId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"eventEnd": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"eventStart": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"eventType": {
+					"type": "string",
+					"description": "Event type",
+					"enum": [
+						"personal",
+						"meeting",
+						"event",
+						"travel",
+						"other"
+					]
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"status": {
+					"type": "string",
+					"description": "Transaction Status",
+					"enum": [
+						"open",
+						"busy",
+						"accepted",
+						"rejected"
+					]
+				},
+				"title": {
+					"type": "string",
+					"example": "Company Events"
+				},
+				"url": {
+					"type": "string",
+					"example": "caldav://cal.starter.io"
+				}
+			}
+		},
+		"Category": {
+			"type": "object",
+			"properties": {
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"name": {
+					"type": "string"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				}
+			}
+		},
+		"ContactMethod": {
+			"type": "object",
+			"properties": {
+				"complete": {
+					"type": "boolean",
+					"example": false
+				},
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"messageType": {
+					"type": "string",
+					"example": "email",
+					"enum": [
+						"github",
+						"email",
+						"twitter",
+						"mobile",
+						"sms",
+						"facebook"
+					]
+				},
+				"messageTypeDescription": {
+					"type": "string",
+					"example": "twitter handle"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"status": {
+					"type": "string",
+					"description": "Contact Method Status",
+					"enum": [
+						"new",
+						"validated",
+						"closed",
+						"DNC",
+						"ADMIN"
+					]
+				}
+			}
+		},
+		"Content": {
+			"type": "object",
+			"required": [
+				"name"
+			],
+			"properties": {
+				"authorId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"data": {
+					"type": "string",
+					"example": "full content data"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"name": {
+					"type": "string",
+					"example": "Widget Adapter"
+				},
+				"organizationId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"releaseDate": {
+					"type": "string",
+					"format": "date-time"
+				}
+			}
+		},
+		"Data": {
+			"type": "object",
+			"required": [
+				"json"
+			],
+			"properties": {
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"fingerprint": {
+					"type": "string",
+					"example": "D234234ER"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"json": {
+					"type": "string",
+					"example": "Sparkyt"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"type": {
+					"type": "string",
+					"example": "user"
+				}
+			}
+		},
+		"Item": {
+			"type": "object",
+			"required": [
+				"name",
+				"photoUrls"
+			],
+			"properties": {
+				"category": {
+					"$ref": "#/definitions/Category"
+				},
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"name": {
+					"type": "string",
+					"example": "doggie",
+					"description": "name of the item displayed in the store"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"photoUrls": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"status": {
+					"type": "string",
+					"description": "item status in the store",
+					"enum": [
+						"available",
+						"pending",
+						"sold"
+					]
+				},
+				"tags": {
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Tag"
+					}
+				}
+			},
+			"description": "Products or Services"
+		},
+		"LedgerEntry": {
+			"type": "object",
+			"properties": {
+				"accountBalance": {
+					"type": "number",
+					"format": "double"
+				},
+				"accountId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"description": {
+					"type": "string"
+				},
+				"entryValue": {
+					"type": "number",
+					"format": "double"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"institutionName": {
+					"type": "string"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"orderId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"status": {
+					"type": "string",
+					"description": "Transaction Status",
+					"enum": [
+						"ready",
+						"closed",
+						"executed"
+					]
+				},
+				"transactionType": {
+					"type": "string",
+					"description": "Transaction Type",
+					"enum": [
+						"debit",
+						"credit",
+						"deposit",
+						"void",
+						"refund"
+					]
+				},
+				"verified": {
+					"type": "boolean",
+					"example": false
+				}
+			}
+		},
+		"Location": {
+			"type": "object",
+			"required": [
+				"name"
+			],
+			"properties": {
+				"country": {
+					"type": "string",
+					"example": "USA"
+				},
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"elevation": {
+					"type": "number",
+					"example": 37.7564084
+				},
+				"email": {
+					"type": "string",
+					"example": "sparky@starter.io"
+				},
+				"homePage": {
+					"type": "string",
+					"example": "https://www.starter.io"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"latitude": {
+					"type": "number",
+					"example": 37.7564084
+				},
+				"longitude": {
+					"type": "string",
+					"example": "122.4717396"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"name": {
+					"type": "string",
+					"example": "Grand View Park"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"phone": {
+					"type": "string",
+					"example": "222-333-4444"
+				}
+			}
+		},
+		"Order": {
+			"type": "object",
+			"properties": {
+				"adjustment": {
+					"type": "number",
+					"format": "double",
+					"description": "Account balance point in time"
+				},
+				"complete": {
+					"type": "boolean",
+					"example": false
+				},
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"customerId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"description": {
+					"type": "string"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"locationId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"purchaseOrder": {
+					"type": "string"
+				},
+				"quantity": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"salesId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"status": {
+					"type": "string",
+					"description": "Order Status",
+					"enum": [
+						"placed",
+						"approved",
+						"delivered"
+					]
+				}
+			}
+		},
+		"OrderDetail": {
+			"type": "object",
+			"properties": {
+				"complete": {
+					"type": "boolean",
+					"example": false
+				},
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"itemId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"orderId": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"quantity": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"shipDate": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"status": {
+					"type": "string",
+					"description": "Order Status",
+					"enum": [
+						"placed",
+						"approved",
+						"delivered"
+					]
+				}
+			}
+		},
+		"Organization": {
+			"type": "object",
+			"required": [
+				"name"
+			],
+			"properties": {
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"homePage": {
+					"type": "string",
+					"example": "https://www.acme-corp.com"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"name": {
+					"type": "string",
+					"example": "ACME Corporation"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"phone": {
+					"type": "string",
+					"example": "408-867-5309"
+				}
+			}
+		},
+		"Stack": {
+			"type": "object",
+			"required": [
+				"name"
+			],
+			"properties": {
+				"adminServerHost": {
+					"type": "string",
+					"example": "www.myco.com",
+					"description": "host name of to connect to the admin server"
+				},
+				"adminServerPort": {
+					"type": "string",
+					"example": "8009",
+					"description": "port of to connect to the admin server"
+				},
+				"artifactId": {
+					"type": "string",
+					"example": "ignite",
+					"description": "database for the system"
+				},
+				"category": {
+					"$ref": "#/definitions/Category"
+				},
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"dbGenDropTable": {
+					"type": "boolean",
+					"example": true,
+					"description": "rename and recreate any pre-existing tables during generation"
+				},
+				"dbName": {
+					"type": "string",
+					"example": "ignite",
+					"description": "db schema for the system - must exist prior to initialization"
+				},
+				"dbPassword": {
+					"type": "string",
+					"example": "ABDCEDF",
+					"description": "database password for the system"
+				},
+				"dbUrl": {
+					"type": "string",
+					"example": "db.myco.com",
+					"description": "database for the system"
+				},
+				"dbUser": {
+					"type": "string",
+					"example": "igniteuser",
+					"description": "database user for the system"
+				},
+				"hostName": {
+					"type": "string",
+					"example": "localhost",
+					"description": "host of this service"
+				},
+				"hostPort": {
+					"type": "string",
+					"example": "8099",
+					"description": "port of this service"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"myBatisJava": {
+					"type": "string",
+					"example": "gen/src/main/java/io/starter/ignite/model/",
+					"description": "path for the MyBatis Java model output files"
+				},
+				"myBatisMain": {
+					"type": "string",
+					"example": "gen/src/",
+					"description": "relative path to the MyBatis source files"
+				},
+				"name": {
+					"type": "string",
+					"example": "My Microservice API",
+					"description": "name of the service API displayed in the UI"
+				},
+				"orgName": {
+					"type": "string",
+					"example": "io.starter",
+					"description": "the name of the organization owner of the service used in classpath"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"schemaData": {
+					"type": "string",
+					"example": "<Complete OpenAPI Schema>",
+					"description": "OpenAPI Schema Instance"
+				},
+				"schemaName": {
+					"type": "string",
+					"example": "starter",
+					"description": "database table prefix"
+				},
+				"starterIgniteSecureKey": {
+					"type": "string",
+					"example": "=W34sdcwdsfwC34=",
+					"description": "Secure key used to encrypt the data in the new platform"
+				},
+				"status": {
+					"type": "string",
+					"description": "API status as of last check",
+					"enum": [
+						"available",
+						"runtime-error",
+						"compilation-error",
+						"locked"
+					]
+				}
+			},
+			"description": "Application API Spec"
+		},
+		"Tag": {
+			"type": "object",
+			"properties": {
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"name": {
+					"type": "string"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				}
+			}
+		},
+		"TradeOrder": {
+			"type": "object",
+			"properties": {
+				"complete": {
+					"type": "boolean",
+					"example": false
+				},
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"executionDate": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"quantity": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"status": {
+					"type": "string",
+					"description": "Order Status",
+					"enum": [
+						"placed",
+						"approved",
+						"executed"
+					]
+				},
+				"tradeId": {
+					"type": "integer",
+					"format": "int64"
+				}
+			}
+		},
+		"User": {
+			"type": "object",
+			"required": [
+				"username"
+			],
+			"properties": {
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"fingerprint": {
+					"type": "string",
+					"example": "DK$DFSJaraDD"
+				},
+				"homePage": {
+					"type": "string",
+					"example": "https://www.acme-corp.com"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"social": {
+					"type": "string",
+					"example": "https://twitter.com/StarterIO"
+				},
+				"ssn": {
+					"type": "string",
+					"example": "1112233334",
+					"description": "This is the value"
+				},
+				"username": {
+					"type": "string",
+					"example": "Sparky"
+				}
+			}
+		},
+		"WorkFlows": {
+			"type": "object",
+			"required": [
+				"json"
+			],
+			"properties": {
+				"createdDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The created date for this record/object (generated)"
+				},
+				"fingerprint": {
+					"type": "string",
+					"example": "DK$DFSJaraDD"
+				},
+				"id": {
+					"type": "integer",
+					"format": "int64",
+					"description": "Primary Key for Object (generated)"
+				},
+				"json": {
+					"type": "string",
+					"example": "Sparkyt",
+					"description": "this value is the JSON content of the WorkFlow definition"
+				},
+				"keySpec": {
+					"type": "string",
+					"example": "{keyOwner:111, keySource:'session | system'}",
+					"description": "The spec of the SecureField key used to crypt this row (generated)"
+				},
+				"keyVersion": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The version of the SecureField key used to crypt this row (generated)"
+				},
+				"modifiedDate": {
+					"type": "string",
+					"format": "date-time",
+					"description": "The last-modified date for this record/object (generated)"
+				},
+				"ownerId": {
+					"type": "integer",
+					"format": "int64",
+					"description": "The ID of the user that owns this data (generated)"
+				},
+				"sourceOwner": {
+					"type": "string",
+					"example": "userId:d290f1ee-6c54-4b01-90e6-d701748f0851"
+				},
+				"sourceType": {
+					"type": "string",
+					"example": "user"
+				},
+				"xml": {
+					"type": "string",
+					"example": "Sparkyt"
+				}
+			}
+		}
+	}
+}
