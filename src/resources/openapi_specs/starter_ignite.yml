@@ -863,7 +863,7 @@ definitions:
         example: "hard2Gu3ss"
         maxLength: 256 
         description: "database password for the system" 
-        x-starter-secureField: true
+#        x-starter-secureField: true
         x-starter-dataField: fieldGroup=stackgen-db-config
       schemaName:
         type: "string"
