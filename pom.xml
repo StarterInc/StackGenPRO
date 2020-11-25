@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -10,14 +8,14 @@
 	</parent>
 
 	<artifactId>stackgen-pro</artifactId>
-	<version>0.9.18-SNAPSHOT</version>
+	<version>0.9.18</version>
 	<name>Starter StackGen PRO</name>
 	<description>Starter StackGen PRO</description>
 	<url>http://docs.stackgen.io</url>
 
 	<properties>
 		<!-- stackgen version can diverge from stackgen-parent -->
-		<stackgen.version>0.9.15-SNAPSHOT</stackgen.version>
+		<stackgen.version>0.9.18</stackgen.version>
 
 		<!-- The main class to start by executing "java -jar" -->
 		<start-class>io.starter.stackgen.web.StackGenApplication</start-class>
@@ -97,4 +95,8 @@
 	</build>
 
 
+
+  <scm>
+    <tag>stackgen-pro-0.9.18</tag>
+  </scm>
 </project>
