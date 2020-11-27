@@ -15,7 +15,7 @@
 
 	<properties>
 		<!-- stackgen version can diverge from stackgen-parent -->
-		<stackgen.version>0.9.20</stackgen.version>
+		<stackgen.version>0.9.21</stackgen.version>
 
 		<!-- The main class to start by executing "java -jar" -->
 		<start-class>io.starter.stackgen.web.StackGenApplication</start-class>
