@@ -1,11 +1,13 @@
-This is a Generated ReactJS Project.
+##This is a StackGen PRO Generated ReactJS Project.
+
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 Type "yarn" to install all of the dependencies.
 
-Type "npm start" to run the node server
+Type "yarn start" to run the node server
 
-if you are accessing StackGen Microservices, be sure to start the Spring Boot server for your Microservice.
+If you are accessing StackGen Microservices, be sure to start the Spring Boot server for your Microservice prior to accessing with this front-end code.
 
-Based on the:
+[StackGen Website](https://www.stackgen.io)
 
-"Spring Boot" 
+[StackGen Blog](https://blog.stackgen.io)

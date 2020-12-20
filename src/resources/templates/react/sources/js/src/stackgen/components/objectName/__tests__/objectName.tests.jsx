@@ -1,4 +1,4 @@
-import {{objectname}} from ../{{objectname}}
+import {{objectname}} from "../{{objectname}}"
 import mockAxios from "axios";
 
 // setup
@@ -8,17 +8,22 @@ mockAxios.get.mockImplementationOnce(() =>
   })
 );
 
-describe('{{objectname}}', () => {
+
+const valueValidation = (defaults) => {
+	return "good";
+}
+
+describe('When we instantiate {{objectname}}', () => {
   
-  it('populates a list of {{objectname}} via REST call', () => {
+  it('populates a list of {{objectname}} values via mocked REST call', () => {
    
-    addressValidation(emptyDefaults)
+    valueValidation(emptyDefaults)
       .then(value => {
-        fail('bad');
+        fail('good:' + value);
       })
       .catch(e => {
         expect(e.results).toEqual(
-          'good'
+          'bad'
         );
       });
   
