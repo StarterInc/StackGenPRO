@@ -8,7 +8,7 @@
 	</parent>
 
 	<artifactId>stackgen-pro</artifactId>
-	<version>0.9.24-SNAPSHOT</version>
+	<version>0.9.24</version>
 	<name>Starter StackGen PRO</name>
 	<description>Starter StackGen PRO</description>
 	<url>https://docs.stackgen.io</url>
@@ -113,6 +113,6 @@
 	</build>
 
   <scm>
-    <tag>stackgen-pro-0.9.18</tag>
+    <tag>stackgen-pro-0.9.24</tag>
   </scm>
 </project>
