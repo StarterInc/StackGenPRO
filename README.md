@@ -1,5 +1,7 @@
 # Starter StackGen PRO
 
+![StackGenPRO CI](https://github.com/StarterInc/StackGenPRO/workflows/StackGen%20PRO%20CI/badge.svg?branch=master)
+
 Starter StackGen PRO is the Professional version of Starter StackGen.
 
 Starter StackGen PRO adds these features to the Standard Starter StackGen product:
