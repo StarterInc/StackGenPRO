@@ -88,13 +88,13 @@ spring:
       password: "${adminPassword}"
 
     # GITHUB OAUTH
-    oauth2:
-      client:
-        registration:
-          github:
-            scope: repo, gist, org, user
-            clientId: yyy3423
-            clientSecret: xxx234
+#    oauth2:
+#      client:
+#        registration:
+#          github:
+#            scope: repo, gist, org, user
+#            clientId: yyy3423
+#            clientSecret: xxx234
 
 ---
 ######### PROD CONFIG #########
@@ -129,13 +129,13 @@ spring:
       password: "${adminPassword}"
 
     # GITHUB OAUTH
-    oauth2:
-      client:
-        registration:
-          github:
-            scope: repo, gist, org, user
-            clientId: xxx
-            clientSecret: xxxyyy
+#    oauth2:
+#      client:
+#        registration:
+#          github:
+#            scope: repo, gist, org, user
+#            clientId: xxx
+#            clientSecret: xxxyyy
 
 # redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
 
@@ -151,8 +151,3 @@ server:
     key-store-type: PKCS12
     key-alias: tomcat
     # key-password: another-secret # none set
-
-
-
-
-

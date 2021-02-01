@@ -32,7 +32,9 @@ import AlertDismissable from '../AlertDismissable';
 import { reset{{objectname}}, {{objectnamevarname}}Data } from "../../actions/{{objectname}}s";
 
 /**
- *  this form is shared between ADD and EDIT views
+ *  this StackGen-generated form is 
+ *  shared between ADD and EDIT views
+ * 
  */
 class {{objectname}}Form extends React.Component {
 
@@ -61,13 +63,13 @@ class {{objectname}}Form extends React.Component {
           "createdDate",
           "modifiedDate"
         ];
-
         
         this.state = {
           {{objectnamevarname}}:{{objectnamevarname}},
             message: "",
             errorMessage:"",
             validated: false,
+            skipList: skipList,
             advancedList: advancedList
         };
         
@@ -95,7 +97,6 @@ class {{objectname}}Form extends React.Component {
   }
 
   onSubmit(values, actions){
-    // actions.preventDefault();
     actions.setSubmitting(true);
     console.log('Submitting values: ' + JSON.stringify(values, null, 2));
     this.props.onSubmit{{objectname}}({
@@ -108,12 +109,11 @@ class {{objectname}}Form extends React.Component {
     }
     this.setState(() => ({ errorMessage: '' }));
   
-//	  this.props.history.push('/Datamanagement');
   }
 
     render() {
       const { dispatch, message, errorMessage, {{objectnamevarname}} } = this.props;
-      const { advancedList } = this.state;
+      const { advancedList, skipList } = this.state;
   
       return (
         <>
@@ -227,7 +227,7 @@ class {{objectname}}Form extends React.Component {
                 <%#variables%>
 
                 <Form.Row>
-                    {advancedList.indexOf("<%variablename%>") === -1 && (
+                    {skipList.indexOf("<%variablename%>") < 0 && advancedList.indexOf("<%variablename%>") === -1 && (
                       <Form.Group controlId="<%variablename%>" md="6" as={Col}>
                         <Form.Label><%displayName%></Form.Label>
                         <Field

@@ -29,7 +29,7 @@ public class StackGenApplication {
 	    }
 
 	    // launch the app
-	    ConfigurableApplicationContext context = app.run(args);
+	    app.run(args);
 	}
 	
 }

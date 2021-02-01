@@ -261,14 +261,15 @@ definitions:
         type: "integer"
         format: "int32"
       itemId:
+        type: "integer"
+        format: "int32"
+      itemDescription:
         type: "string"
-      itemId:
-        type: "string"
-        format: "date-time"
+        maxLength: 6400 
       itemAmount:
         type: "number"
         format: "double"                
-      lineTotalAmount:
+      totalAmount:
         type: "number"
         format: "double"        
       status:
@@ -297,7 +298,11 @@ definitions:
         format: "int64"
       name:
         type: string
-        example: My Sad Summer Vacation
+        example: My Sad 2020 Summer Vacation
+      description:
+        type: string
+        example: short description
+        maxLength: 6400           
       data:
         type: string
         example: full content data
@@ -307,11 +312,15 @@ definitions:
         example: blog, news, etc.
         enum:
         - "blog"
+        - "community"
+        - "tips"
+        - "apidoc"
+        - "doc"
+        - "ticket"
         - "social"        
         - "tweet"        
         - "email"
         - "faq"
-        - "doc"
         - "news"
         - "share"
       authorId:
@@ -358,7 +367,6 @@ definitions:
     type: object
     required:
     - name
-    - lastName
     - street1
     - city
     - state
@@ -369,27 +377,30 @@ definitions:
         format: "int64"    
       name:
         type: string
-        example: Wendy
-        description: "full first name of addressee"
+        example: Henry Johnson
+        description: "full name of addressee"
       street1:
         type: string
         example: 123 Daydream Blvd.
-        description: "Street address line 1"
+        description: "street address line 1"
       street2:
         type:  string
         example: Apt. 7
-        description: "Street address line 2"
+        description: "street address line 2"
       city:
         type: string
         example: San Francisco       
         description: "full name of city"
       state:
         type:  string
-        format: "date-time"
+        maxLength: 2
+        minLength: 2      
         description: "2 character state code (upper case)"
       zip:
         type: string
         example: 94210
+        minLength: 5   
+        maxLength: 5
         description: "5 digit zip code"
     xml:
       name: "Address"        
@@ -414,7 +425,7 @@ definitions:
         description: a 10 digit government ID (encrypted)
         type: string
         example: 1112233334
-        maxLength: 10
+        maxLength: 30
         minLength: 10
         x-starter-secureField: true
       userName:        
@@ -610,6 +621,58 @@ definitions:
         default: false
     xml:
       name: "ContactMethod"
+
+  DataSource:
+    type: "object"
+    required:
+      - url
+      - username
+      - password
+      - driver
+      - schemaName
+    properties:
+      url:
+        type: "string"
+        maxLength: 1024 
+      username:
+        type: "string"
+        maxLength: 1024 
+      password:
+        type: "string"
+        maxLength: 1024 
+      driver:
+        type: "string"
+        maxLength: 1024 
+      schemaName:
+        type: "string"
+        maxLength: 1024        
+      
+      status:
+        type: "string"
+        description: "Last known connection status"
+        enum:
+        - "good"
+        - "url-not-found"
+        - "bad-credentials"
+        - "driver-not-found"
+      
+      type:
+        type: "string"
+        description: "Connection type (ie: DB / Text / API)"
+        enum:
+        - "database"
+        - "text"
+        - "api"
+        - "other"
+        
+      canConnect:
+        type: "boolean"
+        default: false
+      lastConnectedDate:
+        type: "string"
+        format: "date-time"  
+    xml:
+      name: "DataSource"
       
   IntegrationAccount:        
     type: object
@@ -737,7 +800,7 @@ definitions:
 # Special Object for tracking and instantiating OpenAPI Schema instances
 
   Stack:
-    description: "Application API Spec"
+    description: "StackGen Design Spec"
     type: "object"
     required:
     - "name"
@@ -746,7 +809,16 @@ definitions:
         type: "integer"
         format: "int64"
       category:
-        $ref: "#/definitions/Category"
+        # $ref: "#/definitions/Category" TODO
+        type: "string"
+        description: "Stack category"
+        enum:
+        - "Full Stack"
+        - "Front End"
+        - "API"
+        - "Data Library"
+        - "Infrastructure"
+        - "Documentation"
       name:
         type: "string"
         example: "My New Stack"

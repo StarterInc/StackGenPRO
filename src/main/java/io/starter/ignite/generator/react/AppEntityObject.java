@@ -14,14 +14,13 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.starter.ignite.generator.ReactConfigurator;
+import io.starter.ignite.generator.annotations.StackgenModelProperty;
 
 import io.starter.ignite.model.DataField;
 import io.starter.ignite.security.securefield.SecureField;
-import io.starter.stackgentest.model.User;
+
 import io.starter.toolkit.StringTool;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.Extension;
-import io.swagger.annotations.ExtensionProperty;
+
 
 /**
  * Contains and initializes Redux template Mapping info for a passed in
@@ -51,7 +50,7 @@ public class AppEntityObject {
 	private static final Class<DataField> DATA_ANNOTATION_CLASS = DataField.class;
 	private static final Class<JsonProperty> FIELD_ANNOTATION_CLASS = JsonProperty.class;
 
-	private static final Class<ApiModelProperty> ANNOTATION_CLASS = ApiModelProperty.class;
+	private static final Class<StackgenModelProperty> ANNOTATION_CLASS = StackgenModelProperty.class;
 
 	public String GENERATED_MESSAGE = "NOTE: THIS IS A STACKGEN GENERATED FILE: MAY BE OVERWRITTEN";
 	public String LICENSE = "GPL 3.0";
@@ -330,7 +329,7 @@ public class AppEntityObject {
 	 * @param datafield
 	 * @return
 	 */
-	private String handleStackGenExtensions(Variable v, ApiModelProperty apia) {
+	private String handleStackGenExtensions(Variable v, StackgenModelProperty apia) {
 
 		// StackGen Extensions:
 		final String fld = apia.dataField();
