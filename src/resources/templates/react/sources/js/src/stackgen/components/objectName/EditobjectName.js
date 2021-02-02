@@ -41,6 +41,12 @@ const Edit{{objectname}} = (props) => (
 const mapStateToProps = (state, props) => {
 
     // in case the {{objectnamevarname}} is passed in as a prop
+    if(props.{{objectnamevarname}}){
+        return{
+        {{objectnamevarname}}:props.{{objectnamevarname}}
+        }
+    }
+
 	const { {{objectname}}s } = props;    
 	const { {{objectname}} } = {{objectname}}s;    
 

@@ -17,6 +17,12 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
 @Order(101)
@@ -61,9 +67,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		logger.warn("SGP-WSC: Initializing CORS Config Mapping: CORSMapping " + CORSMapping);
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Arrays.asList(CORSOrigins));
-		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "INSERT", "DELETE", "HEAD", "OPTIONS"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "INSERT", "DELETE", "HEAD", "OPTIONS"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration(CORSMapping, configuration);
 		return source;
 	}
+
+	ApiInfo apiInfo() {
+		return new ApiInfoBuilder()
+				.title("Starter StackGen API")
+				.description("Starter StackGen API")
+				.license("AGPL 3.0")
+				.licenseUrl("https://www.gnu.org/licenses/agpl-3.0.html")
+				.termsOfServiceUrl("")
+				.version("1.0.4")
+				.contact(new Contact("","", "info@StackGen.io"))
+				.build();
+	}
+
+	@Bean
+	public Docket customImplementation(){
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("io.starter.StackGenUI.api"))
+				.build()
+				.directModelSubstitute(org.threeten.bp.LocalDate.class, java.sql.Date.class)
+				.directModelSubstitute(org.threeten.bp.OffsetDateTime.class, java.util.Date.class)
+				.apiInfo(apiInfo());
+	}
+
 }
