@@ -39,6 +39,27 @@
 
 		<table schema="${artifactId}" tableName="PLACEHOLDER_NODE"
 			modelType="hierarchical" />
+			
+		<!-- Spring ACL Tables -->
+		<table schema="${artifactId}" tableName="acl_class"
+			modelType="hierarchical">
+			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+			<!--  causes mybatis reserved word exception -->
+			  <columnOverride column="class" property="className" />
+		</table>
+		
+		<table schema="${artifactId}" tableName="acl_entry"
+			   modelType="hierarchical" >
+			   <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+		</table>
+		<table schema="${artifactId}" tableName="acl_object_identity"
+			   modelType="hierarchical" >
+			   <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+		</table>
+		<table schema="${artifactId}" tableName="acl_sid"
+			   modelType="hierarchical" >
+			   <generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+		</table>
 	</context>
 
 </generatorConfiguration>
