@@ -13,11 +13,7 @@ import io.starter.ignite.util.SystemConstants;
  *
  */
 public class ReactConfigurator extends StackGenConfigurator{
-	// ## React
 
-		/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1333322222L;
 
 		List<String> SKIP_LIST = new ArrayList<>(Arrays.asList(".class"));
@@ -27,26 +23,49 @@ public class ReactConfigurator extends StackGenConfigurator{
 		public List<String> HIDE_FIELD_LIST = new ArrayList<>(Arrays.asList(hideFields));
 
 		// default is to NOT geneerate the whole shebang...
-		boolean skipBackendGen = (SystemConstants.getValue("skipBackendGen") != null ? Boolean.getBoolean("skipBackendGen")
-				: true);
+		public boolean skipBackendGen = false; // (SystemConstants.getValue("skipBackendGen") != null ? Boolean.getBoolean("skipBackendGen") : true);
 
-		public String REACT_APP_NAME = (SystemConstants.getValue("REACT_APP_NAME") != null ? SystemConstants.getValue("REACT_APP_NAME")
-				: "StackGen");
+		public String REACT_APP_NAME = "StackGen"; // (SystemConstants.getValue("REACT_APP_NAME") != null ? SystemConstants.getValue("REACT_APP_NAME")
+				// : "StackGen");
 
-		String REACT_TEMPLATE_FOLDER = (SystemConstants.getValue("REACT_TEMPLATE_FOLDER") != null
-				? SystemConstants.getValue("REACT_TEMPLATE_FOLDER")
-				: SystemConstants.rootFolder + "/" + ReactConfigurator.getSourceResources() + "/templates/react/");
+		public String REACT_TEMPLATE_FOLDER = "";
 
-		String REACT_TEMPLATE_SOURCES_FOLDER = REACT_TEMPLATE_FOLDER + "sources/js";
+				// (SystemConstants.getValue("REACT_TEMPLATE_FOLDER") != null
+				//? SystemConstants.getValue("REACT_TEMPLATE_FOLDER")
+				// : SystemConstants.rootFolder + "/" + ReactConfigurator.getSourceResources() + "/templates/react/");
+
+
+		public String REACT_TEMPLATE_SOURCES_FOLDER = REACT_TEMPLATE_FOLDER + "sources/js";
 
 		// external React Project Path
-		String REACT_EXPORT_FOLDER = (SystemConstants.getValue("REACT_EXPORT_FOLDER") != null
-				? SystemConstants.getValue("REACT_EXPORT_FOLDER")
-				: getGenOutputFolder() + "/src/main/react/");
+		public String REACT_EXPORT_FOLDER = getGenOutputFolder() + "REACT_EXPORT";
 
-		String REACT_APP_OUTPUT_FOLDER = (SystemConstants.getValue("REACT_APP_OUTPUT_FOLDER") != null
-				? SystemConstants.getValue("REACT_APP_OUTPUT_FOLDER")
-				: SystemConstants.rootFolder + "/tmp/REACT_EXPORT/");
+		private String root;
+		private String genOutFolder;
+
+		@Override
+		public String getGenOutputFolder() {
+			if(this.genOutFolder != null){
+				return this.genOutFolder;
+			}
+			String outputDir = SystemConstants.getValue("genOutputFolder");
+			return (outputDir != null ? outputDir : getRootFolder() + getJavaGenFolderName());
+		}
+
+		public String REACT_APP_OUTPUT_FOLDER = getRootFolder() + "/REACT_EXPORT/";
+
+		private String getRootFolder(){
+			if(this.root != null){
+				return this.root;
+			}
+			return SystemConstants.rootFolder;
+		}
+		public void setRootFolder(String rootFolder){
+			this.root = rootFolder;
+		}
+		public void setGenOutFolder(String genOutFolder){
+			this.genOutFolder = genOutFolder;
+		}
 
 		List<AppEntityObject> REACT_DATA_OBJECTS = new ArrayList<>();
 }

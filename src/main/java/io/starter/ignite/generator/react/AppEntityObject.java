@@ -4,11 +4,13 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.time.OffsetDateTime;
+import java.util.*;
 import java.util.stream.Stream;
 
+import javax.validation.constraints.Pattern;
+
+import io.starter.ignite.generator.DBGen;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -51,7 +53,10 @@ public class AppEntityObject {
 	private static final Class<JsonProperty> FIELD_ANNOTATION_CLASS = JsonProperty.class;
 
 	private static final Class<StackgenModelProperty> ANNOTATION_CLASS = StackgenModelProperty.class;
-
+	private static final Class<SecureField> SECURE_FIELD_ANNOTATION_CLASS = SecureField.class;
+	private static final Class<DataField> DATA_FIELD_ANNOTATION_CLASS = DataField.class;
+	private static final Class<Pattern> PATTERN_ANNOTATION_CLASS = Pattern.class;
+	
 	public String GENERATED_MESSAGE = "NOTE: THIS IS A STACKGEN GENERATED FILE: MAY BE OVERWRITTEN";
 	public String LICENSE = "GPL 3.0";
 	public String COMPANY_INFO = "Starter Inc.";
@@ -64,9 +69,25 @@ public class AppEntityObject {
 	public String objectnamevarname;
 	public String objectnameupper;
 
-	public List<Variable> variables = new ArrayList<>();
-	public List<EntityObject> dataobjects = new ArrayList<>();
+	private static String rangeReactComponent =
+			"          // value={values.{{vx}}}\n\n" +
+			"          onChange={e => {\n" +
+			"            this.setState({ {{vx}}: e.target.value });\n" +
+			"            touched.{{vx}} = true;\n" +
+			"          }}\n" +
+			"          onAfterChange={e => {\n" +
+			"            touched.{{vx}} = false;\n" +
+			"          }}\n" +
+			"          tooltip={touched.{{vx}} ? 'off' : 'on'}\n" +
+			"          tooltipLabel={() => 'choose a value for {{vx}}'}\n\n" ;
 
+	public List<Variable> variables = new ArrayList<>();
+	public List<Variable> advanced = new ArrayList<>();
+	
+	
+	public List<EntityObject> dataobjects = new ArrayList<>();
+	Map<String,List<Variable>> fieldGroups = new HashMap<String,List<AppEntityObject.Variable>> ();
+	
 	// view-hints info stored in DataField config
 	public String componentspec;
 
@@ -80,6 +101,45 @@ public class AppEntityObject {
 			}
 		}
 		return null;
+	}
+	
+	private static Annotation getAnnotationForField(Field f, Class<?> lookingFor) {
+		Annotation[] decl = f.getDeclaredAnnotations();
+		for(Annotation c : decl) {
+			Class<?> tn = c.annotationType();
+			if(tn.toString().equals(lookingFor.toString())) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * add the Row groupings and group the fields together
+	 * in the form output (regardless of Schema list order)
+	 */
+	private void processFormGroups() {
+		Iterator keys = fieldGroups.keySet().iterator();
+		for(List<Variable> group : fieldGroups.values()) {
+			String keyName = keys.next().toString();
+			Variable v1 = group.get(0);
+			// advancedList.indexOf('"+ v1.variablename +"') === -1 && (
+			v1.formRowStart = "{advancedList.indexOf(\"" + v1.variablename + "\") === -1  && " +
+					"<Accordion><Card style={{width:'100%'}}><Card.Header><Accordion.Toggle as={Row} variant='link' eventKey='" +
+					keyName + "' >" +
+					AppEntityObject.convertToFriendly(keyName) + "</Accordion.Toggle></Card.Header><Accordion.Collapse eventKey=\"" +
+					keyName + "\"><Card.Body><Form.Row>";
+			group.get(group.size()-1).formRowEnd = "</Form.Row></Card.Body></Accordion.Collapse></Card></Accordion>}";
+
+			// group the fields in the output
+			int groupPos = variables.indexOf(v1);
+			for(Variable vx : group){
+				if(variables.remove(vx)) {
+					variables.add(groupPos++, vx);
+				}
+			}
+		}
+		
 	}
 	
 	/**
@@ -96,70 +156,67 @@ public class AppEntityObject {
 		objectname = cx.getName().substring(cx.getName().lastIndexOf(".") + 1);
 		objectnameupper = objectname.toUpperCase();
 		objectnamevarname = String.valueOf(objectname.charAt(0)).toLowerCase() + objectname.substring(1);
-
+		
 		// add variables find by annotated method
 		Stream.of(cx.getDeclaredMethods()).filter(s -> {
-			Annotation decl =getAnnotationForMethod(s,AppEntityObject.ANNOTATION_CLASS);			
+			Annotation decl =getAnnotationForMethod(s,AppEntityObject.ANNOTATION_CLASS);
 			return decl != null;
 		}).forEach(s -> {
 			try {
 				processMethod(s, cx);
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			} catch (Exception e) {
 				AppEntityObject.logger.error("AppEntityObject is invalid: " + s.toString());
 				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			if (!isValid()) {
 				AppEntityObject.logger.warn("AppEntityObject is invalid: " + s.toString());
 			}
 		});
+		processFormGroups();
 
-		// add variables find by annotated field
-		Stream.of(cx.getDeclaredFields()).filter(s -> {
-			return true;
-		}).forEach(s -> {
-			// processField(s);
-			if (!isValid()) {
-				AppEntityObject.logger.warn("AppEntityObject is invalid: " + s.toString());
-			}
-		});
 	}
-
-	/**
-	 * set values from data object class
-	 *
-	 * @param s
-	 * @param cx
-	 */
-	private void processField(Field f) {
-		try {
-			final SecureField fa = f.getAnnotation(AppEntityObject.SECURE_ANNOTATION_CLASS);
-			final JsonProperty jf = f.getAnnotation(AppEntityObject.FIELD_ANNOTATION_CLASS);
-			final DataField df = f.getAnnotation(AppEntityObject.DATA_ANNOTATION_CLASS);
-			Object val = null;
-			if (jf != null) {
-				val = jf.value();
-			} else {
-				val = fa.strength();
-				// logger.trace("FIELD FOUND: " + f.getName());
-			}
-		} catch (final SecurityException e) {
-			AppEntityObject.logger.error("FIELD ERROR: " + f.getName()); // skip
+	
+	private static String[] getRegexPatternAnnotatedValue(Field field)
+			throws IllegalAccessException,
+			IllegalArgumentException,
+			InvocationTargetException,
+			NoSuchMethodException,
+			SecurityException {
+		String regexp = (String) getAnnotatedValue(field, "regexp", AppEntityObject.PATTERN_ANNOTATION_CLASS);
+		if(regexp == null) {
+			return null;
 		}
-
+		String message = (String) getAnnotatedValue(field, "message", AppEntityObject.PATTERN_ANNOTATION_CLASS);
+		
+		String[] px = new String[2];
+		px[0] = regexp;
+		px[1] = message;
+		
+		return px;
 	}
 
-	public static Object getAPIAnnotatedValue(Method method, String vName) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		Annotation ano = getAnnotationForMethod(method, AppEntityObject.ANNOTATION_CLASS);
+	private static Object getAnnotatedValue(Field field, String vName, Class cx) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		Annotation ano = 
+				getAnnotationForField(field, cx);
 		if(ano == null) {
 			return null;
 		}
 		return ano.annotationType().getMethod(vName).invoke(ano);
+	}
+	
+	private static Object getAPIAnnotatedValue(Method method, String vName) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		Annotation ano = 
+				getAnnotationForMethod(method, AppEntityObject.ANNOTATION_CLASS);
+		if(ano == null) {
+			return null;
+		}
+		Object ret = null;
+		try{
+			ret = ano.annotationType().getMethod(vName).invoke(ano);
+		}catch(NoSuchMethodException e){
+			logger.warn("Cant get annotation value: " + e); // normal
+		}
+		return ret;
 	}
 	
 	/**
@@ -188,16 +245,30 @@ public class AppEntityObject {
 				enumClass = c;
 				Field[] allFields = c.getDeclaredFields();
 			    for (Field field : allFields) {
-			        if(!field.getName().equals("value") && !field.getName().contains("$VALUES")) {
+			        if(!field.getName().equals("value") &&
+							!field.getName().contains("$VALUES")) {
 			        	enumOptions += "<option>" + field.getName() + "</option> \r\n";
 			        }
 			    }	
 			    enumOptions += "</Field> \r\n";
 			}
 		}
-		
+
+		Class returnDataType = s.getReturnType();
 		Object val = getAPIAnnotatedValue(s, "example");
+		int maxLength = (int)getAPIAnnotatedValue(s, "maxLength");
+		Double minimum = (Double)getAPIAnnotatedValue(s, "minimum");
+		Double maximum = (Double)getAPIAnnotatedValue(s, "maximum");
+
+		// ignore if undefined
+		if(minimum.equals(Double.MIN_VALUE)
+				&& maximum.equals(Double.MAX_VALUE)){
+			minimum = null;
+			maximum = null;
+		}
 		boolean hidden = (Boolean)getAPIAnnotatedValue(s, "hidden");
+		boolean readOnly = (Boolean)getAPIAnnotatedValue(s, "readOnly");
+
 		if (!hidden && (val != null)) {
 			// logger.info("Processing : " + s.toGenericString() + " :" + val);
 			val = (getReturnValue(s) != null ? getReturnValue(s) : "");
@@ -219,40 +290,26 @@ public class AppEntityObject {
 
 					case "string":
 						v.variableFieldYupSchemaType += "string()";
-						if ((int)getAPIAnnotatedValue(s, "maxLength") > 256) {
+						if (maxLength > 256) {
 							v.variableFieldType = "as=\"textarea\"";
+							v.extraClassName = "bigEditor";
 						} else {
 							v.variableFieldType = "type=\"text\"";
 						}
+						if(readOnly)
+							v.variableFieldType += " readonly ";
 
 						break;
 
 					case "boolean":
 
 						v.variableFieldType = "type=\"checkbox\"";
+						if(readOnly)
+							v.variableFieldType += " readonly ";
+
 						v.variableFieldYupSchemaType += "bool()";
 						// ok here is where we would want to look up alt configured components
 						// v.variableFieldType = "type=\"switch\"";
-						break;
-
-					case "integer":
-						v.variableFieldYupSchemaType += "number()";
-						v.variableFieldType = "type=\"text\"";
-						break;
-
-					case "float":
-						v.variableFieldYupSchemaType += "number()";
-						v.variableFieldType = "type=\"text\"";
-						break;
-
-					case "double":
-						v.variableFieldYupSchemaType += "number()";
-						v.variableFieldType = "type=\"text\"";
-						break;
-
-					case "long":
-						v.variableFieldYupSchemaType += "number()";
-						v.variableFieldType = "type=\"text\"";
 						break;
 
 					case "hidden":
@@ -260,9 +317,27 @@ public class AppEntityObject {
 						v.variableFieldType = "type=\"hidden\"";
 						break;
 
+					case "integer":
+					case "double":
+					case "float":
+					case "long":
+						if(maximum != null && minimum != null){ // use slider
+							v.variableFieldType = " type=\"range\" " + rangeReactComponent.replace("{{vx}}", v.variablename )+ " min={"+ minimum +"} max={"+ maximum +"} ";
+						}else {
+							v.variableFieldType = "type=\"text\"";
+						}
+						v.variableFieldYupSchemaType += "number()";
+						if(readOnly)
+							v.variableFieldType += " readonly ";
+
+						break;
+
 					default:
 						v.variableFieldYupSchemaType = "";
 						v.variableFieldType = "type=\"text\"";
+						if(readOnly)
+							v.variableFieldType += " readonly ";
+
 						break;
 
 					}
@@ -282,6 +357,16 @@ public class AppEntityObject {
 						}
 						v.variableFieldYupSchemaType += ",";
 					}
+					String[] regexpValidation = getRegexPatternAnnotatedValue(f);
+					if (regexpValidation != null) {
+						v.validationString = regexpValidation[0];
+						v.validationFailedMessage = regexpValidation[1];
+						
+						v.variableFieldYupSchemaType += ".matches(";
+						v.variableFieldYupSchemaType += regexpValidation[0];
+						v.variableFieldYupSchemaType += ",'" + regexpValidation[1] + "'),";
+					}
+					
 
 				} catch (NoSuchFieldException | SecurityException e1) {
 					e1.printStackTrace();
@@ -296,20 +381,64 @@ public class AppEntityObject {
 				v.hidden = (hidden ? "hidden" : ""); // does not work?
 
 				
-				/*
-				try {
-					final Extension[] els = apia.extensions();
-					if ((els != null) && (els[0].properties() != null)) {
-						final ExtensionProperty[] p = els[0].properties();
-						v.description = p[0].name();
-					}
-				} catch (final Exception e) {
-					// this is why we don't rely on sketchy props, guys
-				}*/
-
 				// the React configuration from Swagger/OpenAPI
-				// handleStackGenExtensions(v, apia);
+                Boolean advancedField = (Boolean)AppEntityObject.getAnnotatedValue(f, "advanced", AppEntityObject.DATA_FIELD_ANNOTATION_CLASS);
+                if(advancedField!=null && advancedField){
+                    advanced.add(v);
+                }
+				String fieldGroupConfig = (String)AppEntityObject.getAnnotatedValue(f, "fieldGroup", AppEntityObject.DATA_FIELD_ANNOTATION_CLASS);
+				if(fieldGroupConfig != null && !fieldGroupConfig.equals("")){
+					// extract the form group for this item
+					logger.trace("fieldGroupConfig for: " + v +":" + fieldGroupConfig);
+					v.fieldGroup = fieldGroupConfig;
+					List<Variable> fgList = fieldGroups.get(fieldGroupConfig);
+					if(fgList == null) {
+						fgList = new ArrayList<Variable>();
+					}
+					fgList.add(v);
+					fieldGroups.put(fieldGroupConfig, fgList);
+				}
+				
+				String componentConfig = (String)AppEntityObject.getAnnotatedValue(f, "component", AppEntityObject.DATA_FIELD_ANNOTATION_CLASS);
+				if(componentConfig != null && !componentConfig.equals("")){
+					// extract the form group for this item
+					logger.trace("componentConfig for: " + v +":" + componentConfig);
+					if(returnDataType.equals(OffsetDateTime.class)) {
+						v.component = " type=\"" + componentConfig + "\"";
+					}else {
+						v.component = " as={" + componentConfig + "}";
+					}
+				}
+				Object secureFieldType = AppEntityObject.getAnnotatedValue(f, "type", AppEntityObject.SECURE_FIELD_ANNOTATION_CLASS);
+				
+				if(secureFieldType != null){
+					try {
+						int secureFieldStrength = (int) AppEntityObject.getAnnotatedValue(f, "strength", AppEntityObject.SECURE_FIELD_ANNOTATION_CLASS);
+						
+						// extract the form group for this item
+						logger.warn("SecureField Type for: " + v +":" + secureFieldType + " Strength: " + secureFieldStrength);
+						
+						// if it is a HASHED then it's a password, use password field
+						if((secureFieldType).toString().equals("HASHED")){
+							v.variableFieldType = "type=\"password\"";
+						}
+					}catch(Exception e) {
+						// normal, secureField set with defaults
+					}
+					// strength... does it affect UI ever?
+				}
 
+				// handle the special cases
+				if(returnDataType.equals(OffsetDateTime.class)){
+				//	v.variableFieldYupSchemaType += v.variablename + ": date(),";
+					v.variableFieldType = "type=\"datetime-local\"";
+				}
+				if(!v.component.equals("")){
+					v.variableFieldType = v.component;
+				}
+				if(v.variablename.equalsIgnoreCase("id")){
+					v.variableFieldYupSchemaType = "";
+				}
 				variables.add(v);
 			}
 
@@ -324,32 +453,16 @@ public class AppEntityObject {
 	}
 
 	/**
-	 * process datafield annotation values (extension) ie: component
-	 *
-	 * @param datafield
-	 * @return
-	 */
-	private String handleStackGenExtensions(Variable v, StackgenModelProperty apia) {
-
-		// StackGen Extensions:
-		final String fld = apia.dataField();
-
-		final boolean sec = apia.secureField();
-		return fld;
-
-	}
-
-	/**
 	 * @param s
 	 */
 	private Object getReturnValue(Method s) {
 		Object ret = null;
 		switch (s.getReturnType().toString()) {
 		case "long":
-			ret = new Long(0l);
+			ret = 0l;
 			break;
 		case "Long":
-			ret = new Long(0l);
+			ret = 0l;
 			break;
 		}
 		return ret;
@@ -359,7 +472,7 @@ public class AppEntityObject {
 	 * sanity check and ensure compliance with reality
 	 *
 	 */
-	public boolean isValid() {
+	private boolean isValid() {
 
 		if (appname == null) {
 			return false;
@@ -391,7 +504,7 @@ public class AppEntityObject {
 	public static class Variable {
 
 		// enumhandling
-		public Class enumClass = null;
+		public Class<?> enumClass = null;
 		public String enumOptions = "";
 		public String fieldEndTag = "/>"; // close tags by default
 		
@@ -400,9 +513,15 @@ public class AppEntityObject {
 		public Object variableval;
 		public String variablename;
 		public String validationString;
+		public String validationFailedMessage;
 		public String defaultValue;
 		public String description;
 
+		public String fieldGroup = "";
+		public String component = "";
+		public String formRowStart = "";
+		public String formRowEnd = "";
+		
 		public String variableType = ""; // simple string of Javascript data type (string, number, object)
 		public String variableFieldType = ""; // the 'type="text"' output text
 		public String variableFieldYupSchemaType = ""; // the Yup schema data type
@@ -416,7 +535,8 @@ public class AppEntityObject {
 		public String componentAdd;
 		public String componentLookup;
 		public String displayName;
-
+		public String extraClassName;
+		
 		Variable(String variablename, Object variableval) {
 			this.variablename = variablename;
 			displayName = AppEntityObject.convertCamelToFriendly(variablename);
@@ -427,6 +547,31 @@ public class AppEntityObject {
 		public String toString() {
 			return variablename + " : " + variableval;
 		}
+	}
+
+	public static String convertToFriendly(String camelin) {
+		camelin = camelin.replace("_", " ");
+		camelin = camelin.replace("-", " ");
+
+		final char[] chars = camelin.toCharArray();
+		final StringBuffer buf = new StringBuffer();
+		for (int i = 0; i < chars.length; i++) {
+			// if there is a single upper-case letter, then it's a
+			// case-word
+
+			if ((i > 0) && ((i + 1) < chars.length)) {
+				if(Character.isWhitespace(chars[i - 1])) {
+					buf.append(Character.toUpperCase(chars[i]));
+				}else{
+					buf.append(chars[i]);
+				}
+			} else if (i == 0) {
+				buf.append(Character.toUpperCase(chars[i]));
+			} else {
+				buf.append(Character.toLowerCase(chars[i]));
+			}
+		}
+		return buf.toString();
 	}
 
 	public static String convertCamelToFriendly(String camelin) {

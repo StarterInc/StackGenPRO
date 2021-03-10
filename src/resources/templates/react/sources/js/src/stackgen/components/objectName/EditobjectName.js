@@ -23,6 +23,7 @@ const Edit{{objectname}} = (props) => (
         <h3>Edit the {{objectname}}</h3>
         <{{objectname}}Form
             history={props.history}
+            onHide={props.onHide}
             {{objectnamevarname}}={props.{{objectnamevarname}}}
             onSubmit{{objectname}}={({{objectnamevarname}}) => {
                 props.dispatch(edit{{objectname}}(props.{{objectnamevarname}}.id,
@@ -39,11 +40,15 @@ const Edit{{objectname}} = (props) => (
 * then return the form props with the data from the {{objectname}} instance.
 */
 const mapStateToProps = (state, props) => {
+    let error= state.errorMessage
+    let serverErrorMessage = state.Stacks.errorMessage
 
     // in case the {{objectnamevarname}} is passed in as a prop
     if(props.{{objectnamevarname}}){
         return{
-        {{objectnamevarname}}:props.{{objectnamevarname}}
+            errorMessage:error,
+            serverErrorMessage: serverErrorMessage,
+            {{objectnamevarname}}:props.{{objectnamevarname}}
         }
     }
 
@@ -52,6 +57,8 @@ const mapStateToProps = (state, props) => {
 
 	if({{objectname}}){
         return{
+            errorMessage:error,
+            serverErrorMessage: serverErrorMessage,
             {{objectnamevarname}}:{{objectname}}
         }
     }
@@ -63,13 +70,13 @@ const mapStateToProps = (state, props) => {
         var ret = {{objectname}}s.find(
             {{objectname}} => {{objectname}}.id === _id);
         
-        return { 
+        return {
+            errorMessage:error,
+            serverErrorMessage: serverErrorMessage,
             {{objectnamevarname}}:ret
         };
     }
 	return props;
 }; 
-
-
 
 export default connect(mapStateToProps)(Edit{{objectname}});

@@ -16,18 +16,19 @@ import { Card } from 'react-bootstrap';
 
 import {{objectname}}Form from './{{objectname}}Form';
 import { add{{objectname}} , {{objectnamevarname}}Data } from '../../actions/{{objectname}}s';
-
+import EditorCardLayout from "../EditorCardLayout";
 const Add{{objectname}} = (props) => (
-    <>
-        <h3>Enter New {{objectname}}</h3>
+    <EditorCardLayout>
+        <h3>Create New {{objectname}}</h3>
         <{{objectname}}Form
             {{objectnamevarname}}={ {{objectnamevarname}}Data }
+            onHide={props.onHide}
         	history={props.history}
             onSubmit{{objectname}}={({{objectnamevarname}}) => {
                 props.dispatch(add{{objectname}}({{objectnamevarname}}));
             }}
         />
-    </>    
+    </EditorCardLayout>
 );
 
 function mapStateToProps(state) {

@@ -120,7 +120,8 @@ public class ReactGen extends Gen implements Generator {
 		final ReactGen gen = new ReactGen();
 		generateEntitiesFromModelFolder(gen);
 
-		final File[] templateFiles = getSourceFilesInFolder(new File(config.REACT_TEMPLATE_FOLDER),
+		final File[] templateFiles = getSourceFilesInFolder(
+				new File(config.REACT_TEMPLATE_FOLDER),
 				config.FOLDER_SKIP_LIST);
 
 		final List<EntityObject> objnames = new ArrayList<>();

@@ -5,13 +5,11 @@ import java.security.NoSuchAlgorithmException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
@@ -43,7 +41,7 @@ public class ReactGenerator extends Main implements CommandLineRunner {
 	protected static final Logger logger = LoggerFactory.getLogger(ReactGenerator.class);
 
 	public ReactGenerator(StackGenConfigurator cfg) {
-		config =cfg;
+		super.setConfig(cfg);
 	}
 
 	/**
@@ -91,18 +89,19 @@ public class ReactGenerator extends Main implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws IllegalArgumentException, IllegalAccessException, NoSuchAlgorithmException {
+	public void run(String... args) throws Exception {
 
 		// String inputSpecFile = "simple_cms.yml"; // simple_cms
 		args = new String[1];
 		args[0] = System.getProperty("schemaFile");
-
-		super.run(args);
-
+		ReactGen gx = new ReactGen();
+		if (!gx.getConfig().skipBackendGen) {
+			super.run(args);
+		}
 		// copy Ignite files into gen project
 		copyStaticFiles(Main.staticFiles);
 
-		ReactGen gx = new ReactGen();
+		
 		if (!gx.getConfig().skipReactGen) {
 			
 			// copy React files into gen project
