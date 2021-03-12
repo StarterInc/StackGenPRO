@@ -1,31 +1,29 @@
 swagger: '2.0'
 
 info:
-  description: Starter StackGen API
-  version: 1.0.4
-  title: Starter StackGen API
-  # put the contact info for your development or API team
+  description: The API for accessing the StackGen Developer Portal
+  version: 0.9.25
+  title: Starter StackGen Developer Portal API
   contact:
     email: info@StackGen.io
   license:
     name: AGPL 3.0
     url: https://www.gnu.org/licenses/agpl-3.0.html
   termsOfService: http://stackgen.io/tos/
-
 servers:
-  url: https://{username}.stackgen.io:{port}/{basePath}
-  description: The StackGen Portal production API server
-  variables:
-    username:
-      default: demo
-      description: this value is assigned by the service provider
-    port:
-      enum:
-        - '8100'
-      default: '8100'
-    basePath:
-      # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `v2`
-      default: v2      
+    url: https://{username}.stackgen.io:{port}/{basePath}
+    description: The StackGen Portal production API server
+    variables:
+      username:
+        default: demo
+        description: this value is assigned by the service provider
+      port:
+        enum:
+          - '8100'
+        default: '8100'
+      basePath:
+        # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `v2`
+        default: v2
 
 # tags are used for organizing operations
 tags:
@@ -184,7 +182,7 @@ definitions:
         default: false
     xml:
       name: "Account"
-      
+
   LedgerEntry:
     type: "object"
     properties:
@@ -434,8 +432,7 @@ definitions:
         maxLength: 25
         type: string
         example: Sparky
-        x-starter-dataField: unique=true
-        x-starter-dataField: fieldGroup=personal-details
+        x-starter-dataField: fieldGroup=personal-details, unique=true
       password:
         description: Your account Password
         type: string
@@ -595,7 +592,6 @@ definitions:
       type:
         description: Name of the System Privilege
         type: "string"
-        description: "Privilege Type"
         enum:
         - "insert"
         - "read"
@@ -678,25 +674,27 @@ definitions:
         maxLength: 1024 
       username:
         type: "string"
-        maxLength: 1024 
+        maxLength: 256
+        x-starter-secureField: true
       password:
         type: "string"
-        maxLength: 1024 
+        maxLength: 256
+        x-starter-secureField: true
       driver:
         type: "string"
-        maxLength: 1024 
+        maxLength: 256
       schemaName:
         type: "string"
-        maxLength: 1024        
-      
+        maxLength: 256
       status:
         type: "string"
         description: "Last known connection status"
         enum:
         - "good"
-        - "url-not-found"
-        - "bad-credentials"
-        - "driver-not-found"
+        - "url_not_found"
+        - "bad_credentials"
+        - "driver_not_found"
+        - "server_error"
       
       type:
         type: "string"
@@ -730,7 +728,7 @@ definitions:
         type: string
         example: TechnoCharms
         description: the username of the 3rd party account
-        x-starter-secureField: true      
+        x-starter-secureField: true
       accountPassword:
         type: string
         example: E49232SSDFDF
@@ -961,12 +959,14 @@ definitions:
         example: "igniteuser"
         maxLength: 256 
         description: "database user for the system"
+        x-starter-secureField: true
         x-starter-dataField: fieldGroup=database-config    
       dbPassword:
         type: "string"
         example: "hard2Gu3ss"
         maxLength: 256 
-        description: "database password for the system" 
+        description: "database password for the system"
+        x-starter-secureField: true
         x-starter-dataField: fieldGroup=database-config
       schemaName:
         type: "string"
@@ -979,8 +979,8 @@ definitions:
         type: "string"
         description: "Backend Stack Service Language"
         enum:
-        - "stackgen-java-spring"
-        - "stackgen-kotlin-spring"
+        - "stackgen_java_spring"
+        - "stackgen_kotlin_spring"
       
       templateRepo:
         type: "string"
@@ -989,8 +989,8 @@ definitions:
         - "java_spring_mybatis_react_redux"
         - "kotlin_spring_mybatis_react_redux"
         - "kotlin_spring_jpa_react_redux"
-        - "kotlin_spring_jpa_vue_mobx"
-        
+        - "gatsby_front_page"
+
       schemaData:
         type: string
         example: Sparkyt
@@ -1013,6 +1013,7 @@ definitions:
         - "syntax_error"
         - "compilation_error"
         - "runtime_error"
+        - "database_error"
         - "locked"
     xml:
       name: "Stack"

@@ -23,22 +23,18 @@ public class ReactConfigurator extends StackGenConfigurator{
 		public List<String> HIDE_FIELD_LIST = new ArrayList<>(Arrays.asList(hideFields));
 
 		// default is to NOT geneerate the whole shebang...
-		public boolean skipBackendGen = false; // (SystemConstants.getValue("skipBackendGen") != null ? Boolean.getBoolean("skipBackendGen") : true);
+		public boolean skipBackendGen =  (SystemConstants.getValue("skipBackendGen") != null ? Boolean.getBoolean("skipBackendGen") : true);
 
-		public String REACT_APP_NAME = "StackGen"; // (SystemConstants.getValue("REACT_APP_NAME") != null ? SystemConstants.getValue("REACT_APP_NAME")
-				// : "StackGen");
+		public String REACT_APP_NAME = SystemConstants.getValueOrDefault("REACT_APP_NAME" , "StackGen Generated App");
 
-		public String REACT_TEMPLATE_FOLDER = "";
+		public String REACT_TEMPLATE_FOLDER = SystemConstants.getValueOrDefault("REACT_TEMPLATE_FOLDER", "");
 
 				// (SystemConstants.getValue("REACT_TEMPLATE_FOLDER") != null
 				//? SystemConstants.getValue("REACT_TEMPLATE_FOLDER")
 				// : SystemConstants.rootFolder + "/" + ReactConfigurator.getSourceResources() + "/templates/react/");
 
-
-		public String REACT_TEMPLATE_SOURCES_FOLDER = REACT_TEMPLATE_FOLDER + "sources/js";
-
 		// external React Project Path
-		public String REACT_EXPORT_FOLDER = getGenOutputFolder() + "REACT_EXPORT";
+		public String REACT_EXPORT_FOLDER = SystemConstants.getValueOrDefault("REACT_EXPORT_FOLDER", getGenOutputFolder() + "/REACT_EXPORT/");
 
 		private String root;
 		private String genOutFolder;
@@ -52,7 +48,7 @@ public class ReactConfigurator extends StackGenConfigurator{
 			return (outputDir != null ? outputDir : getRootFolder() + getJavaGenFolderName());
 		}
 
-		public String REACT_APP_OUTPUT_FOLDER = getRootFolder() + "/REACT_EXPORT/";
+		public String REACT_APP_OUTPUT_FOLDER = SystemConstants.getValueOrDefault("REACT_APP_OUTPUT_FOLDER", getRootFolder() + "/REACT_OUTPUT/");
 
 		private String getRootFolder(){
 			if(this.root != null){

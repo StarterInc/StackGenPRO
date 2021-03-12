@@ -81,11 +81,10 @@ public class ReactGenerator extends Main implements CommandLineRunner {
 		try {
 			config = (ReactConfigurator) ReactConfigurator.configureFromJSON(cfg, config);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
-			logger.error("Copying config values from JSON to Swagger Config failed while starting App Generation");
-			e.printStackTrace();
+			logger.error("Copying config values from JSON to Swagger Config failed while starting App Generation:" + e.toString());
+			// e.printStackTrace();
 		}
 		generateStack(config);
-
 	}
 
 	@Override

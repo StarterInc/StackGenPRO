@@ -63,10 +63,10 @@ public class ReactGen extends Gen implements Generator {
 	 *
 	 */
 	private static void export(ReactGen gen) throws IOException {
-		ReactGen.logger.info("Exporting: " + config.REACT_EXPORT_FOLDER
-				+ config.REACT_APP_NAME + " to: " + config.REACT_APP_OUTPUT_FOLDER);
-		FileUtil.copyFolder(config.REACT_EXPORT_FOLDER + config.REACT_APP_NAME,
-				config.REACT_APP_OUTPUT_FOLDER + config.REACT_APP_NAME);
+		ReactGen.logger.info("Exporting: " + config.REACT_APP_OUTPUT_FOLDER   + " to: " + config.REACT_EXPORT_FOLDER);
+
+		FileUtil.copyFolder(config.REACT_APP_OUTPUT_FOLDER,
+				config.REACT_EXPORT_FOLDER);
 	}
 
 	/**
@@ -185,11 +185,11 @@ public class ReactGen extends Gen implements Generator {
 		String foutp = null;
 		// read in template file
 		if (multifile != null) {
-			foutp = StringTool.replaceText(multifile, config.REACT_TEMPLATE_SOURCES_FOLDER,
-					config.REACT_EXPORT_FOLDER + config.REACT_APP_NAME );
+			foutp = StringTool.replaceText(multifile, config.REACT_TEMPLATE_FOLDER,
+					config.REACT_APP_OUTPUT_FOLDER + config.REACT_APP_NAME + "/" );
 		} else {
-			foutp = StringTool.replaceText(fname, config.REACT_TEMPLATE_SOURCES_FOLDER,
-					config.REACT_EXPORT_FOLDER + config.REACT_APP_NAME );
+			foutp = StringTool.replaceText(fname, config.REACT_TEMPLATE_FOLDER,
+					config.REACT_APP_OUTPUT_FOLDER + config.REACT_APP_NAME + "/" );
 		}
 
 		final File fout = new File(foutp);
