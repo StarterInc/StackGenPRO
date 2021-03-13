@@ -941,7 +941,7 @@ definitions:
         example: "=W34sdcwdsfwC34="
         maxLength: 256 
         description: "Secure key used to encrypt the data in the new platform"                     
-
+        x-starter-secureField: true
       dbUrl:
         type: "string"
         example: "jdbc:mysql//db.myco.com"
@@ -960,7 +960,7 @@ definitions:
         maxLength: 256 
         description: "database user for the system"
         x-starter-secureField: true
-        x-starter-dataField: fieldGroup=database-config    
+        x-starter-dataField: fieldGroup=database-config
       dbPassword:
         type: "string"
         example: "hard2Gu3ss"

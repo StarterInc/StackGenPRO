@@ -3,19 +3,18 @@
 
 	<parent>
 		<groupId>io.starter</groupId>
-		<version>0.9.21</version>
+		<version>${revision}</version>
 		<artifactId>stackgen-parent</artifactId>
 	</parent>
 
 	<artifactId>stackgen-pro</artifactId>
-	<version>0.9.26-SNAPSHOT</version>
 	<name>Starter StackGen PRO</name>
 	<description>Starter StackGen PRO</description>
 	<url>https://docs.stackgen.io</url>
 
 	<properties>
-		<!-- stackgen version can diverge from stackgen-parent -->
-		<stackgen.version>0.9.26-SNAPSHOT</stackgen.version>
+		<!-- stackgen version can diverge from stackgen-parent
+		<stackgen.version>0.9.26-SNAPSHOT</stackgen.version>-->
 
 		<!-- The main class to start by executing "java -jar" -->
 		<start-class>io.starter.stackgen.web.StackGenApplication</start-class>
@@ -28,7 +27,7 @@
 		<dependency>
 			<groupId>io.starter</groupId>
 			<artifactId>stackgen</artifactId>
-			<version>${stackgen.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<!-- 1.12 -->
