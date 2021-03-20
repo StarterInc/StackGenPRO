@@ -176,26 +176,26 @@ public class AppEntityObject {
 
 	}
 	
-	private static String[] getRegexPatternAnnotatedValue(Field field)
-			throws IllegalAccessException,
-			IllegalArgumentException,
-			InvocationTargetException,
-			NoSuchMethodException,
-			SecurityException {
-		String regexp = (String) getAnnotatedValue(field, "regexp", AppEntityObject.PATTERN_ANNOTATION_CLASS);
-		if(regexp == null) {
+	private static String[] getRegexPatternAnnotatedValue(Method mtd)
+			throws Exception {
+		Annotation ano =
+				getAnnotationForMethod(mtd, AppEntityObject.PATTERN_ANNOTATION_CLASS);
+		if(ano == null) {
 			return null;
 		}
-		String message = (String) getAnnotatedValue(field, "message", AppEntityObject.PATTERN_ANNOTATION_CLASS);
-		
 		String[] px = new String[2];
-		px[0] = regexp;
-		px[1] = message;
-		
+		try{
+			px[0] = (String) ano.annotationType().getMethod("regexp").invoke(ano);
+			px[1] = (String) ano.annotationType().getMethod("message").invoke(ano);
+
+		}catch(NoSuchMethodException e){
+			logger.warn("Cant get annotation value: " + e); // normal
+		}
 		return px;
 	}
 
-	private static Object getAnnotatedValue(Field field, String vName, Class cx) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	private static Object getAnnotatedValue(Field field, String vName, Class cx)
+			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Annotation ano = 
 				getAnnotationForField(field, cx);
 		if(ano == null) {
@@ -203,8 +203,9 @@ public class AppEntityObject {
 		}
 		return ano.annotationType().getMethod(vName).invoke(ano);
 	}
-	
-	private static Object getAPIAnnotatedValue(Method method, String vName) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+
+	private static Object getAPIAnnotatedValue(Method method, String vName)
+			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Annotation ano = 
 				getAnnotationForMethod(method, AppEntityObject.ANNOTATION_CLASS);
 		if(ano == null) {
@@ -247,7 +248,7 @@ public class AppEntityObject {
 			    for (Field field : allFields) {
 			        if(!field.getName().equals("value") &&
 							!field.getName().contains("$VALUES")) {
-			        	enumOptions += "		<option>" + field.toString() + "</option> \r\n";
+			        	enumOptions += "		<option>" + field.getName() + "</option> \r\n";
 			        }
 			    }	
 			    enumOptions += "</Field> \r\n";
@@ -357,18 +358,18 @@ public class AppEntityObject {
 						}
 						v.variableFieldYupSchemaType += ",";
 					}
-					String[] regexpValidation = getRegexPatternAnnotatedValue(f);
+					String[] regexpValidation = getRegexPatternAnnotatedValue(s);
 					if (regexpValidation != null) {
 						v.validationString = regexpValidation[0];
-						v.validationFailedMessage = regexpValidation[1];
+						v.validationFailedMessage = "YO!!!"; //regexpValidation[1];
 						
-						v.variableFieldYupSchemaType += ".matches(";
+						v.variableFieldYupSchemaType += ".matches('";
 						v.variableFieldYupSchemaType += regexpValidation[0];
-						v.variableFieldYupSchemaType += ",'" + regexpValidation[1] + "'),";
+						v.variableFieldYupSchemaType += "','" + regexpValidation[1] + "'),";
 					}
 					
 
-				} catch (NoSuchFieldException | SecurityException e1) {
+				} catch (Exception e1) {
 					e1.printStackTrace();
 					throw new RuntimeException("ERROR in AppEntityObject.processMethod : " + s.toGenericString() + " :"
 							+ "ERROR_AEO_PM_" + name);

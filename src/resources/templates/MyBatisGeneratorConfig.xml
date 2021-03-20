@@ -14,6 +14,7 @@
 
 		<javaTypeResolver type="io.starter.ignite.generator.MyBatisOffsetDateTimeTypeResolver">
 			<property name="useJSR310Types" value="true" />
+			<property name="forceBigDecimals" value="true" />
 		</javaTypeResolver>
 
 		<!-- Model Class -->
@@ -37,27 +38,29 @@
 			<property name="useActualColumnNames" value="true" />
 		</javaClientGenerator>
 
-		<!-- StackGen Tables -->
+
 		<!-- Spring ACL Tables -->
-		<table schema="${artifactId}" tableName="acl_class"
+		<table schema="${schemaName}" tableName="acl_class"
 			   modelType="hierarchical">
-			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+			<generatedKey column="id" sqlStatement="SELECT @@IDENTITY" type="post" identity="true" />
 			<!--  causes mybatis reserved word exception -->
 			<columnOverride column="class" property="className" />
 		</table>
 
-		<table schema="${artifactId}" tableName="acl_entry"
+		<table schema="${schemaName}" tableName="acl_entry"
 			   modelType="hierarchical" >
-			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+			<generatedKey column="id" sqlStatement="SELECT @@IDENTITY" type="post" identity="true" />
 		</table>
-		<table schema="${artifactId}" tableName="acl_object_identity"
+		<table schema="${schemaName}" tableName="acl_object_identity"
 			   modelType="hierarchical" >
-			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+			<generatedKey column="id" sqlStatement="SELECT @@IDENTITY" type="post" identity="true" />
 		</table>
-		<table schema="${artifactId}" tableName="acl_sid"
+		<table schema="${schemaName}" tableName="acl_sid"
 			   modelType="hierarchical" >
-			<generatedKey column="id" sqlStatement="SELECT LAST_INSERT_ID()" identity="true" />
+			<generatedKey column="id" sqlStatement="SELECT @@IDENTITY" type="post" identity="true" />
 		</table>
+
+		<!-- StackGen Tables -->
 	</context>
 
 </generatorConfiguration>

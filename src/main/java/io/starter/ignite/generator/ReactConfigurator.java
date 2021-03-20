@@ -23,7 +23,7 @@ public class ReactConfigurator extends StackGenConfigurator{
 		public List<String> HIDE_FIELD_LIST = new ArrayList<>(Arrays.asList(hideFields));
 
 		// default is to NOT geneerate the whole shebang...
-		public boolean skipBackendGen =  (SystemConstants.getValue("skipBackendGen") != null ? Boolean.getBoolean("skipBackendGen") : true);
+		public boolean skipBackendGen =  Boolean.parseBoolean(SystemConstants.getValueOrDefault("skipBackendGen" , "false"));
 
 		public String REACT_APP_NAME = SystemConstants.getValueOrDefault("REACT_APP_NAME" , "StackGen Generated App");
 
