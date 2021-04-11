@@ -5,6 +5,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -63,6 +65,8 @@ public class AppEntityObject {
 	public String CONTACT_INFO = "support@stackgen.io";
 
 	public String appname;
+	public String appversion;
+	public String buildTimestamp;
 	public String serverhost;
 	public String serverport;
 	public String objectname;
@@ -125,11 +129,14 @@ public class AppEntityObject {
 			Variable v1 = group.get(0);
 			// advancedList.indexOf('"+ v1.variablename +"') === -1 && (
 			v1.formRowStart = "{advancedList.indexOf(\"" + v1.variablename + "\") === -1  && " +
-					"<Accordion><Card style={{width:'100%'}}><Card.Header><Accordion.Toggle as={Row} variant='link' eventKey='" +
+					"<Accordion><Card style={{width:'100%'}}>" +
+					"<Card.Header><Accordion.Toggle as={Row} variant='link' eventKey='" +
 					keyName + "' >" +
-					AppEntityObject.convertToFriendly(keyName) + "</Accordion.Toggle></Card.Header><Accordion.Collapse eventKey=\"" +
+					AppEntityObject.convertToFriendly(keyName) + "</Accordion.Toggle>" +
+					"</Card.Header><Accordion.Collapse eventKey=\"" +
 					keyName + "\"><Card.Body><Form.Row>";
-			group.get(group.size()-1).formRowEnd = "</Form.Row></Card.Body></Accordion.Collapse></Card></Accordion>}";
+			group.get(group.size()-1).formRowEnd = "</Form.Row></Card.Body>" +
+					"</Accordion.Collapse></Card></Accordion>}";
 
 			// group the fields in the output
 			int groupPos = variables.indexOf(v1);
@@ -153,6 +160,8 @@ public class AppEntityObject {
 		serverhost = config.defaultHostname;
 		serverport = config.defaultPort;
 		appname = app;
+		appversion = cfg.getArtifactVersion();
+		buildTimestamp = DateTimeFormatter.ofPattern("MM/dd/yyyy - hh:mm").format(ZonedDateTime.now());
 		objectname = cx.getName().substring(cx.getName().lastIndexOf(".") + 1);
 		objectnameupper = objectname.toUpperCase();
 		objectnamevarname = String.valueOf(objectname.charAt(0)).toLowerCase() + objectname.substring(1);
@@ -260,6 +269,7 @@ public class AppEntityObject {
 		int maxLength = (int)getAPIAnnotatedValue(s, "maxLength");
 		Double minimum = (Double)getAPIAnnotatedValue(s, "minimum");
 		Double maximum = (Double)getAPIAnnotatedValue(s, "maximum");
+		String format = (String)getAPIAnnotatedValue(s, "format");
 
 		// ignore if undefined
 		if(minimum.equals(Double.MIN_VALUE)
@@ -360,12 +370,18 @@ public class AppEntityObject {
 					}
 					String[] regexpValidation = getRegexPatternAnnotatedValue(s);
 					if (regexpValidation != null) {
-						v.validationString = regexpValidation[0];
-						v.validationFailedMessage = "YO!!!"; //regexpValidation[1];
-						
-						v.variableFieldYupSchemaType += ".matches('";
-						v.variableFieldYupSchemaType += regexpValidation[0];
-						v.variableFieldYupSchemaType += "','" + regexpValidation[1] + "'),";
+					    // TODO: implement JSON schema validation here (for JSON pattern fields)
+						if(format.equalsIgnoreCase("json")) {
+							v.schemaValidationString = regexpValidation[0];
+						} else if(format.equalsIgnoreCase("markdown")){
+								v.schemaValidationString = regexpValidation[0];
+						} else {
+							v.validationString = regexpValidation[0];
+							v.validationFailedMessage = "TODO: implement pattern regexp fail message"; //regexpValidation[1];
+							v.variableFieldYupSchemaType = v.variablename + ": yup.string().matches(/";
+							v.variableFieldYupSchemaType += regexpValidation[0];
+							v.variableFieldYupSchemaType += "/,'" + regexpValidation[1] + "'),";
+						}
 					}
 					
 
@@ -409,6 +425,14 @@ public class AppEntityObject {
 					}else {
 						v.component = " as={" + componentConfig + "}";
 					}
+				}
+
+				if(format.equalsIgnoreCase("json")){
+					v.variableFieldType = "as={JsonComponent}";
+				}else if(format.equalsIgnoreCase("markdown")){
+					v.variableFieldType = "as={MarkdownComponent}";
+				}else if(format.equalsIgnoreCase("password")){
+					v.variableFieldType = "type=\"password\"";
 				}
 				Object secureFieldType = AppEntityObject.getAnnotatedValue(f, "type", AppEntityObject.SECURE_FIELD_ANNOTATION_CLASS);
 				
@@ -537,7 +561,8 @@ public class AppEntityObject {
 		public String componentLookup;
 		public String displayName;
 		public String extraClassName;
-		
+		public String schemaValidationString; // used by JSON and YAML to validate (provided as a URL or literal)
+
 		Variable(String variablename, Object variableval) {
 			this.variablename = variablename;
 			displayName = AppEntityObject.convertCamelToFriendly(variablename);

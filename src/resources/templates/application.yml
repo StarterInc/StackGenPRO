@@ -1,3 +1,4 @@
+# StackGen PRO
 spring:
   application:
     name: {{appname}}

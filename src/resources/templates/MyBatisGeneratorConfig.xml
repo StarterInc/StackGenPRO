@@ -40,22 +40,22 @@
 
 
 		<!-- Spring ACL Tables -->
-		<table schema="${schemaName}" tableName="acl_class"
+		<table schema="${dbName}" tableName="acl_class"
 			   modelType="hierarchical">
 			<generatedKey column="id" sqlStatement="SELECT @@IDENTITY" type="post" identity="true" />
 			<!--  causes mybatis reserved word exception -->
 			<columnOverride column="class" property="className" />
 		</table>
 
-		<table schema="${schemaName}" tableName="acl_entry"
+		<table schema="${dbName}" tableName="acl_entry"
 			   modelType="hierarchical" >
 			<generatedKey column="id" sqlStatement="SELECT @@IDENTITY" type="post" identity="true" />
 		</table>
-		<table schema="${schemaName}" tableName="acl_object_identity"
+		<table schema="${dbName}" tableName="acl_object_identity"
 			   modelType="hierarchical" >
 			<generatedKey column="id" sqlStatement="SELECT @@IDENTITY" type="post" identity="true" />
 		</table>
-		<table schema="${schemaName}" tableName="acl_sid"
+		<table schema="${dbName}" tableName="acl_sid"
 			   modelType="hierarchical" >
 			<generatedKey column="id" sqlStatement="SELECT @@IDENTITY" type="post" identity="true" />
 		</table>

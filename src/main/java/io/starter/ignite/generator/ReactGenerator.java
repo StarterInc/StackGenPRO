@@ -85,6 +85,19 @@ public class ReactGenerator extends Main implements CommandLineRunner {
 			// e.printStackTrace();
 		}
 		generateStack(config);
+
+		if (!config.skipReactGen) {
+			ReactGen gx = new ReactGen(config);
+			// copy React files into gen project
+			copyStaticFiles(ReactGenerator.sf);
+			try {
+				gx.generateReact();
+			} catch (final Exception e) {
+				throw new IgniteException(e.toString());
+			}
+		} else {
+			ReactGenerator.logger.info("Skipping React Generation");
+		}
 	}
 
 	@Override
