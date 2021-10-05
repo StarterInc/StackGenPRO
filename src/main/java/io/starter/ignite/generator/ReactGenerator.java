@@ -20,10 +20,10 @@ import org.springframework.core.annotation.Order;
  * as auto-creation of CRUD methods hooked up to Ignite Data Objects.
  *
  * <pre>
- *   - YAML -> Swagger client
- *   - Swagger Client -> entity classes
- *   - Swagger Client -> DML for database
- *   - Swagger CLient -> React-native JS screens
+ *   - YAML to Swagger client
+ *   - Swagger Client to entity classes
+ *   - Swagger Client to DML for database
+ *   - Swagger CLient to React-native JS screens
  * </pre>
  *
  * <h2>NOTE: Generate a SecureField key</h2>
