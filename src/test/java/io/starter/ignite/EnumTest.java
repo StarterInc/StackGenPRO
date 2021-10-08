@@ -15,6 +15,7 @@ import static org.junit.Assert.assertEquals;
 
 public class EnumTest {
 
+
     ReactConfigurator config = new ReactConfigurator();
 
     @Before

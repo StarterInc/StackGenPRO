@@ -84,6 +84,16 @@ public class ReactGenerator extends Main implements CommandLineRunner {
 			logger.error("Copying config values from JSON to Swagger Config failed while starting App Generation:" + e.toString());
 			// e.printStackTrace();
 		}
+		generateApp();
+	}
+
+	/**
+	 * Create and initialize a new SwaggerGen from a JSON config object
+	 *
+	 * @return
+	 */
+	public void generateApp() throws Exception {
+
 		generateStack(config);
 
 		if (!config.skipReactGen) {
@@ -99,6 +109,7 @@ public class ReactGenerator extends Main implements CommandLineRunner {
 			ReactGenerator.logger.info("Skipping React Generation");
 		}
 	}
+
 
 	@Override
 	public void run(String... args) throws Exception {
